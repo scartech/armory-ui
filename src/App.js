@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Home, Admin, Profile, Signin } from './pages';
+import { useToken } from './hooks';
+import { PrivateRoute, NavBar } from './components';
 
-function App() {
+const App = () => {
+  const { token, setToken } = useToken();
+
+  if (!token) {
+    return <Signin setToken={setToken} />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <NavBar />
+      </div>
+      <Switch>
+        <Route path="/signin">
+          <Signin />
+        </Route>
+        <PrivateRoute path="/admin" roles={['ADMIN']} component={Admin} />
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
