@@ -4,20 +4,15 @@ import { Alert } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 import { useState, Fragment } from 'react';
 
-const Signin = ({ setToken }) => {
+function Signin() {
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
 
-  const handleToken = (token) => {
-    if (!token) {
-      setSeverity('error');
-      setMessage('Login failed!');
-      setOpen(true);
-      return;
-    }
-
-    setToken(token);
+  const handleLoginFailure = () => {
+    setSeverity('error');
+    setMessage('Login failed!');
+    setOpen(true);
   };
 
   const handleClose = () => {
@@ -26,7 +21,7 @@ const Signin = ({ setToken }) => {
 
   return (
     <>
-      <Login setToken={handleToken} />
+      <Login loginFailure={handleLoginFailure} />
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
@@ -49,6 +44,6 @@ const Signin = ({ setToken }) => {
       </Snackbar>
     </>
   );
-};
+}
 
 export { Signin };

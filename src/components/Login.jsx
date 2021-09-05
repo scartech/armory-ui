@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PropTypes } from 'prop-types';
+import { useHistory, useLocation } from 'react-router';
 import {
   Grid,
   Paper,
@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LockSharpIcon from '@material-ui/icons/LockSharp';
 import AlternateEmailSharpIcon from '@material-ui/icons/AlternateEmailSharp';
 import VpnKeySharpIcon from '@material-ui/icons/VpnKeySharp';
-import axios from 'axios';
+import { useAuth } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   textboxMargin: {
@@ -30,31 +30,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const loginUser = async (credentials) => {
-  try {
-    const res = await axios.post('http://localhost:5000/login', credentials);
-    return res.data.token;
-  } catch (error) {
-    console.log('Login failed', error.response);
-    return undefined;
-  }
-};
-
-const Login = ({ setToken }) => {
+function Login({ loginFailure }) {
+  const auth = useAuth();
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const user = await auth.signin(email, password);
 
-    const token = await loginUser({
-      email,
-      password,
-    });
-
-    setToken(token);
+    if (user) {
+      history.replace(from);
+    } else {
+      loginFailure();
+    }
   };
 
   return (
@@ -109,10 +103,6 @@ const Login = ({ setToken }) => {
       </Grid>
     </form>
   );
-};
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
+}
 
 export { Login };

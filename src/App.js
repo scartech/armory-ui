@@ -1,34 +1,29 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home, Admin, Profile, Signin } from './pages';
-import { useToken } from './hooks';
 import { PrivateRoute, NavBar } from './components';
+import { ProvideAuth } from './hooks/provideAuth';
 
-const App = () => {
-  const { token, setToken } = useToken();
-
-  if (!token) {
-    return <Signin setToken={setToken} />;
-  }
-
+function App() {
   return (
-    <Router>
-      <div>
+    <ProvideAuth>
+      <Router>
         <NavBar />
-      </div>
-      <Switch>
-        <Route path="/signin">
-          <Signin />
-        </Route>
-        <PrivateRoute path="/admin" roles={['ADMIN']} component={Admin} />
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+        <Switch>
+          <PrivateRoute path="/" exact component={Home} />
+          <Route path="/login">
+            <Signin />
+          </Route>
+          <PrivateRoute
+            path="/admin"
+            exact
+            roles={['ADMIN']}
+            component={Admin}
+          />
+          <PrivateRoute path="/profile" exact component={Profile} />
+        </Switch>
+      </Router>
+    </ProvideAuth>
   );
-};
+}
 
 export default App;

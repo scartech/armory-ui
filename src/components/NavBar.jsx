@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   IconButton,
@@ -10,7 +10,8 @@ import {
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = () => {
+function NavBar() {
+  const history = useHistory();
+  const auth = useAuth();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const divRef = React.useRef();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +41,17 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = (event) => {
+    setAnchorEl(null);
+    auth.signout();
+    history.push('/login');
+  };
+
+  // Don't display the navbar util the user has logged in.
+  if (!auth.user) {
+    return <></>;
+  }
 
   return (
     <div className={classes.root}>
@@ -53,27 +69,24 @@ const NavBar = () => {
           <IconButton component={Link} to="/admin" color="inherit">
             <SettingsIcon />
           </IconButton>
-          <IconButton
-            component={Link}
-            to="/profile"
-            color="inherit"
-            onClick={handleClick}
-          >
+          <IconButton color="inherit" onClick={handleClick} ref={divRef}>
             <AccountCircle />
           </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
-          </Menu>
         </Toolbar>
       </AppBar>
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose} component={Link} to="/profile">
+          Profile
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
     </div>
   );
-};
+}
 
 export { NavBar };

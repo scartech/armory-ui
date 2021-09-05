@@ -1,11 +1,17 @@
+import jwt from 'jwt-decode';
+
 class AuthService {
   static getUser = () => {
-    const val = sessionStorage.getItem('user');
-    if (!val) {
+    const tokenValue = sessionStorage.getItem('token');
+    if (!tokenValue) {
       return;
     }
 
-    return JSON.parse(val);
+    if (tokenValue) {
+      const val = jwt(tokenValue);
+      val.user.token = tokenValue;
+      return val.user;
+    }
   };
 }
 
