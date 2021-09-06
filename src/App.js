@@ -1,28 +1,33 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Home, Admin, Profile, Signin } from './pages';
+import { ThemeProvider, Container } from '@material-ui/core';
+import { Home, Admin, Profile, Signin, Gun } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks/provideAuth';
+import { theme } from './utils';
 
 function App() {
   return (
-    <ProvideAuth>
-      <Router>
-        <NavBar />
-        <Switch>
-          <PrivateRoute path="/" exact component={Home} />
-          <Route path="/login">
-            <Signin />
-          </Route>
-          <PrivateRoute
-            path="/admin"
-            exact
-            roles={['ADMIN']}
-            component={Admin}
-          />
-          <PrivateRoute path="/profile" exact component={Profile} />
-        </Switch>
-      </Router>
-    </ProvideAuth>
+    <ThemeProvider theme={theme}>
+      <ProvideAuth>
+        <Router>
+          <NavBar />
+          <Container maxWidth="md">
+            <Switch>
+              <PrivateRoute path="/" component={Home} exact />
+              <Route path="/login" component={Signin} />
+              <PrivateRoute path="/gun/:id" component={Gun} exact />
+              <PrivateRoute
+                path="/admin"
+                roles={['ADMIN']}
+                component={Admin}
+                exact
+              />
+              <PrivateRoute path="/profile" component={Profile} exact />
+            </Switch>
+          </Container>
+        </Router>
+      </ProvideAuth>
+    </ThemeProvider>
   );
 }
 

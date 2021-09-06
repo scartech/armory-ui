@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ListIcon from '@material-ui/icons/List';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
@@ -57,15 +58,12 @@ function NavBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            component={Link}
-            to="/"
-            variant="h4"
-            color="inherit"
-            className={classes.title}
-          >
+          <Typography variant="h4" color="inherit" className={classes.title}>
             Armory
           </Typography>
+          <IconButton component={Link} to="/" color="inherit">
+            <ListIcon />
+          </IconButton>
           <IconButton component={Link} to="/admin" color="inherit">
             <SettingsIcon />
           </IconButton>
