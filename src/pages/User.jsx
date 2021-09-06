@@ -59,10 +59,10 @@ export function User() {
     async function fetchUser() {
       const user = await UserService.get(auth.user, id);
       if (user) {
-        setEmail(user.email || '');
-        setName(user.name || '');
-        setEnabled(user.enabled || true);
-        setRole(user.role || 'USER');
+        setEmail(user.email ?? '');
+        setName(user.name ?? '');
+        setEnabled(user.enabled ?? true);
+        setRole(user.role ?? 'USER');
       }
     }
 
@@ -110,10 +110,10 @@ export function User() {
         setUserId(user.id);
       }
 
-      setEmail(user.email || '');
-      setName(user.name || '');
-      setEnabled(user.enabled || true);
-      setRole(user.role || 'USER');
+      setEmail(user.email ?? '');
+      setName(user.name ?? '');
+      setEnabled(user.enabled ?? true);
+      setRole(user.role ?? 'USER');
 
       setSeverity('info');
       setMessage('User saved successfully.');
@@ -140,7 +140,7 @@ export function User() {
           control={
             <Checkbox
               checked={enabled}
-              onChange={(event) => setEnabled(event.target.value)}
+              onChange={(event) => setEnabled(event.target.checked)}
             />
           }
           label="Enabled"

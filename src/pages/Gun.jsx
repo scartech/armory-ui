@@ -62,16 +62,16 @@ export function Gun() {
     async function fetchGun() {
       const gun = await GunService.get(auth.user, id);
       if (gun) {
-        setModelName(gun.modelName || '');
-        setName(gun.name || '');
-        setManufacturer(gun.manufacturer || '');
-        setSerialNumber(gun.serialNumber || '');
-        setType(gun.type || '');
-        setCaliber(gun.caliber || '');
-        setPurchasePrice(gun.purchasePrice || 0);
-        setPurchaseDate(gun.purchaseDate || null);
-        setDealer(gun.dealer || '');
-        setAction(gun.action);
+        setModelName(gun.modelName ?? '');
+        setName(gun.name ?? '');
+        setManufacturer(gun.manufacturer ?? '');
+        setSerialNumber(gun.serialNumber ?? '');
+        setType(gun.type ?? '');
+        setCaliber(gun.caliber ?? '');
+        setPurchasePrice(gun.purchasePrice ?? 0);
+        setPurchaseDate(gun.purchaseDate ?? null);
+        setDealer(gun.dealer ?? '');
+        setAction(gun.action ?? '');
       }
     }
 
@@ -118,16 +118,16 @@ export function Gun() {
         setGunId(gun.id);
       }
 
-      setModelName(gun.modelName || '');
-      setName(gun.name || '');
-      setManufacturer(gun.manufacturer || '');
-      setSerialNumber(gun.serialNumber || '');
-      setType(gun.type || '');
-      setCaliber(gun.caliber || '');
-      setPurchasePrice(gun.purchasePrice || 0);
-      setPurchaseDate(gun.purchaseDate || '');
-      setDealer(gun.dealer || '');
-      setAction(gun.action);
+      setModelName(gun.modelName ?? '');
+      setName(gun.name ?? '');
+      setManufacturer(gun.manufacturer ?? '');
+      setSerialNumber(gun.serialNumber ?? '');
+      setType(gun.type ?? '');
+      setCaliber(gun.caliber ?? '');
+      setPurchasePrice(gun.purchasePrice ?? 0);
+      setPurchaseDate(gun.purchaseDate ?? '');
+      setDealer(gun.dealer ?? '');
+      setAction(gun.action ?? '');
 
       setSeverity('info');
       setMessage('Gun saved successfully.');
