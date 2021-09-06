@@ -9,16 +9,17 @@ import {
   InputAdornment,
   Snackbar,
   IconButton,
+  Fab,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
 import { ACTION_TYPES, GUN_TYPES } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 800,
     margin: theme.spacing(4),
   },
   text: {
@@ -30,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginBottom: theme.spacing(2),
   },
-  cancelButton: {
-    textDecoration: 'none',
+  fab: {
+    position: 'relative',
+    left: theme.spacing(3),
   },
 }));
 
@@ -40,6 +42,7 @@ export function Gun() {
   const classes = useStyles();
   const { id } = useParams();
 
+  const [isNew, setIsNew] = useState(true);
   const [modelName, setModelName] = useState('');
   const [name, setName] = useState('');
   const [manufacturer, setManufacturer] = useState('');
@@ -53,10 +56,11 @@ export function Gun() {
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
+  const [gunId, setGunId] = useState(null);
 
   useEffect(() => {
     async function fetchGun() {
-      const gun = await GunService.getGun(auth.user, id);
+      const gun = await GunService.get(auth.user, id);
       if (gun) {
         setModelName(gun.modelName || '');
         setName(gun.name || '');
@@ -71,14 +75,19 @@ export function Gun() {
       }
     }
 
-    fetchGun();
+    setIsNew(!Boolean(id));
+    setGunId(id);
+
+    if (Boolean(id)) {
+      fetchGun();
+    }
   }, [auth.user, id]);
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event, isNewGun) => {
     event.preventDefault();
 
     const data = {
@@ -96,8 +105,19 @@ export function Gun() {
 
     setOpen(false);
 
-    const gun = await GunService.updateGun(auth.user, id, data);
+    let gun;
+    if (isNewGun) {
+      gun = await GunService.create(auth.user, data);
+    } else {
+      gun = await GunService.update(auth.user, gunId, data);
+    }
+
     if (gun) {
+      if (isNewGun) {
+        setIsNew(false);
+        setGunId(gun.id);
+      }
+
       setModelName(gun.modelName || '');
       setName(gun.name || '');
       setManufacturer(gun.manufacturer || '');
@@ -123,7 +143,12 @@ export function Gun() {
     <>
       <form className={classes.root} noValidate autoComplete="off">
         <Typography className={classes.title} variant="h3">
-          Edit Gun
+          {isNew ? 'New Gun' : 'Edit Gun'}
+          <Link to="/">
+            <Fab color="primary" className={classes.fab}>
+              <ArrowBackIcon />
+            </Fab>
+          </Link>
         </Typography>
         <TextField
           className={classes.text}
@@ -219,18 +244,13 @@ export function Gun() {
         />
         <Button
           variant="contained"
-          onClick={handleSubmit}
+          onClick={(event) => handleSubmit(event, isNew)}
           fullWidth
           color="primary"
           className={classes.button}
         >
           Submit
         </Button>
-        <Link to="/" className={classes.cancelButton}>
-          <Button variant="contained" fullWidth>
-            Cancel
-          </Button>
-        </Link>
       </form>
       <Snackbar
         anchorOrigin={{

@@ -11,10 +11,11 @@ function App() {
       <ProvideAuth>
         <Router>
           <NavBar />
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <Switch>
               <PrivateRoute path="/" component={Home} exact />
               <Route path="/login" component={Signin} />
+              <PrivateRoute path="/gun" component={Gun} exact />
               <PrivateRoute path="/gun/:id" component={Gun} exact />
               <PrivateRoute
                 path="/admin"

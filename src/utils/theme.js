@@ -1,9 +1,9 @@
 import { createTheme } from '@material-ui/core';
-import { lightGreen, deepPurple } from '@material-ui/core/colors';
+import { lightGreen, blue } from '@material-ui/core/colors';
 
 export const theme = createTheme({
   palette: {
-    primary: deepPurple,
+    primary: blue,
     secondary: lightGreen,
   },
   typography: {

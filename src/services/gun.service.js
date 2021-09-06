@@ -10,7 +10,7 @@ class GunService {
    * @param {*} cancelToken
    * @returns
    */
-  static async getGuns(user, cancelToken) {
+  static async all(user, cancelToken) {
     if (!user) {
       return;
     }
@@ -32,7 +32,7 @@ class GunService {
    * @param {*} cancelToken
    * @returns
    */
-  static async getGun(user, id, cancelToken) {
+  static async get(user, id, cancelToken) {
     if (!user) {
       return;
     }
@@ -55,7 +55,7 @@ class GunService {
    * @param {*} cancelToken
    * @returns
    */
-  static async updateGun(user, id, data, cancelToken) {
+  static async update(user, id, data, cancelToken) {
     if (!user || !data) {
       return;
     }
@@ -66,6 +66,50 @@ class GunService {
       return res.data;
     } catch (error) {
       console.error('Failed to update gun', error.message);
+      return;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @param {*} data
+   * @param {*} cancelToken
+   * @returns
+   */
+  static async create(user, data, cancelToken) {
+    if (!user || !data) {
+      return;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.post('/api/guns/', data);
+      return res.data;
+    } catch (error) {
+      console.error('Failed to create gun', error.message);
+      return;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @param {*} id
+   * @param {*} cancelToken
+   * @returns
+   */
+  static async delete(user, id, cancelToken) {
+    if (!user) {
+      return;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.delete(`/api/guns/${id}`);
+      return res.status === 200;
+    } catch (error) {
+      console.error('Failed to delete gun', error.message);
       return;
     }
   }
