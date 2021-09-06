@@ -1,2 +1,1 @@
-export * from './useToken';
-export * from './provideAuth';
+export * from './useProvideAuth';

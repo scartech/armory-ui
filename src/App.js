@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, Container } from '@material-ui/core';
 import { Home, Admin, Profile, Signin, Gun, User } from './pages';
 import { PrivateRoute, NavBar } from './components';
-import { ProvideAuth } from './hooks/provideAuth';
+import { ProvideAuth } from './hooks';
 import { theme } from './utils';
 
 function App() {

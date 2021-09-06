@@ -14,7 +14,7 @@ export const useAuth = () => {
   return useContext(authContext);
 };
 
-function useProvideAuth() {
+export function useProvideAuth() {
   const [user, setUser] = useState(null);
 
   const signin = async (email, password) => {
@@ -58,5 +58,3 @@ function useProvideAuth() {
     signout,
   };
 }
-
-export { useProvideAuth };
