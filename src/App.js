@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, Container } from '@material-ui/core';
-import { Home, Admin, Profile, Signin, Gun } from './pages';
+import { Home, Admin, Profile, Signin, Gun, User } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks/provideAuth';
 import { theme } from './utils';
@@ -21,6 +21,18 @@ function App() {
                 path="/admin"
                 roles={['ADMIN']}
                 component={Admin}
+                exact
+              />
+              <PrivateRoute
+                path="/user"
+                roles={['ADMIN']}
+                component={User}
+                exact
+              />
+              <PrivateRoute
+                path="/user/:id"
+                roles={['ADMIN']}
+                component={User}
                 exact
               />
               <PrivateRoute path="/profile" component={Profile} exact />

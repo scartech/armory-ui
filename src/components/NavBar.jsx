@@ -64,9 +64,11 @@ function NavBar() {
           <IconButton component={Link} to="/" color="inherit">
             <ListIcon />
           </IconButton>
-          <IconButton component={Link} to="/admin" color="inherit">
-            <SettingsIcon />
-          </IconButton>
+          {auth.user.role === 'ADMIN' && (
+            <IconButton component={Link} to="/admin" color="inherit">
+              <SettingsIcon />
+            </IconButton>
+          )}
           <IconButton color="inherit" onClick={handleClick} ref={divRef}>
             <AccountCircle />
           </IconButton>
