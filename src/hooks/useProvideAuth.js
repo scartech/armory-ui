@@ -19,10 +19,13 @@ export function useProvideAuth() {
 
   const signin = async (email, password) => {
     try {
-      const res = await axios.post('http://localhost:5000/login', {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/login`,
+        {
+          email,
+          password,
+        },
+      );
 
       sessionStorage.setItem('token', res.data.token);
       const val = jwt(res.data.token);

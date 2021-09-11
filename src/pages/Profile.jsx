@@ -161,7 +161,7 @@ export function Profile() {
         </Button>
         <Divider variant="middle" className={classes.divider} />
         <Typography className={classes.title} variant="h3">
-          Password
+          Change Password
         </Typography>
         <TextField
           className={classes.text}
