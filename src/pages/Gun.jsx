@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import {
   Button,
   TextField,
@@ -55,6 +55,7 @@ export function Gun() {
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
   const [gunId, setGunId] = useState(null);
+  const [fireRedirect, setFireRedirect] = useState(false);
 
   useEffect(() => {
     async function fetchGun() {
@@ -111,30 +112,12 @@ export function Gun() {
     }
 
     if (gun) {
-      if (isNewGun) {
-        setIsNew(false);
-        setGunId(gun.id);
-      }
-
-      setModelName(gun.modelName ?? '');
-      setName(gun.name ?? '');
-      setManufacturer(gun.manufacturer ?? '');
-      setSerialNumber(gun.serialNumber ?? '');
-      setType(gun.type ?? '');
-      setCaliber(gun.caliber ?? '');
-      setPurchasePrice(gun.purchasePrice ?? 0);
-      setPurchaseDate(gun.purchaseDate ?? '');
-      setDealer(gun.dealer ?? '');
-      setAction(gun.action ?? '');
-
-      setSeverity('info');
-      setMessage('Gun saved successfully.');
+      setFireRedirect(true);
     } else {
       setSeverity('error');
       setMessage('Unable to save the gun.');
+      setOpen(true);
     }
-
-    setOpen(true);
   };
 
   return (
@@ -270,6 +253,9 @@ export function Gun() {
           {message}
         </Alert>
       </Snackbar>
+      {fireRedirect && (
+        <Redirect to={{ pathname: '/', state: { savedGun: true } }} />
+      )}
     </>
   );
 }

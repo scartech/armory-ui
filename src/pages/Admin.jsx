@@ -25,7 +25,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { UserService } from '../services';
 
@@ -43,12 +43,15 @@ const useStyles = makeStyles((theme) => ({
 function Admin() {
   const auth = useAuth();
   const classes = useStyles();
+  const location = useLocation();
   const [users, setUsers] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [userId, setUserId] = useState(null);
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackSeverity, setSnackSeverity] = useState('error');
   const [snackMessage, setSnackMessage] = useState('');
+
+  const savedUser = location?.state?.savedUser || false;
 
   const handleDeleteClick = (id) => {
     setUserId(id);
@@ -93,6 +96,14 @@ function Admin() {
 
     fetchUsers();
   }, [auth.user]);
+
+  useEffect(() => {
+    if (savedUser) {
+      setSnackMessage('Successfully saved user.');
+      setSnackSeverity('info');
+      setSnackOpen(true);
+    }
+  }, [savedUser]);
 
   return (
     <div>

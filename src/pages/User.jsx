@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import {
   Button,
   Checkbox,
@@ -52,6 +52,7 @@ export function User() {
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState(null);
+  const [fireRedirect, setFireRedirect] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -103,24 +104,12 @@ export function User() {
     }
 
     if (user) {
-      if (isNewUser) {
-        setIsNew(false);
-        setUserId(user.id);
-      }
-
-      setEmail(user.email ?? '');
-      setName(user.name ?? '');
-      setEnabled(user.enabled ?? true);
-      setRole(user.role ?? 'USER');
-
-      setSeverity('info');
-      setMessage('User saved successfully.');
+      setFireRedirect(true);
     } else {
       setSeverity('error');
       setMessage('Unable to save the user.');
+      setOpen(true);
     }
-
-    setOpen(true);
   };
 
   return (
@@ -223,6 +212,9 @@ export function User() {
           {message}
         </Alert>
       </Snackbar>
+      {fireRedirect && (
+        <Redirect to={{ pathname: '/admin', state: { savedUser: true } }} />
+      )}
     </>
   );
 }

@@ -24,7 +24,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
 
@@ -42,12 +42,15 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const auth = useAuth();
   const classes = useStyles();
+  const location = useLocation();
   const [guns, setGuns] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [gunId, setGunId] = useState(null);
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackSeverity, setSnackSeverity] = useState('error');
   const [snackMessage, setSnackMessage] = useState('');
+
+  const savedGun = location?.state?.savedGun || false;
 
   const handleDeleteClick = (id) => {
     setGunId(id);
@@ -92,6 +95,14 @@ function Home() {
 
     fetchGuns();
   }, [auth.user]);
+
+  useEffect(() => {
+    if (savedGun) {
+      setSnackMessage('Successfully saved gun.');
+      setSnackSeverity('info');
+      setSnackOpen(true);
+    }
+  }, [savedGun]);
 
   return (
     <div>

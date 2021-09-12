@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   AppBar,
   IconButton,
@@ -63,9 +64,6 @@ function NavBar({ handleThemeChange, darkState }) {
           <Typography variant="h4" color="inherit" className={classes.title}>
             Armory
           </Typography>
-          <IconButton onClick={handleThemeChange} color="inherit">
-            {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
           <IconButton component={Link} to="/" color="inherit">
             <ListIcon />
           </IconButton>
@@ -74,6 +72,9 @@ function NavBar({ handleThemeChange, darkState }) {
               <SettingsIcon />
             </IconButton>
           )}
+          <IconButton onClick={handleThemeChange} color="inherit">
+            {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
           <IconButton color="inherit" onClick={handleClick} ref={divRef}>
             <AccountCircle />
           </IconButton>
@@ -93,5 +94,10 @@ function NavBar({ handleThemeChange, darkState }) {
     </div>
   );
 }
+
+NavBar.propTypes = {
+  handleThemeChange: PropTypes.func.isRequired,
+  darkState: PropTypes.bool.isRequired,
+};
 
 export { NavBar };
