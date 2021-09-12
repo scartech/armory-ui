@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
     height: '250px',
     width: 280,
-    margin: '20px auto',
+    margin: '0px auto',
   },
 }));
 

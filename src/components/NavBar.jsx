@@ -9,6 +9,8 @@ import {
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import ListIcon from '@material-ui/icons/List';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBar() {
+function NavBar({ handleThemeChange, darkState }) {
   const history = useHistory();
   const auth = useAuth();
   const classes = useStyles();
@@ -61,6 +63,9 @@ function NavBar() {
           <Typography variant="h4" color="inherit" className={classes.title}>
             Armory
           </Typography>
+          <IconButton onClick={handleThemeChange} color="inherit">
+            {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
           <IconButton component={Link} to="/" color="inherit">
             <ListIcon />
           </IconButton>
