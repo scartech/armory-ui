@@ -50,6 +50,7 @@ export function Gun() {
   const [purchaseDate, setPurchaseDate] = useState('');
   const [purchasePrice, setPurchasePrice] = useState(0);
   const [dealer, setDealer] = useState('');
+  const [ffl, setFfl] = useState('');
   const [action, setAction] = useState('');
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
@@ -71,6 +72,7 @@ export function Gun() {
         setPurchaseDate(gun.purchaseDate ?? null);
         setDealer(gun.dealer ?? '');
         setAction(gun.action ?? '');
+        setFfl(gun.ffl ?? '');
       }
     }
 
@@ -100,6 +102,7 @@ export function Gun() {
       purchasePrice: purchasePrice || 0,
       dealer,
       action,
+      ffl,
     };
 
     setOpen(false);
@@ -199,6 +202,13 @@ export function Gun() {
           label="Dealer"
           value={dealer}
           onChange={(event) => setDealer(event.target.value)}
+          fullWidth
+        />
+        <TextField
+          className={classes.text}
+          label="FFL"
+          value={ffl}
+          onChange={(event) => setFfl(event.target.value)}
           fullWidth
         />
         <TextField
