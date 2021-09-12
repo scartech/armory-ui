@@ -17,14 +17,12 @@ import { useAuth } from '../hooks';
 import { ProfileService } from '../services';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(4),
-  },
   text: {
     marginBottom: theme.spacing(2),
   },
   title: {
     marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
   },
   button: {
     marginBottom: theme.spacing(2),
@@ -126,8 +124,8 @@ export function Profile() {
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off">
-        <Typography className={classes.title} variant="h3">
+      <form noValidate autoComplete="off">
+        <Typography className={classes.title} variant="h4">
           User Profile
           <Link to="/">
             <Fab color="primary" className={classes.fab}>
@@ -160,7 +158,7 @@ export function Profile() {
           Submit
         </Button>
         <Divider variant="middle" className={classes.divider} />
-        <Typography className={classes.title} variant="h3">
+        <Typography className={classes.title} variant="h4">
           Change Password
         </Typography>
         <TextField

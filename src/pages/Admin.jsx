@@ -30,11 +30,9 @@ import { useAuth } from '../hooks';
 import { UserService } from '../services';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(4),
-  },
   title: {
     marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
   },
   fab: {
     position: 'relative',
@@ -97,8 +95,8 @@ function Admin() {
   }, [auth.user]);
 
   return (
-    <div className={classes.root}>
-      <Typography className={classes.title} variant="h3">
+    <div>
+      <Typography className={classes.title} variant="h4">
         Administration
         <Link to="/user">
           <Fab color="primary" className={classes.fab}>

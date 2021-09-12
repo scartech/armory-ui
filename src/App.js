@@ -11,7 +11,7 @@ function App() {
       <ProvideAuth>
         <Router>
           <NavBar />
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <Switch>
               <PrivateRoute path="/" component={Home} exact />
               <Route path="/login" component={Signin} />

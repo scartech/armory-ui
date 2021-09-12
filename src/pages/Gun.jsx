@@ -19,14 +19,12 @@ import { GunService } from '../services';
 import { ACTION_TYPES, GUN_TYPES } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(4),
-  },
   text: {
     marginBottom: theme.spacing(2),
   },
   title: {
     marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
   },
   button: {
     marginBottom: theme.spacing(2),
@@ -141,8 +139,8 @@ export function Gun() {
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off">
-        <Typography className={classes.title} variant="h3">
+      <form noValidate autoComplete="off">
+        <Typography className={classes.title} variant="h4">
           {isNew ? 'New Gun' : 'Edit Gun'}
           <Link to="/">
             <Fab color="primary" className={classes.fab}>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
+import PropTypes from 'prop-types';
 import {
   Grid,
   Paper,
@@ -104,5 +105,9 @@ function Login({ loginFailure }) {
     </form>
   );
 }
+
+Login.propTypes = {
+  loginFailure: PropTypes.func.isRequired,
+};
 
 export { Login };

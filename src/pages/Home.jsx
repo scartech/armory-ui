@@ -29,11 +29,9 @@ import { useAuth } from '../hooks';
 import { GunService } from '../services';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(4),
-  },
   title: {
     marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
   },
   fab: {
     position: 'relative',
@@ -96,8 +94,8 @@ function Home() {
   }, [auth.user]);
 
   return (
-    <div className={classes.root}>
-      <Typography className={classes.title} variant="h3">
+    <div>
+      <Typography className={classes.title} variant="h4">
         Guns
         <Link to="/gun">
           <Fab color="primary" className={classes.fab}>
@@ -109,6 +107,7 @@ function Home() {
         <Table size="medium">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Model</TableCell>
               <TableCell>Serial Number</TableCell>
@@ -116,27 +115,26 @@ function Home() {
               <TableCell>Action</TableCell>
               <TableCell>Caliber</TableCell>
               <TableCell></TableCell>
-              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {guns.map((gun) => {
               return (
                 <TableRow key={gun.id}>
-                  <TableCell>{gun.name}</TableCell>
-                  <TableCell>{gun.modelName}</TableCell>
-                  <TableCell>{gun.serialNumber}</TableCell>
-                  <TableCell>{gun.type}</TableCell>
-                  <TableCell>{gun.action}</TableCell>
-                  <TableCell>{gun.caliber}</TableCell>
-                  <TableCell width={40}>
+                  <TableCell width={20}>
                     <Link to={`/gun/${gun.id}`}>
                       <IconButton>
                         <EditIcon />
                       </IconButton>
                     </Link>
                   </TableCell>
-                  <TableCell width={40}>
+                  <TableCell>{gun.name}</TableCell>
+                  <TableCell>{gun.modelName}</TableCell>
+                  <TableCell>{gun.serialNumber}</TableCell>
+                  <TableCell>{gun.type}</TableCell>
+                  <TableCell>{gun.action}</TableCell>
+                  <TableCell>{gun.caliber}</TableCell>
+                  <TableCell width={20}>
                     <IconButton onClick={() => handleDeleteClick(`${gun.id}`)}>
                       <DeleteIcon />
                     </IconButton>

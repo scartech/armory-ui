@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import { AuthService } from '../services';
+import { Config } from '../utils';
 
 const authContext = createContext();
 
@@ -19,13 +20,10 @@ export function useProvideAuth() {
 
   const signin = async (email, password) => {
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/login`,
-        {
-          email,
-          password,
-        },
-      );
+      const res = await axios.post(`${Config.API_BASE_URL}/login`, {
+        email,
+        password,
+      });
 
       sessionStorage.setItem('token', res.data.token);
       const val = jwt(res.data.token);
@@ -36,7 +34,7 @@ export function useProvideAuth() {
 
       return val.user;
     } catch (error) {
-      console.log('Login failed', error.response);
+      console.log('Login failed', error.message);
 
       setUser(false);
       return undefined;
