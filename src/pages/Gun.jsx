@@ -12,6 +12,11 @@ import {
   Fab,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import MomentUtils from '@date-io/moment';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useAuth } from '../hooks';
@@ -125,147 +130,151 @@ export function Gun() {
 
   return (
     <>
-      <form noValidate autoComplete="off">
-        <Typography className={classes.title} variant="h4">
-          {isNew ? 'New Gun' : 'Edit Gun'}
-          <Link to="/">
-            <Fab color="primary" className={classes.fab}>
-              <ArrowBackIcon />
-            </Fab>
-          </Link>
-        </Typography>
-        <TextField
-          className={classes.text}
-          label="Name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="Serial Number"
-          value={serialNumber}
-          onChange={(event) => setSerialNumber(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="Manufacturer"
-          value={manufacturer}
-          onChange={(event) => setManufacturer(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="Model"
-          value={modelName}
-          onChange={(event) => setModelName(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="Type"
-          select
-          value={type}
-          onChange={(event) => setType(event.target.value)}
-          fullWidth
-        >
-          {GUN_TYPES.map((gunType) => (
-            <MenuItem key={gunType} value={gunType}>
-              {gunType}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          className={classes.text}
-          label="Action"
-          select
-          value={action}
-          onChange={(event) => setAction(event.target.value)}
-          fullWidth
-        >
-          {ACTION_TYPES.map((actionType) => (
-            <MenuItem key={actionType} value={actionType}>
-              {actionType}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          className={classes.text}
-          label="Caliber"
-          value={caliber}
-          onChange={(event) => setCaliber(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="Dealer"
-          value={dealer}
-          onChange={(event) => setDealer(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="FFL"
-          value={ffl}
-          onChange={(event) => setFfl(event.target.value)}
-          fullWidth
-        />
-        <TextField
-          className={classes.text}
-          label="Purchase Price"
-          value={purchasePrice}
-          type="number"
-          onChange={(event) => setPurchasePrice(event.target.value)}
-          fullWidth
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <form noValidate autoComplete="off">
+          <Typography className={classes.title} variant="h4">
+            {isNew ? 'New Gun' : 'Edit Gun'}
+            <Link to="/">
+              <Fab color="primary" className={classes.fab}>
+                <ArrowBackIcon />
+              </Fab>
+            </Link>
+          </Typography>
+          <TextField
+            className={classes.text}
+            label="Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Serial Number"
+            value={serialNumber}
+            onChange={(event) => setSerialNumber(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Manufacturer"
+            value={manufacturer}
+            onChange={(event) => setManufacturer(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Model"
+            value={modelName}
+            onChange={(event) => setModelName(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Type"
+            select
+            value={type}
+            onChange={(event) => setType(event.target.value)}
+            fullWidth
+          >
+            {GUN_TYPES.map((gunType) => (
+              <MenuItem key={gunType} value={gunType}>
+                {gunType}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            className={classes.text}
+            label="Action"
+            select
+            value={action}
+            onChange={(event) => setAction(event.target.value)}
+            fullWidth
+          >
+            {ACTION_TYPES.map((actionType) => (
+              <MenuItem key={actionType} value={actionType}>
+                {actionType}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            className={classes.text}
+            label="Caliber"
+            value={caliber}
+            onChange={(event) => setCaliber(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Dealer"
+            value={dealer}
+            onChange={(event) => setDealer(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="FFL"
+            value={ffl}
+            onChange={(event) => setFfl(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Purchase Price"
+            value={purchasePrice}
+            type="number"
+            onChange={(event) => setPurchasePrice(event.target.value)}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
+          />
+          <KeyboardDatePicker
+            className={classes.text}
+            clearable
+            label="Purchase Date"
+            value={purchaseDate}
+            onChange={(date) => setPurchaseDate(date)}
+            format="MM/DD/yyyy"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={(event) => handleSubmit(event, isNew)}
+            fullWidth
+            color="primary"
+            className={classes.button}
+          >
+            Submit
+          </Button>
+        </form>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
           }}
-        />
-        <TextField
-          className={classes.text}
-          label="Purchase Date"
-          value={purchaseDate}
-          type="date"
-          fullWidth
-          onChange={(event) => setPurchaseDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <Button
-          variant="contained"
-          onClick={(event) => handleSubmit(event, isNew)}
-          fullWidth
-          color="primary"
-          className={classes.button}
+          open={open}
+          autoHideDuration={5000}
+          onClose={() => setOpen(false)}
+          action={
+            <Fragment>
+              <IconButton size="small" color="inherit" onClick={handleClose}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Fragment>
+          }
         >
-          Submit
-        </Button>
-      </form>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={open}
-        autoHideDuration={5000}
-        onClose={() => setOpen(false)}
-        action={
-          <Fragment>
-            <IconButton size="small" color="inherit" onClick={handleClose}>
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </Fragment>
-        }
-      >
-        <Alert onClose={handleClose} severity={severity}>
-          {message}
-        </Alert>
-      </Snackbar>
-      {fireRedirect && (
-        <Redirect to={{ pathname: '/', state: { savedGun: true } }} />
-      )}
+          <Alert onClose={handleClose} severity={severity}>
+            {message}
+          </Alert>
+        </Snackbar>
+        {fireRedirect && (
+          <Redirect to={{ pathname: '/', state: { savedGun: true } }} />
+        )}
+      </MuiPickersUtilsProvider>
     </>
   );
 }
