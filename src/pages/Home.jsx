@@ -1,13 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import {
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   IconButton,
   Fab,
   makeStyles,
@@ -19,6 +12,7 @@ import {
   Button,
   Snackbar,
 } from '@material-ui/core';
+import { DataGrid } from '@mui/x-data-grid';
 import { Alert } from '@material-ui/lab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -104,6 +98,66 @@ function Home() {
     }
   }, [savedGun]);
 
+  const columns = [
+    {
+      field: 'id',
+      headerName: 'Edit',
+      minWidth: 120,
+      renderCell: (params) => (
+        <div>
+          <Link to={`/gun/${params.id}`}>
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </Link>
+          <IconButton onClick={() => handleDeleteClick(`${params.id}`)}>
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      ),
+    },
+    { field: 'name', headerName: 'Name', flex: 1 },
+    {
+      field: 'manufacturer',
+      headerName: 'Manufacturer',
+      flex: 1,
+      hide: true,
+    },
+    {
+      field: 'modelName',
+      headerName: 'Model',
+      flex: 1,
+    },
+    {
+      field: 'serialNumber',
+      headerName: 'Serial Number',
+      flex: 1,
+    },
+    { field: 'type', headerName: 'Type', flex: 1 },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+    },
+    {
+      field: 'caliber',
+      headerName: 'Caliber',
+      flex: 1,
+    },
+    {
+      field: 'dealer',
+      headerName: 'Dealer',
+      flex: 1,
+      hide: true,
+    },
+    {
+      field: 'ffl',
+      headerName: 'FFL',
+      flex: 1,
+      hide: true,
+    },
+  ];
+
   return (
     <div>
       <Typography className={classes.title} variant="h4">
@@ -114,48 +168,16 @@ function Home() {
           </Fab>
         </Link>
       </Typography>
-      <TableContainer component={Paper}>
-        <Table size="medium">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Model</TableCell>
-              <TableCell>Serial Number</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Action</TableCell>
-              <TableCell>Caliber</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {guns.map((gun) => {
-              return (
-                <TableRow key={gun.id}>
-                  <TableCell width={20}>
-                    <Link to={`/gun/${gun.id}`}>
-                      <IconButton>
-                        <EditIcon />
-                      </IconButton>
-                    </Link>
-                  </TableCell>
-                  <TableCell>{gun.name}</TableCell>
-                  <TableCell>{gun.modelName}</TableCell>
-                  <TableCell>{gun.serialNumber}</TableCell>
-                  <TableCell>{gun.type}</TableCell>
-                  <TableCell>{gun.action}</TableCell>
-                  <TableCell>{gun.caliber}</TableCell>
-                  <TableCell width={20}>
-                    <IconButton onClick={() => handleDeleteClick(`${gun.id}`)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <DataGrid
+        autoHeight={true}
+        isRowSelectable={false}
+        disableSelectionOnClick={true}
+        density="standard"
+        hideFooter={true}
+        hideFooterPagination={true}
+        rows={guns}
+        columns={columns}
+      />
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Delete?</DialogTitle>
         <DialogContent>

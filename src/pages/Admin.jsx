@@ -119,24 +119,18 @@ function Admin() {
         <Table size="medium">
           <TableHead>
             <TableRow>
+              <TableCell>Edit</TableCell>
+              <TableCell>Delete</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Enabled</TableCell>
               <TableCell>Role</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((user) => {
               return (
                 <TableRow key={user.id}>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    <Checkbox disabled checked={user.enabled} />
-                  </TableCell>
-                  <TableCell>{user.role}</TableCell>
                   <TableCell width={40}>
                     <Link to={`/user/${user.id}`}>
                       <IconButton>
@@ -149,6 +143,12 @@ function Admin() {
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>
+                    <Checkbox disabled checked={user.enabled} />
+                  </TableCell>
+                  <TableCell>{user.role}</TableCell>
                 </TableRow>
               );
             })}
