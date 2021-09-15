@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import {
+  Container,
   Typography,
   IconButton,
   Fab,
@@ -12,15 +13,13 @@ import {
   Button,
   Snackbar,
 } from '@material-ui/core';
-import { DataGrid } from '@mui/x-data-grid';
 import { Alert } from '@material-ui/lab';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
+import { GunCard } from '../components';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -30,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     position: 'relative',
     left: theme.spacing(3),
+  },
+  container: {
+    margin: 'auto',
+    width: '1000',
   },
 }));
 
@@ -98,68 +101,8 @@ function Home() {
     }
   }, [savedGun]);
 
-  const columns = [
-    {
-      field: 'id',
-      headerName: 'Edit',
-      minWidth: 120,
-      renderCell: (params) => (
-        <div>
-          <Link to={`/gun/${params.id}`}>
-            <IconButton>
-              <EditIcon />
-            </IconButton>
-          </Link>
-          <IconButton onClick={() => handleDeleteClick(`${params.id}`)}>
-            <DeleteIcon />
-          </IconButton>
-        </div>
-      ),
-    },
-    { field: 'name', headerName: 'Name', flex: 1 },
-    {
-      field: 'manufacturer',
-      headerName: 'Manufacturer',
-      flex: 1,
-      hide: true,
-    },
-    {
-      field: 'modelName',
-      headerName: 'Model',
-      flex: 1,
-    },
-    {
-      field: 'serialNumber',
-      headerName: 'Serial Number',
-      flex: 1,
-    },
-    { field: 'type', headerName: 'Type', flex: 1 },
-    {
-      field: 'action',
-      headerName: 'Action',
-      flex: 1,
-    },
-    {
-      field: 'caliber',
-      headerName: 'Caliber',
-      flex: 1,
-    },
-    {
-      field: 'dealer',
-      headerName: 'Dealer',
-      flex: 1,
-      hide: true,
-    },
-    {
-      field: 'ffl',
-      headerName: 'FFL',
-      flex: 1,
-      hide: true,
-    },
-  ];
-
   return (
-    <div>
+    <Container maxWidth="sm">
       <Typography className={classes.title} variant="h4">
         Guns
         <Link to="/gun">
@@ -168,16 +111,11 @@ function Home() {
           </Fab>
         </Link>
       </Typography>
-      <DataGrid
-        autoHeight={true}
-        isRowSelectable={false}
-        disableSelectionOnClick={true}
-        density="standard"
-        hideFooter={true}
-        hideFooterPagination={true}
-        rows={guns}
-        columns={columns}
-      />
+      <div className={classes.container}>
+        {guns.map((gun) => {
+          return <GunCard gun={gun} handleDeleteClick={handleDeleteClick} />;
+        })}
+      </div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Delete?</DialogTitle>
         <DialogContent>
@@ -214,7 +152,7 @@ function Home() {
           {snackMessage}
         </Alert>
       </Snackbar>
-    </div>
+    </Container>
   );
 }
 
