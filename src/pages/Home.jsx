@@ -113,7 +113,13 @@ function Home() {
       </Typography>
       <div className={classes.container}>
         {guns.map((gun) => {
-          return <GunCard gun={gun} handleDeleteClick={handleDeleteClick} />;
+          return (
+            <GunCard
+              key={gun.id}
+              gun={gun}
+              handleDeleteClick={handleDeleteClick}
+            />
+          );
         })}
       </div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>

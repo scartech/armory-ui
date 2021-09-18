@@ -73,6 +73,31 @@ class GunService {
   /**
    *
    * @param {*} user
+   * @param {*} id
+   * @param {*} data
+   * @param {*} cancelToken
+   * @returns
+   */
+  static async updateImages(user, id, data, cancelToken) {
+    if (!user || !data) {
+      return;
+    }
+
+    console.log(user);
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.put(`/api/guns/images/${id}`, data);
+      return res.data;
+    } catch (error) {
+      console.error('Failed to update gun images', error.message);
+      return;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
    * @param {*} data
    * @param {*} cancelToken
    * @returns
