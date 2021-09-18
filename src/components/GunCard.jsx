@@ -61,7 +61,9 @@ function GunCard({ gun, handleDeleteClick }) {
           pauseIcon={false}
           miniIcon={false}
           hasIndexBoard={false}
-          isAutoPlaying
+          isAutoPlaying={false}
+          hasThumbnails={false}
+          playIcon={false}
           hasThumbnailsAtMax
           shouldMaximizeOnClick
           shouldMinimizeOnClick

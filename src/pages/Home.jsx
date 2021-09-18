@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 import {
   Container,
+  Chip,
   Typography,
   IconButton,
   Fab,
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     width: '1000',
   },
+  count: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 function Home() {
@@ -46,6 +50,7 @@ function Home() {
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackSeverity, setSnackSeverity] = useState('error');
   const [snackMessage, setSnackMessage] = useState('');
+  const [count, setCount] = useState(0);
 
   const savedGun = location?.state?.savedGun || false;
 
@@ -87,6 +92,7 @@ function Home() {
       const gunz = await GunService.all(auth.user);
       if (gunz) {
         setGuns(gunz);
+        setCount(gunz.length);
       }
     }
 
@@ -105,6 +111,7 @@ function Home() {
     <Container maxWidth="sm">
       <Typography className={classes.title} variant="h4">
         Guns
+        <Chip size="medium" label={count} className={classes.count} />
         <Link to="/gun">
           <Fab color="primary" className={classes.fab}>
             <AddIcon />
