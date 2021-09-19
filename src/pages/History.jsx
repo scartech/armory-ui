@@ -108,7 +108,7 @@ function History() {
     <>
       <div>
         <Typography className={classes.title} variant="h4">
-          History for {name}
+          {name}
           <Link to="/">
             <Fab color="primary" className={classes.fab}>
               <ArrowBackIcon />

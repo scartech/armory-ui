@@ -72,16 +72,6 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions>
-          <IconButton
-            onClick={() => fileInputRef.current && fileInputRef.current.click()}
-          >
-            <PhotoCameraIcon />
-          </IconButton>
-          <IconButton onClick={() => handleDeleteClick()}>
-            <DeleteIcon />
-          </IconButton>
-        </CardActions>
         <CardMedia className={classes.media}>
           <Carousel
             images={images}
@@ -99,6 +89,16 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
             shouldMinimizeOnClick
           />
         </CardMedia>
+        <CardActions>
+          <IconButton
+            onClick={() => fileInputRef.current && fileInputRef.current.click()}
+          >
+            <PhotoCameraIcon />
+          </IconButton>
+          <IconButton onClick={() => handleDeleteClick()}>
+            <DeleteIcon />
+          </IconButton>
+        </CardActions>
       </Card>
       <InputLabel className={classes.root}>
         <Input
