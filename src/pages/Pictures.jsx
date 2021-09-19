@@ -103,14 +103,12 @@ function Pictures() {
     <>
       <form noValidate autoComplete="off">
         <Typography className={classes.title} variant="h4">
+          Images for {name}
           <Link to="/">
             <Fab color="primary" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
           </Link>
-        </Typography>
-        <Typography className={classes.title} variant="h3">
-          {name}
         </Typography>
         <UploadFile
           key="front"

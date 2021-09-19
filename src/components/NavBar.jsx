@@ -12,7 +12,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import ListIcon from '@material-ui/icons/List';
+import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
@@ -65,7 +65,7 @@ function NavBar({ handleThemeChange, darkState }) {
             Armory
           </Typography>
           <IconButton component={Link} to="/" color="inherit">
-            <ListIcon />
+            <HomeIcon />
           </IconButton>
           {auth.user.role === 'ADMIN' && (
             <IconButton component={Link} to="/admin" color="inherit">

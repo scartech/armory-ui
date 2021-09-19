@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     margin: 'auto',
-    width: '1000',
   },
   count: {
     marginLeft: theme.spacing(1),
@@ -108,7 +107,7 @@ function Home() {
   }, [savedGun]);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xl">
       <Typography className={classes.title} variant="h4">
         Guns
         <Chip size="medium" label={count} className={classes.count} />

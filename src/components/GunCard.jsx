@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import EventNoteIcon from '@material-ui/icons//EventNote';
 import Carousel from 'react-gallery-carousel';
 import { GunCardItem } from '.';
 import 'react-gallery-carousel/dist/index.css';
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   media: {
-    height: 180,
+    height: 220,
   },
   carousel: {
     margin: 0,
@@ -94,6 +95,11 @@ function GunCard({ gun, handleDeleteClick }) {
         <Link to={`/images/${gun.id}`}>
           <IconButton>
             <PhotoCameraIcon />
+          </IconButton>
+        </Link>
+        <Link to={`/gun/${gun.id}/history`}>
+          <IconButton>
+            <EventNoteIcon />
           </IconButton>
         </Link>
         <IconButton onClick={() => handleDeleteClick(`${gun.id}`)}>

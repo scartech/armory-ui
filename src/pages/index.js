@@ -5,3 +5,5 @@ export * from './Signin';
 export * from './Gun';
 export * from './User';
 export * from './Pictures';
+export * from './History';
+export * from './EditHistory';

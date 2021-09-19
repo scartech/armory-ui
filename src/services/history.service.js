@@ -3,24 +3,25 @@ import { AxiosUtils } from '../utils';
 /**
  *
  */
-class GunService {
+class HistoryService {
   /**
    *
    * @param {*} user
+   * @param {*} gunId
    * @param {*} cancelToken
    * @returns
    */
-  static async all(user, cancelToken) {
+  static async all(user, gunId, cancelToken) {
     if (!user) {
       return;
     }
 
     try {
       const axios = AxiosUtils.createInstance(user.token);
-      const res = await axios.get('/api/guns');
+      const res = await axios.get(`/api/history/${gunId}`);
       return res.data;
     } catch (error) {
-      console.error('Failed to get guns', error.message);
+      console.error('Failed to get history', error.message);
       return;
     }
   }
@@ -28,21 +29,22 @@ class GunService {
   /**
    *
    * @param {*} user
+   * @param {*} gunId
    * @param {*} id
    * @param {*} cancelToken
    * @returns
    */
-  static async get(user, id, cancelToken) {
+  static async get(user, gunId, id, cancelToken) {
     if (!user) {
       return;
     }
 
     try {
       const axios = AxiosUtils.createInstance(user.token);
-      const res = await axios.get(`/api/guns/${id}`);
+      const res = await axios.get(`/api/history/${gunId}/${id}`);
       return res.data;
     } catch (error) {
-      console.error('Failed to get gun', error.message);
+      console.error('Failed to get history', error.message);
       return;
     }
   }
@@ -50,22 +52,23 @@ class GunService {
   /**
    *
    * @param {*} user
+   * @param {*} gunId
    * @param {*} id
    * @param {*} data
    * @param {*} cancelToken
    * @returns
    */
-  static async update(user, id, data, cancelToken) {
+  static async update(user, gunId, id, data, cancelToken) {
     if (!user || !data) {
       return;
     }
 
     try {
       const axios = AxiosUtils.createInstance(user.token);
-      const res = await axios.put(`/api/guns/${id}`, data);
+      const res = await axios.put(`/api/history/${gunId}/${id}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update gun', error.message);
+      console.error('Failed to update history', error.message);
       return;
     }
   }
@@ -73,22 +76,22 @@ class GunService {
   /**
    *
    * @param {*} user
-   * @param {*} id
+   * @param {*} gunId
    * @param {*} data
    * @param {*} cancelToken
    * @returns
    */
-  static async updateImages(user, id, data, cancelToken) {
+  static async create(user, gunId, data, cancelToken) {
     if (!user || !data) {
       return;
     }
 
     try {
       const axios = AxiosUtils.createInstance(user.token);
-      const res = await axios.put(`/api/guns/images/${id}`, data);
+      const res = await axios.post(`/api/history/${gunId}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update gun images', error.message);
+      console.error('Failed to create history', error.message);
       return;
     }
   }
@@ -96,46 +99,25 @@ class GunService {
   /**
    *
    * @param {*} user
-   * @param {*} data
-   * @param {*} cancelToken
-   * @returns
-   */
-  static async create(user, data, cancelToken) {
-    if (!user || !data) {
-      return;
-    }
-
-    try {
-      const axios = AxiosUtils.createInstance(user.token);
-      const res = await axios.post('/api/guns/', data);
-      return res.data;
-    } catch (error) {
-      console.error('Failed to create gun', error.message);
-      return;
-    }
-  }
-
-  /**
-   *
-   * @param {*} user
+   * @param {*} gunId
    * @param {*} id
    * @param {*} cancelToken
    * @returns
    */
-  static async delete(user, id, cancelToken) {
+  static async delete(user, gunId, id, cancelToken) {
     if (!user) {
       return;
     }
 
     try {
       const axios = AxiosUtils.createInstance(user.token);
-      const res = await axios.delete(`/api/guns/${id}`);
+      const res = await axios.delete(`/api/history/${gunId}/${id}`);
       return res.status === 200;
     } catch (error) {
-      console.error('Failed to delete gun', error.message);
+      console.error('Failed to delete history', error.message);
       return;
     }
   }
 }
 
-export { GunService };
+export { HistoryService };

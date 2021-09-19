@@ -19,7 +19,17 @@ import {
 } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import PubSub from 'pubsub-js';
-import { Home, Admin, Profile, Signin, Gun, User, Pictures } from './pages';
+import {
+  Home,
+  Admin,
+  Profile,
+  Signin,
+  Gun,
+  User,
+  Pictures,
+  History,
+  EditHistory,
+} from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks';
 
@@ -107,6 +117,21 @@ function App() {
                   <PrivateRoute path="/gun" component={Gun} exact />
                   <PrivateRoute path="/images/:id" component={Pictures} exact />
                   <PrivateRoute path="/gun/:id" component={Gun} exact />
+                  <PrivateRoute
+                    path="/gun/:gunId/history"
+                    component={History}
+                    exact
+                  />
+                  <PrivateRoute
+                    path="/history/:gunId"
+                    component={EditHistory}
+                    exact
+                  />
+                  <PrivateRoute
+                    path="/history/:gunId/:id"
+                    component={EditHistory}
+                    exact
+                  />
                   <PrivateRoute
                     path="/admin"
                     roles={['ADMIN']}
