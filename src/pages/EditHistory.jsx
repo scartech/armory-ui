@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function EditHistory() {
+function EditHistory() {
   const auth = useAuth();
   const classes = useStyles();
   const { id, gunId } = useParams();
@@ -209,3 +209,5 @@ export function EditHistory() {
     </>
   );
 }
+
+export default EditHistory;

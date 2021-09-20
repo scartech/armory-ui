@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Typography, Grid } from '@material-ui/core';
 
 function GunCardItem({ label, value }) {
@@ -13,4 +14,13 @@ function GunCardItem({ label, value }) {
   );
 }
 
-export { GunCardItem };
+GunCardItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.any,
+};
+
+GunCardItem.defaultProps = {
+  value: '',
+};
+
+export default GunCardItem;

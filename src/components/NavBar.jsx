@@ -46,14 +46,14 @@ function NavBar({ handleThemeChange, darkState }) {
     setAnchorEl(null);
   };
 
-  const handleLogout = (event) => {
+  const handleLogout = () => {
     setAnchorEl(null);
     auth.signout();
     history.push('/login');
   };
 
-  // Don't display the navbar util the user has logged in.
-  if (!auth.user) {
+  // Don't display the navbar until the user has logged in.
+  if (!auth?.user) {
     return <></>;
   }
 
@@ -100,4 +100,4 @@ NavBar.propTypes = {
   darkState: PropTypes.bool.isRequired,
 };
 
-export { NavBar };
+export default NavBar;

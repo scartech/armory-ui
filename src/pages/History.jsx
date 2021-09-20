@@ -121,16 +121,14 @@ function History() {
           </Link>
         </Typography>
         {history.length > 0 &&
-          history.map((item) => {
-            return (
-              <HistoryCard
-                key={item.id}
-                history={item}
-                gunId={parseInt(gunId)}
-                handleDeleteClick={handleDelete}
-              />
-            );
-          })}
+          history.map((item) => (
+            <HistoryCard
+              key={item.id}
+              history={item}
+              gunId={parseInt(gunId)}
+              handleDeleteClick={handleDelete}
+            />
+          ))}
         {history.length === 0 && (
           <Typography variant="h5">No events created yet.</Typography>
         )}
@@ -159,4 +157,4 @@ function History() {
   );
 }
 
-export { History };
+export default History;

@@ -1,4 +1,4 @@
-export const ACTION_TYPES = [
+const ACTION_TYPES = [
   'Manual',
   'Bolt Action',
   'Lever Action',
@@ -8,3 +8,5 @@ export const ACTION_TYPES = [
   'Automatic',
   'Select fire',
 ];
+
+export default ACTION_TYPES;

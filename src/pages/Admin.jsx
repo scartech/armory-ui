@@ -58,7 +58,7 @@ function Admin() {
     setDialogOpen(true);
   };
 
-  const handleDialogClose = (event) => {
+  const handleDialogClose = () => {
     setDialogOpen(false);
   };
 
@@ -66,7 +66,7 @@ function Admin() {
     setSnackOpen(false);
   };
 
-  const handleDialogCloseDelete = async (event) => {
+  const handleDialogCloseDelete = async () => {
     setDialogOpen(false);
 
     const deleted = await UserService.delete(auth.user, userId);
@@ -128,30 +128,28 @@ function Admin() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => {
-              return (
-                <TableRow key={user.id}>
-                  <TableCell width={40}>
-                    <Link to={`/user/${user.id}`}>
-                      <IconButton>
-                        <EditIcon />
-                      </IconButton>
-                    </Link>
-                  </TableCell>
-                  <TableCell width={40}>
-                    <IconButton onClick={() => handleDeleteClick(`${user.id}`)}>
-                      <DeleteIcon />
+            {users.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell width={40}>
+                  <Link to={`/user/${user.id}`}>
+                    <IconButton>
+                      <EditIcon />
                     </IconButton>
-                  </TableCell>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    <Checkbox disabled checked={user.enabled} />
-                  </TableCell>
-                  <TableCell>{user.role}</TableCell>
-                </TableRow>
-              );
-            })}
+                  </Link>
+                </TableCell>
+                <TableCell width={40}>
+                  <IconButton onClick={() => handleDeleteClick(`${user.id}`)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  <Checkbox disabled checked={user.enabled} />
+                </TableCell>
+                <TableCell>{user.role}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -195,4 +193,4 @@ function Admin() {
   );
 }
 
-export { Admin };
+export default Admin;

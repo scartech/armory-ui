@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Profile() {
+function Profile() {
   const auth = useAuth();
   const classes = useStyles();
 
@@ -210,3 +210,5 @@ export function Profile() {
     </>
   );
 }
+
+export default Profile;

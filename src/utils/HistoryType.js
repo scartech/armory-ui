@@ -1,1 +1,2 @@
-export const HISTORY_TYPES = ['Range Day', 'Cleaning'];
+const HISTORY_TYPES = ['Range Day', 'Cleaning'];
+export default HISTORY_TYPES;

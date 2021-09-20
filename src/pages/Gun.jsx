@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Gun() {
+function Gun() {
   const auth = useAuth();
   const classes = useStyles();
   const { id } = useParams();
@@ -278,3 +278,5 @@ export function Gun() {
     </>
   );
 }
+
+export default Gun;

@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import EventNoteIcon from '@material-ui/icons//EventNote';
 import Carousel from 'react-gallery-carousel';
-import { GunCardItem } from '.';
+import GunCardItem from './GunCardItem';
 import 'react-gallery-carousel/dist/index.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +72,6 @@ function GunCard({ gun, handleDeleteClick }) {
       </CardMedia>
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12}></Grid>
           <Grid item xs={12}>
             <Typography variant="h5">{gun.name}</Typography>
           </Grid>
@@ -115,4 +114,4 @@ GunCard.propTypes = {
   handleDeleteClick: PropTypes.func.isRequired,
 };
 
-export { GunCard };
+export default GunCard;

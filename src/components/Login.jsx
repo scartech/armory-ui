@@ -110,4 +110,4 @@ Login.propTypes = {
   loginFailure: PropTypes.func.isRequired,
 };
 
-export { Login };
+export default Login;

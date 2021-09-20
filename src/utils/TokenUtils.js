@@ -1,12 +1,12 @@
 class TokenUtils {
-  static getUser = () => {
+  static getUser() {
     return JSON.parse(sessionStorage.getItem('user'));
-  };
+  }
 
-  static clear = () => {
+  static clear() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
-  };
+  }
 }
 
-export { TokenUtils };
+export default TokenUtils;

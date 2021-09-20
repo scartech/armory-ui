@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { AuthService } from '../services';
 
 function PrivateRoute({ component: Component, roles, ...rest }) {
@@ -29,4 +31,13 @@ function PrivateRoute({ component: Component, roles, ...rest }) {
   );
 }
 
-export { PrivateRoute };
+PrivateRoute.propTypes = {
+  component: PropTypes.any.isRequired,
+  roles: PropTypes.array,
+};
+
+PrivateRoute.defaultProps = {
+  roles: undefined,
+};
+
+export default PrivateRoute;

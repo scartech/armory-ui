@@ -61,7 +61,7 @@ function Pictures() {
     setOpen(false);
   };
 
-  const handleSubmit = async (event, isNewGun) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
@@ -167,4 +167,4 @@ function Pictures() {
   );
 }
 
-export { Pictures };
+export default Pictures;

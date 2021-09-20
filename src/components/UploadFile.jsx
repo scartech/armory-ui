@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { makeStyles } from '@material-ui/core';
 import {
   Typography,
   InputLabel,
@@ -10,6 +9,7 @@ import {
   Grid,
   CardActions,
   IconButton,
+  makeStyles,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Carousel from 'react-gallery-carousel';
@@ -41,7 +41,7 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
 
   const images = [
     {
-      src: imageSrc ? imageSrc : DEFAULT_IMG,
+      src: imageSrc,
     },
   ];
 
@@ -56,8 +56,8 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
     }
 
     const reader = new FileReader();
-    reader.onload = (e) => {
-      setImageSrc(e.target.result);
+    reader.onload = (event) => {
+      setImageSrc(event.target.result);
     };
     reader.readAsDataURL(e.target.files[0]);
   };
@@ -121,4 +121,4 @@ UploadFile.propTypes = {
   setImageSrc: PropTypes.func.isRequired,
 };
 
-export { UploadFile };
+export default UploadFile;

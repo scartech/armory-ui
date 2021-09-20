@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function User() {
+function User() {
   const auth = useAuth();
   const classes = useStyles();
   const { id } = useParams();
@@ -65,10 +65,11 @@ export function User() {
       }
     }
 
-    setIsNew(!Boolean(id));
+    const idIsNew = Boolean(id);
+    setIsNew(!idIsNew);
     setUserId(id);
 
-    if (Boolean(id)) {
+    if (idIsNew) {
       fetchUser();
     }
   }, [auth.user, id]);
@@ -218,3 +219,5 @@ export function User() {
     </>
   );
 }
+
+export default User;

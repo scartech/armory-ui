@@ -33,7 +33,7 @@ import {
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: '100vh',
     flexGrow: 1,

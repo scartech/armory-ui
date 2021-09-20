@@ -1,9 +1,21 @@
-export * from './Admin';
-export * from './Home';
-export * from './Profile';
-export * from './Signin';
-export * from './Gun';
-export * from './User';
-export * from './Pictures';
-export * from './History';
-export * from './EditHistory';
+import Admin from './Admin';
+import Home from './Home';
+import Profile from './Profile';
+import Signin from './Signin';
+import Gun from './Gun';
+import User from './User';
+import Pictures from './Pictures';
+import History from './History';
+import EditHistory from './EditHistory';
+
+export {
+  Admin,
+  Home,
+  Profile,
+  Signin,
+  Gun,
+  User,
+  Pictures,
+  History,
+  EditHistory,
+};

@@ -7,12 +7,11 @@ class UserService {
   /**
    *
    * @param {*} user
-   * @param {*} cancelToken
    * @returns
    */
-  static async all(user, cancelToken) {
+  static async all(user) {
     if (!user) {
-      return;
+      return [];
     }
 
     try {
@@ -20,8 +19,7 @@ class UserService {
       const res = await axios.get('/admin/users');
       return res.data;
     } catch (error) {
-      console.error('Failed to get users', error.message);
-      return;
+      return [];
     }
   }
 
@@ -29,12 +27,11 @@ class UserService {
    *
    * @param {*} user
    * @param {*} id
-   * @param {*} cancelToken
    * @returns
    */
-  static async get(user, id, cancelToken) {
+  static async get(user, id) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -42,8 +39,7 @@ class UserService {
       const res = await axios.get(`/admin/users/${id}`);
       return res.data;
     } catch (error) {
-      console.error('Failed to get user', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -52,12 +48,11 @@ class UserService {
    * @param {*} user
    * @param {*} id
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async update(user, id, data, cancelToken) {
+  static async update(user, id, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -65,8 +60,7 @@ class UserService {
       const res = await axios.put(`/admin/users/${id}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update user', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -74,12 +68,11 @@ class UserService {
    *
    * @param {*} user
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async create(user, data, cancelToken) {
+  static async create(user, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -87,8 +80,7 @@ class UserService {
       const res = await axios.post('/admin/users/', data);
       return res.data;
     } catch (error) {
-      console.error('Failed to create user', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -96,12 +88,11 @@ class UserService {
    *
    * @param {*} user
    * @param {*} id
-   * @param {*} cancelToken
    * @returns
    */
-  static async delete(user, id, cancelToken) {
+  static async delete(user, id) {
     if (!user) {
-      return;
+      return false;
     }
 
     try {
@@ -109,10 +100,9 @@ class UserService {
       const res = await axios.delete(`/admin/users/${id}`);
       return res.status === 200;
     } catch (error) {
-      console.error('Failed to delete user', error.message);
-      return;
+      return false;
     }
   }
 }
 
-export { UserService };
+export default UserService;

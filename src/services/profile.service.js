@@ -7,12 +7,11 @@ class ProfileService {
   /**
    *
    * @param {*} user
-   * @param {*} cancelToken
    * @returns
    */
-  static async get(user, cancelToken) {
+  static async get(user) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -20,8 +19,7 @@ class ProfileService {
       const res = await axios.get('/api/profile');
       return res.data;
     } catch (error) {
-      console.error('Failed to get user', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -29,12 +27,11 @@ class ProfileService {
    *
    * @param {*} user
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async update(user, data, cancelToken) {
+  static async update(user, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -42,8 +39,7 @@ class ProfileService {
       const res = await axios.put('/api/profile', data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update user', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -51,12 +47,11 @@ class ProfileService {
    *
    * @param {*} user
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async updatePassword(user, data, cancelToken) {
+  static async updatePassword(user, data) {
     if (!user || !data) {
-      return;
+      return false;
     }
 
     try {
@@ -64,10 +59,9 @@ class ProfileService {
       const res = await axios.put('/api/profile/password', data);
       return res.status === 200;
     } catch (error) {
-      console.error('Failed to update user', error.message);
-      return;
+      return false;
     }
   }
 }
 
-export { ProfileService };
+export default ProfileService;

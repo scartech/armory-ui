@@ -1,11 +1,11 @@
 import axios from 'axios';
 import PubSub from 'pubsub-js';
-import { Config } from '../utils';
+import Config from './Config';
 
-export class AxiosUtils {
+class AxiosUtils {
   static createInstance(token) {
     const instance = axios.create({
-      baseURL: Config.API_BASE_URL,
+      baseURL: Config.getAPIBaseUrl(),
       timeout: 3000,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -30,3 +30,5 @@ export class AxiosUtils {
     return instance;
   }
 }
+
+export default AxiosUtils;

@@ -8,12 +8,11 @@ class HistoryService {
    *
    * @param {*} user
    * @param {*} gunId
-   * @param {*} cancelToken
    * @returns
    */
-  static async all(user, gunId, cancelToken) {
+  static async all(user, gunId) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -21,8 +20,7 @@ class HistoryService {
       const res = await axios.get(`/api/history/${gunId}`);
       return res.data;
     } catch (error) {
-      console.error('Failed to get history', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -31,12 +29,11 @@ class HistoryService {
    * @param {*} user
    * @param {*} gunId
    * @param {*} id
-   * @param {*} cancelToken
    * @returns
    */
-  static async get(user, gunId, id, cancelToken) {
+  static async get(user, gunId, id) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -44,8 +41,7 @@ class HistoryService {
       const res = await axios.get(`/api/history/${gunId}/${id}`);
       return res.data;
     } catch (error) {
-      console.error('Failed to get history', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -55,12 +51,11 @@ class HistoryService {
    * @param {*} gunId
    * @param {*} id
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async update(user, gunId, id, data, cancelToken) {
+  static async update(user, gunId, id, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -68,8 +63,7 @@ class HistoryService {
       const res = await axios.put(`/api/history/${gunId}/${id}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update history', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -78,12 +72,11 @@ class HistoryService {
    * @param {*} user
    * @param {*} gunId
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async create(user, gunId, data, cancelToken) {
+  static async create(user, gunId, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -91,8 +84,7 @@ class HistoryService {
       const res = await axios.post(`/api/history/${gunId}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to create history', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -101,12 +93,11 @@ class HistoryService {
    * @param {*} user
    * @param {*} gunId
    * @param {*} id
-   * @param {*} cancelToken
    * @returns
    */
-  static async delete(user, gunId, id, cancelToken) {
+  static async delete(user, gunId, id) {
     if (!user) {
-      return;
+      return false;
     }
 
     try {
@@ -114,10 +105,9 @@ class HistoryService {
       const res = await axios.delete(`/api/history/${gunId}/${id}`);
       return res.status === 200;
     } catch (error) {
-      console.error('Failed to delete history', error.message);
-      return;
+      return false;
     }
   }
 }
 
-export { HistoryService };
+export default HistoryService;

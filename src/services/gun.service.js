@@ -7,12 +7,11 @@ class GunService {
   /**
    *
    * @param {*} user
-   * @param {*} cancelToken
    * @returns
    */
-  static async all(user, cancelToken) {
+  static async all(user) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -20,8 +19,7 @@ class GunService {
       const res = await axios.get('/api/guns');
       return res.data;
     } catch (error) {
-      console.error('Failed to get guns', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -29,12 +27,11 @@ class GunService {
    *
    * @param {*} user
    * @param {*} id
-   * @param {*} cancelToken
    * @returns
    */
-  static async get(user, id, cancelToken) {
+  static async get(user, id) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -42,8 +39,7 @@ class GunService {
       const res = await axios.get(`/api/guns/${id}`);
       return res.data;
     } catch (error) {
-      console.error('Failed to get gun', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -52,12 +48,11 @@ class GunService {
    * @param {*} user
    * @param {*} id
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async update(user, id, data, cancelToken) {
+  static async update(user, id, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -65,8 +60,7 @@ class GunService {
       const res = await axios.put(`/api/guns/${id}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update gun', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -75,12 +69,11 @@ class GunService {
    * @param {*} user
    * @param {*} id
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async updateImages(user, id, data, cancelToken) {
+  static async updateImages(user, id, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -88,8 +81,7 @@ class GunService {
       const res = await axios.put(`/api/guns/images/${id}`, data);
       return res.data;
     } catch (error) {
-      console.error('Failed to update gun images', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -97,12 +89,11 @@ class GunService {
    *
    * @param {*} user
    * @param {*} data
-   * @param {*} cancelToken
    * @returns
    */
-  static async create(user, data, cancelToken) {
+  static async create(user, data) {
     if (!user || !data) {
-      return;
+      return undefined;
     }
 
     try {
@@ -110,8 +101,7 @@ class GunService {
       const res = await axios.post('/api/guns/', data);
       return res.data;
     } catch (error) {
-      console.error('Failed to create gun', error.message);
-      return;
+      return undefined;
     }
   }
 
@@ -119,12 +109,11 @@ class GunService {
    *
    * @param {*} user
    * @param {*} id
-   * @param {*} cancelToken
    * @returns
    */
-  static async delete(user, id, cancelToken) {
+  static async delete(user, id) {
     if (!user) {
-      return;
+      return undefined;
     }
 
     try {
@@ -132,10 +121,9 @@ class GunService {
       const res = await axios.delete(`/api/guns/${id}`);
       return res.status === 200;
     } catch (error) {
-      console.error('Failed to delete gun', error.message);
-      return;
+      return undefined;
     }
   }
 }
 
-export { GunService };
+export default GunService;

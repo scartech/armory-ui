@@ -58,7 +58,7 @@ function Home() {
     setDialogOpen(true);
   };
 
-  const handleDialogClose = (event) => {
+  const handleDialogClose = () => {
     setDialogOpen(false);
   };
 
@@ -66,7 +66,7 @@ function Home() {
     setSnackOpen(false);
   };
 
-  const handleDialogCloseDelete = async (event) => {
+  const handleDialogCloseDelete = async () => {
     setDialogOpen(false);
 
     const deleted = await GunService.delete(auth.user, gunId);
@@ -118,15 +118,13 @@ function Home() {
         </Link>
       </Typography>
       <div className={classes.container}>
-        {guns.map((gun) => {
-          return (
-            <GunCard
-              key={gun.id}
-              gun={gun}
-              handleDeleteClick={handleDeleteClick}
-            />
-          );
-        })}
+        {guns.map((gun) => (
+          <GunCard
+            key={gun.id}
+            gun={gun}
+            handleDeleteClick={handleDeleteClick}
+          />
+        ))}
       </div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Delete?</DialogTitle>
@@ -168,4 +166,4 @@ function Home() {
   );
 }
 
-export { Home };
+export default Home;

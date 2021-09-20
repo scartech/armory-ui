@@ -1,8 +1,8 @@
-import { Login } from '../components';
+import { useState, Fragment } from 'react';
 import { IconButton, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
-import { useState, Fragment } from 'react';
+import { Login } from '../components';
 
 function Signin() {
   const [open, setOpen] = useState(false);
@@ -46,4 +46,4 @@ function Signin() {
   );
 }
 
-export { Signin };
+export default Signin;

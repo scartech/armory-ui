@@ -1,10 +1,10 @@
 import jwt from 'jwt-decode';
 
 class AuthService {
-  static getUser = () => {
+  static getUser() {
     const tokenValue = sessionStorage.getItem('token');
     if (!tokenValue) {
-      return;
+      return undefined;
     }
 
     if (tokenValue) {
@@ -12,7 +12,9 @@ class AuthService {
       val.user.token = tokenValue;
       return val.user;
     }
-  };
+
+    return undefined;
+  }
 }
 
-export { AuthService };
+export default AuthService;
