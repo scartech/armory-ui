@@ -1,0 +1,14 @@
+language: node_js
+os:
+  - linux
+dist: xenial
+branches:
+  only:
+    - main
+node_js:
+  - 'node'
+script:
+  - yarn lint
+after_success:
+  - docker build . -t scartech70/armory-ui
+  - docker push scartech70/armory-ui
