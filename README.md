@@ -5,7 +5,6 @@
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/scartech70/armory-ui/latest)](https://hub.docker.com/r/scartech70/armory-ui)
 [![Docker Pulls](https://img.shields.io/docker/pulls/scartech70/armory-ui)](https://hub.docker.com/r/scartech70/armory-ui)
 [![ESLint](https://github.com/scartech/armory-ui/actions/workflows/lint.yml/badge.svg)](https://github.com/scartech/armory-ui/actions)
-[![ESLint](https://github.com/scartech/armory-ui/actions/workflows/lint.yml/badge.svg)](https://github.com/scartech/armory-ui/actions)
 
 
 Front-end to the Armory project used to explore React.
