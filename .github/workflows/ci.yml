@@ -1,4 +1,4 @@
-name: ESLint
+name: CI
 
 on: push
 
