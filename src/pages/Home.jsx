@@ -17,10 +17,12 @@ import {
 import { Alert, Skeleton } from '@material-ui/lab';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
+import GridOnIcon from '@material-ui/icons/GridOn';
+import ViewCompactIcon from '@material-ui/icons/ViewCompact';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
-import { GunCard } from '../components';
+import { Guns } from '../components';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     position: 'relative',
     left: theme.spacing(3),
+    marginRight: theme.spacing(3),
   },
   container: {
     margin: 'auto',
@@ -54,8 +57,14 @@ function Home() {
   const [snackMessage, setSnackMessage] = useState('');
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [useGrid, setUseGrid] = useState(false);
 
   const savedGun = location?.state?.savedGun || false;
+
+  const handleUseGridClick = () => {
+    setUseGrid(!useGrid);
+    localStorage.setItem('useGrid', !useGrid);
+  };
 
   const handleDeleteClick = (id) => {
     setGunId(id);
@@ -111,11 +120,24 @@ function Home() {
     }
   }, [savedGun]);
 
+  useEffect(() => {
+    if (localStorage.getItem('useGrid')) {
+      setUseGrid(JSON.parse(localStorage.getItem('useGrid')));
+    }
+  }, []);
+
   return (
     <Container maxWidth="xl">
       <Typography className={classes.title} variant="h4">
         Guns
         <Chip size="medium" label={count} className={classes.count} />
+        <Fab
+          color="primary"
+          className={classes.fab}
+          onClick={handleUseGridClick}
+        >
+          {useGrid ? <ViewCompactIcon /> : <GridOnIcon />}
+        </Fab>
         <Link to="/gun">
           <Fab color="primary" className={classes.fab}>
             <AddIcon />
@@ -136,13 +158,11 @@ function Home() {
             </div>
           </>
         ) : (
-          guns.map((gun) => (
-            <GunCard
-              key={gun.id}
-              gun={gun}
-              handleDeleteClick={handleDeleteClick}
-            />
-          ))
+          <Guns
+            useGrid={useGrid}
+            guns={guns}
+            handleDeleteClick={handleDeleteClick}
+          />
         )}
       </div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>

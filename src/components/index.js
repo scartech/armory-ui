@@ -5,6 +5,9 @@ import GunCard from './GunCard';
 import GunCardItem from './GunCardItem';
 import UploadFile from './UploadFile';
 import HistoryCard from './HistoryCard';
+import GunList from './GunList';
+import Guns from './Guns';
+import GunGrid from './GunGrid';
 
 export {
   Login,
@@ -14,4 +17,7 @@ export {
   GunCardItem,
   UploadFile,
   HistoryCard,
+  GunList,
+  Guns,
+  GunGrid,
 };
