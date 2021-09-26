@@ -14,7 +14,7 @@ import {
   Button,
   Snackbar,
 } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Alert, Skeleton } from '@material-ui/lab';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import { Link, useLocation } from 'react-router-dom';
@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   count: {
     marginLeft: theme.spacing(1),
   },
+  skeletonContainer: {
+    marginBottom: theme.spacing(4),
+  },
 }));
 
 function Home() {
@@ -50,6 +53,7 @@ function Home() {
   const [snackSeverity, setSnackSeverity] = useState('error');
   const [snackMessage, setSnackMessage] = useState('');
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const savedGun = location?.state?.savedGun || false;
 
@@ -90,6 +94,7 @@ function Home() {
     async function fetchGuns() {
       const gunz = await GunService.all(auth.user);
       if (gunz) {
+        setLoading(false);
         setGuns(gunz);
         setCount(gunz.length);
       }
@@ -118,13 +123,27 @@ function Home() {
         </Link>
       </Typography>
       <div className={classes.container}>
-        {guns.map((gun) => (
-          <GunCard
-            key={gun.id}
-            gun={gun}
-            handleDeleteClick={handleDeleteClick}
-          />
-        ))}
+        {loading ? (
+          <>
+            <div className={classes.skeletonContainer}>
+              <Skeleton variant="rect" height={250} />
+            </div>
+            <div className={classes.skeletonContainer}>
+              <Skeleton variant="rect" height={250} />
+            </div>
+            <div className={classes.skeletonContainer}>
+              <Skeleton variant="rect" height={250} />
+            </div>
+          </>
+        ) : (
+          guns.map((gun) => (
+            <GunCard
+              key={gun.id}
+              gun={gun}
+              handleDeleteClick={handleDeleteClick}
+            />
+          ))
+        )}
       </div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Delete?</DialogTitle>
