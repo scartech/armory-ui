@@ -6,6 +6,7 @@ import {
   Snackbar,
   IconButton,
   Fab,
+  Chip,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     margin: theme.spacing(5),
+  },
+  count: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -109,6 +113,11 @@ function History() {
       <div>
         <Typography className={classes.title} variant="h4">
           {name}
+          <Chip
+            size="medium"
+            label={history.length}
+            className={classes.count}
+          />
           <Link to="/">
             <Fab color="primary" className={classes.fab}>
               <ArrowBackIcon />
