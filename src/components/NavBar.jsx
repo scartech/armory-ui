@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textDecoration: 'none',
   },
+  appbar: {
+    borderRadius: '80px',
+    height: '90px',
+    justifyContent: 'center',
+  },
 }));
 
 function NavBar({ handleThemeChange, darkState }) {
@@ -59,9 +64,9 @@ function NavBar({ handleThemeChange, darkState }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appbar}>
         <Toolbar>
-          <Typography variant="h4" color="inherit" className={classes.title}>
+          <Typography variant="h3" color="inherit" className={classes.title}>
             Armory
           </Typography>
           <IconButton component={Link} to="/" color="inherit">
