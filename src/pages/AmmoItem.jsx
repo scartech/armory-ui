@@ -5,7 +5,6 @@ import {
   TextField,
   Typography,
   makeStyles,
-  MenuItem,
   InputAdornment,
   Snackbar,
   IconButton,
@@ -20,8 +19,7 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useAuth } from '../hooks';
-import { GunService } from '../services';
-import { ACTION_TYPES, GUN_TYPES } from '../utils';
+import { AmmoService } from '../services';
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -40,52 +38,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Gun() {
+function AmmoItem() {
   const auth = useAuth();
   const classes = useStyles();
   const { id } = useParams();
 
   const [isNew, setIsNew] = useState(true);
-  const [modelName, setModelName] = useState('');
   const [name, setName] = useState('');
-  const [manufacturer, setManufacturer] = useState('');
-  const [type, setType] = useState('');
-  const [serialNumber, setSerialNumber] = useState('');
+  const [brand, setBrand] = useState('');
   const [caliber, setCaliber] = useState('');
   const [purchaseDate, setPurchaseDate] = useState(new Date());
   const [purchasePrice, setPurchasePrice] = useState(0);
-  const [dealer, setDealer] = useState('');
-  const [ffl, setFfl] = useState('');
-  const [action, setAction] = useState('');
+  const [weight, setWeight] = useState('');
+  const [bulletType, setBulletType] = useState('');
+  const [muzzleVelocity, setMuzzleVelocity] = useState('');
+  const [purchasedFrom, setPurchasedFrom] = useState('');
+  const [roundCount, setRoundCount] = useState(0);
+  const [pricePerRound, setPricePerRound] = useState(0);
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
-  const [gunId, setGunId] = useState(null);
+  const [ammoId, setAmmoId] = useState(null);
   const [fireRedirect, setFireRedirect] = useState(false);
 
   useEffect(() => {
-    async function fetchGun() {
-      const gun = await GunService.get(auth.user, id);
-      if (gun) {
-        setModelName(gun.modelName ?? '');
-        setName(gun.name ?? '');
-        setManufacturer(gun.manufacturer ?? '');
-        setSerialNumber(gun.serialNumber ?? '');
-        setType(gun.type ?? '');
-        setCaliber(gun.caliber ?? '');
-        setPurchasePrice(gun.purchasePrice ?? 0);
-        setPurchaseDate(gun.purchaseDate ?? null);
-        setDealer(gun.dealer ?? '');
-        setAction(gun.action ?? '');
-        setFfl(gun.ffl ?? '');
+    async function fetchAmmo() {
+      const ammo = await AmmoService.get(auth.user, id);
+      if (ammo) {
+        setBrand(ammo.brand ?? '');
+        setName(ammo.name ?? '');
+        setWeight(ammo.weight ?? '');
+        setBulletType(ammo.bulletType ?? '');
+        setMuzzleVelocity(ammo.muzzleVelocity ?? '');
+        setCaliber(ammo.caliber ?? '');
+        setPurchasePrice(ammo.purchasePrice ?? 0);
+        setPurchaseDate(ammo.purchaseDate ?? null);
+        setPurchasedFrom(ammo.purchasedFrom ?? '');
+        setRoundCount(ammo.roundCount ?? 0);
+        setPricePerRound(ammo.pricePerRound ?? 0);
       }
     }
 
     setIsNew(!Boolean(id));
-    setGunId(id);
+    setAmmoId(id);
 
     if (Boolean(id)) {
-      fetchGun();
+      fetchAmmo();
     }
   }, [auth.user, id]);
 
@@ -93,37 +91,37 @@ function Gun() {
     setOpen(false);
   };
 
-  const handleSubmit = async (event, isNewGun) => {
+  const handleSubmit = async (event, isNewAmmo) => {
     event.preventDefault();
 
     const data = {
-      modelName,
+      brand,
       name,
-      manufacturer,
-      serialNumber,
-      type,
       caliber,
+      weight,
+      bulletType,
+      muzzleVelocity,
+      roundCount,
+      pricePerRound,
+      purchasedFrom,
       purchaseDate: purchaseDate || null,
       purchasePrice: purchasePrice || 0,
-      dealer,
-      action,
-      ffl,
     };
 
     setOpen(false);
 
-    let gun;
-    if (isNewGun) {
-      gun = await GunService.create(auth.user, data);
+    let ammoItem;
+    if (isNewAmmo) {
+      ammoItem = await AmmoService.create(auth.user, data);
     } else {
-      gun = await GunService.update(auth.user, gunId, data);
+      ammoItem = await AmmoService.update(auth.user, ammoId, data);
     }
 
-    if (gun) {
+    if (ammoItem) {
       setFireRedirect(true);
     } else {
       setSeverity('error');
-      setMessage('Unable to save the gun.');
+      setMessage('Unable to save the ammo.');
       setOpen(true);
     }
   };
@@ -133,8 +131,8 @@ function Gun() {
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h4">
-            {isNew ? 'New Gun' : 'Edit Gun'}
-            <Link to="/">
+            {isNew ? 'New Ammo' : 'Edit Ammo'}
+            <Link to="/ammo">
               <Fab color="primary" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
@@ -149,53 +147,11 @@ function Gun() {
           />
           <TextField
             className={classes.text}
-            label="Serial Number"
-            value={serialNumber}
-            onChange={(event) => setSerialNumber(event.target.value)}
+            label="Brand"
+            value={brand}
+            onChange={(event) => setBrand(event.target.value)}
             fullWidth
           />
-          <TextField
-            className={classes.text}
-            label="Manufacturer"
-            value={manufacturer}
-            onChange={(event) => setManufacturer(event.target.value)}
-            fullWidth
-          />
-          <TextField
-            className={classes.text}
-            label="Model"
-            value={modelName}
-            onChange={(event) => setModelName(event.target.value)}
-            fullWidth
-          />
-          <TextField
-            className={classes.text}
-            label="Type"
-            select
-            value={type}
-            onChange={(event) => setType(event.target.value)}
-            fullWidth
-          >
-            {GUN_TYPES.map((gunType) => (
-              <MenuItem key={gunType} value={gunType}>
-                {gunType}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            className={classes.text}
-            label="Action"
-            select
-            value={action}
-            onChange={(event) => setAction(event.target.value)}
-            fullWidth
-          >
-            {ACTION_TYPES.map((actionType) => (
-              <MenuItem key={actionType} value={actionType}>
-                {actionType}
-              </MenuItem>
-            ))}
-          </TextField>
           <TextField
             className={classes.text}
             label="Caliber"
@@ -205,16 +161,50 @@ function Gun() {
           />
           <TextField
             className={classes.text}
-            label="Dealer"
-            value={dealer}
-            onChange={(event) => setDealer(event.target.value)}
+            label="Round Count"
+            value={roundCount}
+            type="number"
+            onChange={(event) => setRoundCount(event.target.value)}
             fullWidth
           />
           <TextField
             className={classes.text}
-            label="FFL"
-            value={ffl}
-            onChange={(event) => setFfl(event.target.value)}
+            label="Weight"
+            value={weight}
+            onChange={(event) => setWeight(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Bullet Type"
+            value={bulletType}
+            onChange={(event) => setBulletType(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Muzzle Velocity"
+            value={muzzleVelocity}
+            onChange={(event) => setMuzzleVelocity(event.target.value)}
+            fullWidth
+          />
+          <KeyboardDatePicker
+            className={classes.text}
+            clearable
+            label="Purchase Date"
+            value={purchaseDate}
+            onChange={(date) => setPurchaseDate(date)}
+            format="MM/DD/yyyy"
+            minDate={new Date()}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            className={classes.text}
+            label="Purchased From"
+            value={purchasedFrom}
+            onChange={(event) => setPurchasedFrom(event.target.value)}
             fullWidth
           />
           <TextField
@@ -230,15 +220,17 @@ function Gun() {
               ),
             }}
           />
-          <KeyboardDatePicker
+          <TextField
             className={classes.text}
-            clearable
-            label="Purchase Date"
-            value={purchaseDate}
-            onChange={(date) => setPurchaseDate(date)}
-            format="MM/DD/yyyy"
-            InputLabelProps={{
-              shrink: true,
+            label="Price per Round"
+            value={pricePerRound}
+            type="number"
+            onChange={(event) => setPricePerRound(event.target.value)}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
             }}
           />
           <Button
@@ -272,11 +264,11 @@ function Gun() {
           </Alert>
         </Snackbar>
         {fireRedirect && (
-          <Redirect to={{ pathname: '/', state: { savedGun: true } }} />
+          <Redirect to={{ pathname: '/ammo', state: { savedAmmo: true } }} />
         )}
       </MuiPickersUtilsProvider>
     </>
   );
 }
 
-export default Gun;
+export default AmmoItem;

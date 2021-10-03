@@ -21,6 +21,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import PubSub from 'pubsub-js';
 import {
   Home,
+  Ammo,
+  AmmoItem,
   Admin,
   Profile,
   Signin,
@@ -110,13 +112,20 @@ function App() {
                   darkState={darkState}
                 />
               )}
-              <Container>
+              <Container maxWidth="xl">
                 <Switch>
                   <PrivateRoute path="/" component={Home} exact />
                   <Route path="/login" component={Signin} />
                   <PrivateRoute path="/gun" component={Gun} exact />
                   <PrivateRoute path="/images/:id" component={Pictures} exact />
                   <PrivateRoute path="/gun/:id" component={Gun} exact />
+                  <PrivateRoute path="/ammo" component={Ammo} exact />
+                  <PrivateRoute path="/ammo/item" component={AmmoItem} exact />
+                  <PrivateRoute
+                    path="/ammo/item/:id"
+                    component={AmmoItem}
+                    exact
+                  />
                   <PrivateRoute
                     path="/gun/:gunId/history"
                     component={History}

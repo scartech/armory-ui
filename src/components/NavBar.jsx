@@ -12,7 +12,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   appbar: {
-    borderRadius: '80px',
     height: '90px',
     justifyContent: 'center',
   },
@@ -70,7 +68,10 @@ function NavBar({ handleThemeChange, darkState }) {
             Armory
           </Typography>
           <IconButton component={Link} to="/" color="inherit">
-            <HomeIcon />
+            <i className="gi gi-gun" />
+          </IconButton>
+          <IconButton component={Link} to="/ammo" color="inherit">
+            <i className="gi gi-ammo" />
           </IconButton>
           {auth.user.role === 'ADMIN' && (
             <IconButton component={Link} to="/admin" color="inherit">

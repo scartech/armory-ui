@@ -8,6 +8,7 @@ import HistoryCard from './HistoryCard';
 import GunList from './GunList';
 import Guns from './Guns';
 import GunGrid from './GunGrid';
+import AmmoGrid from './AmmoGrid';
 
 export {
   Login,
@@ -20,4 +21,5 @@ export {
   GunList,
   Guns,
   GunGrid,
+  AmmoGrid,
 };

@@ -5662,6 +5662,11 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+govicons@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/govicons/-/govicons-1.6.0.tgz#398d5ce14389203736ca37c1ff2336033483a83c"
+  integrity sha512-0pq/pWU/Lja5meOKe0POZQXpo+l3vCkbvD13/a+joca28E9X+OJ7fdeiPQGHJ+NG5ZvS2chgcAWIqwMTMZ1Ojg==
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.6"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.6.tgz"
