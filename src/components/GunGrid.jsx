@@ -4,18 +4,30 @@ import { IconButton } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 
 function GunGrid({ guns, handleDeleteClick }) {
   const columns = [
     {
       field: 'id',
       headerName: 'Edit',
-      minWidth: 120,
+      minWidth: 200,
       renderCell: (params) => (
         <div>
           <Link to={`/gun/${params.id}`}>
             <IconButton>
               <EditIcon />
+            </IconButton>
+          </Link>
+          <Link to={`/images/${params.id}`}>
+            <IconButton>
+              <PhotoCameraIcon />
+            </IconButton>
+          </Link>
+          <Link to={`/gun/${params.id}/history`}>
+            <IconButton>
+              <EventNoteIcon />
             </IconButton>
           </Link>
           <IconButton onClick={() => handleDeleteClick(`${params.id}`)}>
