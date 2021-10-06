@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import {
@@ -10,8 +11,6 @@ import {
   Typography,
   InputAdornment,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import LockSharpIcon from '@material-ui/icons/LockSharp';
 import AlternateEmailSharpIcon from '@material-ui/icons/AlternateEmailSharp';
 import VpnKeySharpIcon from '@material-ui/icons/VpnKeySharp';
 import { useAuth } from '../hooks';
@@ -25,9 +24,18 @@ const useStyles = makeStyles((theme) => ({
   },
   paperStyle: {
     padding: 20,
-    height: '250px',
+    height: '270px',
     width: 280,
     margin: '0px auto',
+    marginTop: 50,
+  },
+  largeAvatar: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    backgroundColor: theme.palette.primary.main,
+    '& i': {
+      fontSize: '30px',
+    },
   },
 }));
 
@@ -57,8 +65,8 @@ function Login({ loginFailure }) {
       <Grid>
         <Paper elevation={5} className={classes.paperStyle}>
           <Grid align="center">
-            <Avatar>
-              <LockSharpIcon />
+            <Avatar className={classes.largeAvatar}>
+              <i className="gi gi-dogtags" color="inherit" />
             </Avatar>
             <Typography variant="h5">Welcome to the Armory</Typography>
           </Grid>

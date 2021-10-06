@@ -9,6 +9,7 @@ import GunList from './GunList';
 import Guns from './Guns';
 import GunGrid from './GunGrid';
 import AmmoGrid from './AmmoGrid';
+import MainDrawer from './MainDrawer';
 
 export {
   Login,
@@ -22,4 +23,5 @@ export {
   Guns,
   GunGrid,
   AmmoGrid,
+  MainDrawer,
 };

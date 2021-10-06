@@ -9,12 +9,12 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
+import MainDrawer from './MainDrawer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,20 +64,10 @@ function NavBar({ handleThemeChange, darkState }) {
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
+          <MainDrawer />
           <Typography variant="h3" color="inherit" className={classes.title}>
             Armory
           </Typography>
-          <IconButton component={Link} to="/" color="inherit">
-            <i className="gi gi-gun" />
-          </IconButton>
-          <IconButton component={Link} to="/ammo" color="inherit">
-            <i className="gi gi-ammo" />
-          </IconButton>
-          {auth.user.role === 'ADMIN' && (
-            <IconButton component={Link} to="/admin" color="inherit">
-              <SettingsIcon />
-            </IconButton>
-          )}
           <IconButton onClick={handleThemeChange} color="inherit">
             {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
