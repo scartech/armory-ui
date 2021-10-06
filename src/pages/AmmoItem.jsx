@@ -126,6 +126,26 @@ function AmmoItem() {
     }
   };
 
+  const handleRoundCountChange = (e) => {
+    const { value } = e.target;
+    setRoundCount(value);
+
+    if (purchasePrice > 0) {
+      const perRound = purchasePrice / value;
+      setPricePerRound(perRound.toFixed(4));
+    }
+  };
+
+  const handlePriceChange = (e) => {
+    const { value } = e.target;
+    setPurchasePrice(value);
+
+    if (roundCount > 0) {
+      const perRound = value / roundCount;
+      setPricePerRound(perRound.toFixed(4));
+    }
+  };
+
   return (
     <>
       <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -164,7 +184,7 @@ function AmmoItem() {
             label="Round Count"
             value={roundCount}
             type="number"
-            onChange={(event) => setRoundCount(event.target.value)}
+            onChange={handleRoundCountChange}
             fullWidth
           />
           <TextField
@@ -195,7 +215,6 @@ function AmmoItem() {
             value={purchaseDate}
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
-            minDate={new Date()}
             InputLabelProps={{
               shrink: true,
             }}
@@ -212,7 +231,7 @@ function AmmoItem() {
             label="Purchase Price"
             value={purchasePrice}
             type="number"
-            onChange={(event) => setPurchasePrice(event.target.value)}
+            onChange={handlePriceChange}
             fullWidth
             InputProps={{
               startAdornment: (
@@ -227,6 +246,8 @@ function AmmoItem() {
             type="number"
             onChange={(event) => setPricePerRound(event.target.value)}
             fullWidth
+            disabled
+            color="primary"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
