@@ -160,13 +160,6 @@ function AmmoItem() {
           </Typography>
           <TextField
             className={classes.text}
-            label="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            fullWidth
-          />
-          <TextField
-            className={classes.text}
             label="Brand"
             value={brand}
             onChange={(event) => setBrand(event.target.value)}
@@ -181,10 +174,16 @@ function AmmoItem() {
           />
           <TextField
             className={classes.text}
-            label="Round Count"
-            value={roundCount}
-            type="number"
-            onChange={handleRoundCountChange}
+            label="Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            fullWidth
+          />
+          <TextField
+            className={classes.text}
+            label="Bullet Type"
+            value={bulletType}
+            onChange={(event) => setBulletType(event.target.value)}
             fullWidth
           />
           <TextField
@@ -196,9 +195,10 @@ function AmmoItem() {
           />
           <TextField
             className={classes.text}
-            label="Bullet Type"
-            value={bulletType}
-            onChange={(event) => setBulletType(event.target.value)}
+            label="Round Count"
+            value={roundCount}
+            type="number"
+            onChange={handleRoundCountChange}
             fullWidth
           />
           <TextField
