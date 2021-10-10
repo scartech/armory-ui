@@ -6,10 +6,11 @@ import GunCardItem from './GunCardItem';
 import UploadFile from './UploadFile';
 import HistoryCard from './HistoryCard';
 import GunList from './GunList';
-import Guns from './Guns';
+import GunsComponent from './GunsComponent';
 import GunGrid from './GunGrid';
 import AmmoGrid from './AmmoGrid';
 import MainDrawer from './MainDrawer';
+import Dashboard from './Dashboard';
 
 export {
   Login,
@@ -20,8 +21,9 @@ export {
   UploadFile,
   HistoryCard,
   GunList,
-  Guns,
+  GunsComponent,
   GunGrid,
   AmmoGrid,
   MainDrawer,
+  Dashboard,
 };

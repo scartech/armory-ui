@@ -104,7 +104,7 @@ function Pictures() {
       <form noValidate autoComplete="off">
         <Typography className={classes.title} variant="h4">
           {name}
-          <Link to="/">
+          <Link to="/guns">
             <Fab color="primary" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
@@ -161,7 +161,7 @@ function Pictures() {
         </Alert>
       </Snackbar>
       {fireRedirect && (
-        <Redirect to={{ pathname: '/', state: { savedGun: true } }} />
+        <Redirect to={{ pathname: '/guns', state: { savedGun: true } }} />
       )}
     </>
   );

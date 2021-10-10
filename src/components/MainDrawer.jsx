@@ -10,6 +10,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks';
@@ -52,6 +53,13 @@ function MainDrawer() {
       <Drawer anchor="left" open={open} onClose={toggleDrawer}>
         <List className={classes.list}>
           <ListItem button component={Link} to="/" onClick={toggleDrawer}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <Divider />
+          <ListItem button component={Link} to="/guns" onClick={toggleDrawer}>
             <ListItemIcon>
               <i className="gi gi-gun" />
             </ListItemIcon>

@@ -4,6 +4,7 @@ import UserService from './user.service';
 import ProfileService from './profile.service';
 import HistoryService from './history.service';
 import AmmoService from './ammo.service';
+import DashboardService from './dashboard.service';
 
 export {
   AuthService,
@@ -12,4 +13,5 @@ export {
   UserService,
   ProfileService,
   HistoryService,
+  DashboardService,
 };

@@ -127,7 +127,7 @@ function Profile() {
       <form noValidate autoComplete="off">
         <Typography className={classes.title} variant="h4">
           User Profile
-          <Link to="/">
+          <Link to="/guns">
             <Fab color="primary" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>

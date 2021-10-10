@@ -134,7 +134,7 @@ function Gun() {
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h4">
             {isNew ? 'New Gun' : 'Edit Gun'}
-            <Link to="/">
+            <Link to="/guns">
               <Fab color="primary" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
@@ -272,7 +272,7 @@ function Gun() {
           </Alert>
         </Snackbar>
         {fireRedirect && (
-          <Redirect to={{ pathname: '/', state: { savedGun: true } }} />
+          <Redirect to={{ pathname: '/guns', state: { savedGun: true } }} />
         )}
       </MuiPickersUtilsProvider>
     </>

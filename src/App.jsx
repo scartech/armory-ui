@@ -20,7 +20,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import PubSub from 'pubsub-js';
 import {
-  Home,
+  Guns,
   Ammo,
   AmmoItem,
   Admin,
@@ -31,6 +31,7 @@ import {
   Pictures,
   History,
   EditHistory,
+  Home,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks';
@@ -114,8 +115,9 @@ function App() {
               )}
               <Container maxWidth="xl">
                 <Switch>
-                  <PrivateRoute path="/" component={Home} exact />
                   <Route path="/login" component={Signin} />
+                  <PrivateRoute path="/" component={Home} exact />
+                  <PrivateRoute path="/guns" component={Guns} exact />
                   <PrivateRoute path="/gun" component={Gun} exact />
                   <PrivateRoute path="/images/:id" component={Pictures} exact />
                   <PrivateRoute path="/gun/:id" component={Gun} exact />
