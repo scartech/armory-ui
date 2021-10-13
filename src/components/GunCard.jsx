@@ -1,19 +1,11 @@
-import {
-  makeStyles,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  IconButton,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, IconButton, Grid, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import Carousel from 'react-gallery-carousel';
 import GunCardItem from './GunCardItem';
 import 'react-gallery-carousel/dist/index.css';
@@ -87,21 +79,21 @@ function GunCard({ gun, handleDeleteClick }) {
       </CardContent>
       <CardActions>
         <Link to={`/gun/${gun.id}`}>
-          <IconButton>
+          <IconButton size="large">
             <EditIcon />
           </IconButton>
         </Link>
         <Link to={`/images/${gun.id}`}>
-          <IconButton>
+          <IconButton size="large">
             <PhotoCameraIcon />
           </IconButton>
         </Link>
         <Link to={`/gun/${gun.id}/history`}>
-          <IconButton>
+          <IconButton size="large">
             <EventNoteIcon />
           </IconButton>
         </Link>
-        <IconButton onClick={() => handleDeleteClick(`${gun.id}`)}>
+        <IconButton onClick={() => handleDeleteClick(`${gun.id}`)} size="large">
           <DeleteIcon />
         </IconButton>
       </CardActions>

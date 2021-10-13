@@ -5,7 +5,6 @@ import {
   Typography,
   IconButton,
   Fab,
-  makeStyles,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,12 +12,14 @@ import {
   DialogTitle,
   Button,
   Snackbar,
-} from '@material-ui/core';
-import { Alert, Skeleton } from '@material-ui/lab';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
-import GridOnIcon from '@material-ui/icons/GridOn';
-import ViewCompactIcon from '@material-ui/icons/ViewCompact';
+  Alert,
+  Skeleton,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import ViewCompactIcon from '@mui/icons-material/ViewCompact';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
@@ -133,13 +134,14 @@ function Guns() {
         <Chip size="medium" label={count} className={classes.count} />
         <Fab
           color="primary"
+          variant="circular"
           className={classes.fab}
           onClick={handleUseGridClick}
         >
           {useGrid ? <ViewCompactIcon /> : <GridOnIcon />}
         </Fab>
         <Link to="/gun">
-          <Fab color="primary" className={classes.fab}>
+          <Fab color="primary" variant="circular" className={classes.fab}>
             <AddIcon />
           </Fab>
         </Link>
@@ -148,13 +150,13 @@ function Guns() {
         {loading ? (
           <>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
           </>
         ) : (

@@ -5,14 +5,14 @@ import {
   Divider,
   TextField,
   Typography,
-  makeStyles,
   Snackbar,
   IconButton,
   Fab,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { ProfileService } from '../services';
 
@@ -137,6 +137,7 @@ function Profile() {
           className={classes.text}
           label="Name"
           value={name}
+          variant="standard"
           onChange={(event) => setName(event.target.value)}
           fullWidth
         />
@@ -144,6 +145,7 @@ function Profile() {
           className={classes.text}
           label="Email"
           value={email}
+          variant="standard"
           onChange={(event) => setEmail(event.target.value)}
           fullWidth
           required
@@ -165,6 +167,7 @@ function Profile() {
           className={classes.text}
           label="Password"
           value={password}
+          variant="standard"
           type="password"
           onChange={(event) => setPassword(event.target.value)}
           fullWidth
@@ -173,6 +176,7 @@ function Profile() {
           className={classes.text}
           label="Confirm Password"
           value={passwordConfirm}
+          variant="standard"
           type="password"
           onChange={(event) => setPasswordConfirm(event.target.value)}
           fullWidth

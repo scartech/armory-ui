@@ -4,20 +4,18 @@ import {
   Button,
   TextField,
   Typography,
-  makeStyles,
   MenuItem,
   Snackbar,
   IconButton,
   Fab,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import MomentUtils from '@date-io/moment';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import DateAdapter from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { HistoryService } from '../services';
 import { HISTORY_TYPES } from '../utils';
@@ -110,7 +108,7 @@ function EditHistory() {
 
   return (
     <>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
+      <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h4">
             {isNew ? 'New History' : 'Edit History'}
@@ -125,6 +123,7 @@ function EditHistory() {
             label="Type"
             select
             value={type}
+            variant="standard"
             onChange={(event) => setType(event.target.value)}
             fullWidth
           >
@@ -138,25 +137,30 @@ function EditHistory() {
             className={classes.text}
             label="Name"
             value={name}
+            variant="standard"
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
-          <KeyboardDatePicker
-            className={classes.text}
+          <DatePicker
             clearable
             label="Date"
             value={eventDate}
             onChange={(date) => setEventDate(date)}
             format="MM/DD/yyyy"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            renderInput={(params) => (
+              <TextField
+                className={classes.text}
+                variant="standard"
+                {...params}
+              />
+            )}
           />
           <TextField
             className={classes.text}
             label="Round Count"
             value={roundCount}
             type="number"
+            variant="standard"
             onChange={(event) => setRoundCount(event.target.value)}
             fullWidth
           />
@@ -164,6 +168,7 @@ function EditHistory() {
             className={classes.text}
             label="Narrative"
             value={narrative}
+            variant="standard"
             onChange={(event) => setNarrative(event.target.value)}
             fullWidth
           />
@@ -205,7 +210,7 @@ function EditHistory() {
             }}
           />
         )}
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </>
   );
 }

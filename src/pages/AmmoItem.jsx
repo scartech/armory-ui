@@ -4,20 +4,18 @@ import {
   Button,
   TextField,
   Typography,
-  makeStyles,
   InputAdornment,
   Snackbar,
   IconButton,
   Fab,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import MomentUtils from '@date-io/moment';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import DateAdapter from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { AmmoService } from '../services';
 
@@ -148,7 +146,7 @@ function AmmoItem() {
 
   return (
     <>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
+      <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h4">
             {isNew ? 'New Ammo' : 'Edit Ammo'}
@@ -162,6 +160,7 @@ function AmmoItem() {
             className={classes.text}
             label="Brand"
             value={brand}
+            variant="standard"
             onChange={(event) => setBrand(event.target.value)}
             fullWidth
           />
@@ -169,6 +168,7 @@ function AmmoItem() {
             className={classes.text}
             label="Caliber"
             value={caliber}
+            variant="standard"
             onChange={(event) => setCaliber(event.target.value)}
             fullWidth
           />
@@ -176,6 +176,7 @@ function AmmoItem() {
             className={classes.text}
             label="Name"
             value={name}
+            variant="standard"
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
@@ -183,6 +184,7 @@ function AmmoItem() {
             className={classes.text}
             label="Bullet Type"
             value={bulletType}
+            variant="standard"
             onChange={(event) => setBulletType(event.target.value)}
             fullWidth
           />
@@ -190,6 +192,7 @@ function AmmoItem() {
             className={classes.text}
             label="Weight"
             value={weight}
+            variant="standard"
             onChange={(event) => setWeight(event.target.value)}
             fullWidth
           />
@@ -197,6 +200,7 @@ function AmmoItem() {
             className={classes.text}
             label="Round Count"
             value={roundCount}
+            variant="standard"
             type="number"
             onChange={handleRoundCountChange}
             fullWidth
@@ -205,24 +209,29 @@ function AmmoItem() {
             className={classes.text}
             label="Muzzle Velocity"
             value={muzzleVelocity}
+            variant="standard"
             onChange={(event) => setMuzzleVelocity(event.target.value)}
             fullWidth
           />
-          <KeyboardDatePicker
-            className={classes.text}
+          <DatePicker
             clearable
             label="Purchase Date"
             value={purchaseDate}
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            renderInput={(params) => (
+              <TextField
+                className={classes.text}
+                variant="standard"
+                {...params}
+              />
+            )}
           />
           <TextField
             className={classes.text}
             label="Purchased From"
             value={purchasedFrom}
+            variant="standard"
             onChange={(event) => setPurchasedFrom(event.target.value)}
             fullWidth
           />
@@ -230,6 +239,7 @@ function AmmoItem() {
             className={classes.text}
             label="Purchase Price"
             value={purchasePrice}
+            variant="standard"
             type="number"
             onChange={handlePriceChange}
             fullWidth
@@ -243,6 +253,7 @@ function AmmoItem() {
             className={classes.text}
             label="Price per Round"
             value={pricePerRound}
+            variant="standard"
             type="number"
             onChange={(event) => setPricePerRound(event.target.value)}
             fullWidth
@@ -287,7 +298,7 @@ function AmmoItem() {
         {fireRedirect && (
           <Redirect to={{ pathname: '/ammo', state: { savedAmmo: true } }} />
         )}
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </>
   );
 }

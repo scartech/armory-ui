@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Container, Typography, makeStyles } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { Container, Typography, Skeleton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useAuth } from '../hooks';
 import { DashboardService } from '../services';
 import { Dashboard } from '../components';
@@ -53,13 +53,13 @@ function Home() {
         {loading ? (
           <>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
           </>
         ) : (

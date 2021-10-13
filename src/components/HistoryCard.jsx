@@ -1,16 +1,9 @@
-import {
-  makeStyles,
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Card, CardActions, CardContent, IconButton, Grid, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import GunCardItem from './GunCardItem';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,11 +37,11 @@ function HistoryCard({ gunId, history, handleDeleteClick }) {
       </CardContent>
       <CardActions>
         <Link to={`/history/${gunId}/${history.id}`}>
-          <IconButton>
+          <IconButton size="large">
             <EditIcon />
           </IconButton>
         </Link>
-        <IconButton onClick={() => handleDeleteClick(`${history.id}`)}>
+        <IconButton onClick={() => handleDeleteClick(`${history.id}`)} size="large">
           <DeleteIcon />
         </IconButton>
       </CardActions>

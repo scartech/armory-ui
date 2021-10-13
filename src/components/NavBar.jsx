@@ -7,11 +7,11 @@ import {
   Typography,
   Menu,
   MenuItem,
-} from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import makeStyles from '@mui/styles/makeStyles';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import MainDrawer from './MainDrawer';
@@ -65,13 +65,18 @@ function NavBar({ handleThemeChange, darkState }) {
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <MainDrawer />
-          <Typography variant="h3" color="inherit" className={classes.title}>
+          <Typography variant="h3" className={classes.title}>
             Armory
           </Typography>
-          <IconButton onClick={handleThemeChange} color="inherit">
+          <IconButton onClick={handleThemeChange} size="large" color="inherit">
             {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-          <IconButton color="inherit" onClick={handleClick} ref={divRef}>
+          <IconButton
+            onClick={handleClick}
+            ref={divRef}
+            size="large"
+            color="inherit"
+          >
             <AccountCircle />
           </IconButton>
         </Toolbar>

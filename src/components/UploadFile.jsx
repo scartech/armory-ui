@@ -9,12 +9,12 @@ import {
   Grid,
   CardActions,
   IconButton,
-  makeStyles,
-} from '@material-ui/core';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import Carousel from 'react-gallery-carousel';
-import DeleteIcon from '@material-ui/icons/Delete';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import 'react-gallery-carousel/dist/index.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -92,10 +92,11 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
         <CardActions>
           <IconButton
             onClick={() => fileInputRef.current && fileInputRef.current.click()}
+            size="large"
           >
             <PhotoCameraIcon />
           </IconButton>
-          <IconButton onClick={() => handleDeleteClick()}>
+          <IconButton onClick={() => handleDeleteClick()} size="large">
             <DeleteIcon />
           </IconButton>
         </CardActions>

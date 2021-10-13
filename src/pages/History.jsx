@@ -2,16 +2,16 @@ import { useState, useEffect, Fragment } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import {
   Typography,
-  makeStyles,
   Snackbar,
   IconButton,
   Fab,
   Chip,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import AddIcon from '@material-ui/icons/Add';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddIcon from '@mui/icons-material/Add';
 import { useAuth } from '../hooks';
 import { GunService, HistoryService } from '../services';
 import { HistoryCard } from '../components';

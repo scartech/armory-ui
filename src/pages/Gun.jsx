@@ -4,21 +4,19 @@ import {
   Button,
   TextField,
   Typography,
-  makeStyles,
   MenuItem,
   InputAdornment,
   Snackbar,
   IconButton,
   Fab,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import MomentUtils from '@date-io/moment';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import DateAdapter from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
 import { ACTION_TYPES, GUN_TYPES } from '../utils';
@@ -130,12 +128,12 @@ function Gun() {
 
   return (
     <>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
+      <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h4">
             {isNew ? 'New Gun' : 'Edit Gun'}
             <Link to="/guns">
-              <Fab color="primary" className={classes.fab}>
+              <Fab color="primary" aria-label="back" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
             </Link>
@@ -144,6 +142,7 @@ function Gun() {
             className={classes.text}
             label="Name"
             value={name}
+            variant="standard"
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
@@ -151,6 +150,7 @@ function Gun() {
             className={classes.text}
             label="Serial Number"
             value={serialNumber}
+            variant="standard"
             onChange={(event) => setSerialNumber(event.target.value)}
             fullWidth
           />
@@ -158,6 +158,7 @@ function Gun() {
             className={classes.text}
             label="Manufacturer"
             value={manufacturer}
+            variant="standard"
             onChange={(event) => setManufacturer(event.target.value)}
             fullWidth
           />
@@ -165,6 +166,7 @@ function Gun() {
             className={classes.text}
             label="Model"
             value={modelName}
+            variant="standard"
             onChange={(event) => setModelName(event.target.value)}
             fullWidth
           />
@@ -173,6 +175,7 @@ function Gun() {
             label="Type"
             select
             value={type}
+            variant="standard"
             onChange={(event) => setType(event.target.value)}
             fullWidth
           >
@@ -187,6 +190,7 @@ function Gun() {
             label="Action"
             select
             value={action}
+            variant="standard"
             onChange={(event) => setAction(event.target.value)}
             fullWidth
           >
@@ -200,6 +204,7 @@ function Gun() {
             className={classes.text}
             label="Caliber"
             value={caliber}
+            variant="standard"
             onChange={(event) => setCaliber(event.target.value)}
             fullWidth
           />
@@ -207,6 +212,7 @@ function Gun() {
             className={classes.text}
             label="Dealer"
             value={dealer}
+            variant="standard"
             onChange={(event) => setDealer(event.target.value)}
             fullWidth
           />
@@ -214,6 +220,7 @@ function Gun() {
             className={classes.text}
             label="FFL"
             value={ffl}
+            variant="standard"
             onChange={(event) => setFfl(event.target.value)}
             fullWidth
           />
@@ -221,6 +228,7 @@ function Gun() {
             className={classes.text}
             label="Purchase Price"
             value={purchasePrice}
+            variant="standard"
             type="number"
             onChange={(event) => setPurchasePrice(event.target.value)}
             fullWidth
@@ -230,16 +238,19 @@ function Gun() {
               ),
             }}
           />
-          <KeyboardDatePicker
-            className={classes.text}
+          <DatePicker
             clearable
             label="Purchase Date"
             value={purchaseDate}
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            renderInput={(params) => (
+              <TextField
+                className={classes.text}
+                variant="standard"
+                {...params}
+              />
+            )}
           />
           <Button
             variant="contained"
@@ -274,7 +285,7 @@ function Gun() {
         {fireRedirect && (
           <Redirect to={{ pathname: '/guns', state: { savedGun: true } }} />
         )}
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </>
   );
 }

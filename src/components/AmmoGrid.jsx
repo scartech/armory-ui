@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function AmmoGrid({ ammo, handleDeleteClick }) {
   const columns = [
@@ -14,11 +14,14 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
       renderCell: (params) => (
         <div>
           <Link to={`/ammo/item/${params.id}`}>
-            <IconButton>
+            <IconButton size="large">
               <EditIcon />
             </IconButton>
           </Link>
-          <IconButton onClick={() => handleDeleteClick(`${params.id}`)}>
+          <IconButton
+            onClick={() => handleDeleteClick(`${params.id}`)}
+            size="large"
+          >
             <DeleteIcon />
           </IconButton>
         </div>
@@ -64,18 +67,18 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
   ];
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <DataGrid
         autoHeight
+        rows={ammo}
+        columns={columns}
+        pageSize={25}
+        rowsPerPageOptions={[25]}
         isRowSelectable={false}
         disableSelectionOnClick
         density="standard"
-        hideFooter
-        hideFooterPagination
-        rows={ammo}
-        columns={columns}
       />
-    </>
+    </div>
   );
 }
 

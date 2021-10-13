@@ -1,7 +1,6 @@
 import { useState, Fragment } from 'react';
-import { IconButton, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import CloseIcon from '@material-ui/icons/Close';
+import { IconButton, Snackbar, Alert } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { Login } from '../components';
 
 function Signin() {

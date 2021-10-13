@@ -11,7 +11,6 @@ import {
   Paper,
   IconButton,
   Fab,
-  makeStyles,
   Dialog,
   DialogActions,
   DialogContent,
@@ -19,12 +18,13 @@ import {
   DialogTitle,
   Button,
   Snackbar,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { UserService } from '../services';
@@ -132,13 +132,16 @@ function Admin() {
               <TableRow key={user.id}>
                 <TableCell width={40}>
                   <Link to={`/user/${user.id}`}>
-                    <IconButton>
+                    <IconButton size="large">
                       <EditIcon />
                     </IconButton>
                   </Link>
                 </TableCell>
                 <TableCell width={40}>
-                  <IconButton onClick={() => handleDeleteClick(`${user.id}`)}>
+                  <IconButton
+                    onClick={() => handleDeleteClick(`${user.id}`)}
+                    size="large"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

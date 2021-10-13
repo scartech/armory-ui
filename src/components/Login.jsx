@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import {
@@ -10,24 +10,24 @@ import {
   Button,
   Typography,
   InputAdornment,
-} from '@material-ui/core';
-import AlternateEmailSharpIcon from '@material-ui/icons/AlternateEmailSharp';
-import VpnKeySharpIcon from '@material-ui/icons/VpnKeySharp';
+} from '@mui/material';
+import AlternateEmailSharpIcon from '@mui/icons-material/AlternateEmailSharp';
+import VpnKeySharpIcon from '@mui/icons-material/VpnKeySharp';
 import { useAuth } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   textboxMargin: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   buttonStyle: {
-    margin: '30px 0',
+    margin: '20px 0',
   },
   paperStyle: {
     padding: 20,
-    height: '270px',
+    height: '265px',
     width: 280,
     margin: '0px auto',
-    marginTop: 50,
+    marginTop: 40,
   },
   largeAvatar: {
     width: theme.spacing(7),
@@ -72,6 +72,7 @@ function Login({ loginFailure }) {
           </Grid>
           <TextField
             placeholder="Enter email"
+            size="small"
             fullWidth
             required
             className={classes.textboxMargin}
@@ -89,6 +90,7 @@ function Login({ loginFailure }) {
             type="password"
             fullWidth
             required
+            size="small"
             className={classes.textboxMargin}
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{

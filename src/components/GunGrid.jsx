@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 
 function GunGrid({ guns, handleDeleteClick }) {
   const columns = [
@@ -16,21 +16,24 @@ function GunGrid({ guns, handleDeleteClick }) {
       renderCell: (params) => (
         <div>
           <Link to={`/gun/${params.id}`}>
-            <IconButton>
+            <IconButton size="large">
               <EditIcon />
             </IconButton>
           </Link>
           <Link to={`/images/${params.id}`}>
-            <IconButton>
+            <IconButton size="large">
               <PhotoCameraIcon />
             </IconButton>
           </Link>
           <Link to={`/gun/${params.id}/history`}>
-            <IconButton>
+            <IconButton size="large">
               <EventNoteIcon />
             </IconButton>
           </Link>
-          <IconButton onClick={() => handleDeleteClick(`${params.id}`)}>
+          <IconButton
+            onClick={() => handleDeleteClick(`${params.id}`)}
+            size="large"
+          >
             <DeleteIcon />
           </IconButton>
         </div>
@@ -85,10 +88,10 @@ function GunGrid({ guns, handleDeleteClick }) {
         isRowSelectable={false}
         disableSelectionOnClick
         density="standard"
-        hideFooter
-        hideFooterPagination
         rows={guns}
         columns={columns}
+        pageSize={25}
+        rowsPerPageOptions={[25]}
       />
     </>
   );

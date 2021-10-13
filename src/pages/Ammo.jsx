@@ -5,7 +5,6 @@ import {
   Typography,
   IconButton,
   Fab,
-  makeStyles,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,10 +12,12 @@ import {
   DialogTitle,
   Button,
   Snackbar,
-} from '@material-ui/core';
-import { Alert, Skeleton } from '@material-ui/lab';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
+  Alert,
+  Skeleton,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { AmmoService } from '../services';
@@ -123,17 +124,17 @@ function Ammo() {
           </Fab>
         </Link>
       </Typography>
-      <div className={classes.container}>
+      <div>
         {loading ? (
           <>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
             <div className={classes.skeletonContainer}>
-              <Skeleton variant="rect" height={250} />
+              <Skeleton variant="rectangular" height={250} />
             </div>
           </>
         ) : (

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@mui/material';
 
 function GunCardItem({ label, value }) {
   return (

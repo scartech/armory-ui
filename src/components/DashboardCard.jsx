@@ -1,28 +1,23 @@
 import PropTypes from 'prop-types';
-import {
-  makeStyles,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  Avatar,
-} from '@material-ui/core';
+import { Card, CardContent, Grid, Typography, Avatar } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
-    height: 150,
+    height: 160,
     margin: theme.spacing(2),
     '& i': {
       fontSize: '25px',
     },
   },
   largeAvatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    backgroundColor: theme.palette.primary.main,
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+    backgroundColor: theme.palette.secondary.main,
     '& i': {
-      fontSize: '30px',
+      fontSize: '40px',
     },
   },
 }));
@@ -38,7 +33,7 @@ function DashboardCard({ title, icon, message }) {
             {title}
           </Typography>
           <Avatar className={classes.largeAvatar}>{icon}</Avatar>
-          <Typography color="textSecondary" variant="h5" gutterBottom>
+          <Typography color="textSecondary" variant="h6" gutterBottom>
             {message}
           </Typography>
         </CardContent>

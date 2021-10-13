@@ -6,18 +6,13 @@ import {
   Redirect,
 } from 'react-router-dom';
 import {
-  createTheme,
   ThemeProvider,
+  StyledEngineProvider,
   Container,
   Paper,
-} from '@material-ui/core';
-import {
-  lightBlue,
-  deepPurple,
-  deepOrange,
-  orange,
-} from '@material-ui/core/colors';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import PubSub from 'pubsub-js';
 import {
   Guns,
@@ -52,10 +47,13 @@ function App() {
   const lightTheme = createTheme({
     palette: {
       primary: {
-        main: deepPurple[500],
+        main: '#1E40AF',
+        light: '#3B82F6',
+        dark: '#1E3A8A',
+        contrastText: '#ffffff',
       },
       secondary: {
-        main: lightBlue[500],
+        main: '#1E3A8A',
       },
     },
     typography: {
@@ -71,12 +69,12 @@ function App() {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: orange[500],
+        main: '#F9FAFB',
       },
       secondary: {
-        main: deepOrange[900],
+        main: '#ECFDF5',
       },
-      type: 'dark',
+      mode: 'dark',
     },
     typography: {
       fontFamily: 'Quicksand',
@@ -104,70 +102,80 @@ function App() {
   return (
     <>
       <Router>
-        <ThemeProvider theme={darkState ? darkTheme : lightTheme}>
-          <ProvideAuth>
-            <Paper className={classes.root}>
-              {!loggedOut && (
-                <NavBar
-                  handleThemeChange={handleThemeChange}
-                  darkState={darkState}
-                />
-              )}
-              <Container maxWidth="xl">
-                <Switch>
-                  <Route path="/login" component={Signin} />
-                  <PrivateRoute path="/" component={Home} exact />
-                  <PrivateRoute path="/guns" component={Guns} exact />
-                  <PrivateRoute path="/gun" component={Gun} exact />
-                  <PrivateRoute path="/images/:id" component={Pictures} exact />
-                  <PrivateRoute path="/gun/:id" component={Gun} exact />
-                  <PrivateRoute path="/ammo" component={Ammo} exact />
-                  <PrivateRoute path="/ammo/item" component={AmmoItem} exact />
-                  <PrivateRoute
-                    path="/ammo/item/:id"
-                    component={AmmoItem}
-                    exact
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={darkState ? darkTheme : lightTheme}>
+            <ProvideAuth>
+              <Paper className={classes.root}>
+                {!loggedOut && (
+                  <NavBar
+                    handleThemeChange={handleThemeChange}
+                    darkState={darkState}
                   />
-                  <PrivateRoute
-                    path="/gun/:gunId/history"
-                    component={History}
-                    exact
-                  />
-                  <PrivateRoute
-                    path="/history/:gunId"
-                    component={EditHistory}
-                    exact
-                  />
-                  <PrivateRoute
-                    path="/history/:gunId/:id"
-                    component={EditHistory}
-                    exact
-                  />
-                  <PrivateRoute
-                    path="/admin"
-                    roles={['ADMIN']}
-                    component={Admin}
-                    exact
-                  />
-                  <PrivateRoute
-                    path="/user"
-                    roles={['ADMIN']}
-                    component={User}
-                    exact
-                  />
-                  <PrivateRoute
-                    path="/user/:id"
-                    roles={['ADMIN']}
-                    component={User}
-                    exact
-                  />
-                  <PrivateRoute path="/profile" component={Profile} exact />
-                </Switch>
-                {loggedOut && <Redirect to={{ pathname: '/login' }} />}
-              </Container>
-            </Paper>
-          </ProvideAuth>
-        </ThemeProvider>
+                )}
+                <Container maxWidth="xl">
+                  <Switch>
+                    <Route path="/login" component={Signin} />
+                    <PrivateRoute path="/" component={Home} exact />
+                    <PrivateRoute path="/guns" component={Guns} exact />
+                    <PrivateRoute path="/gun" component={Gun} exact />
+                    <PrivateRoute
+                      path="/images/:id"
+                      component={Pictures}
+                      exact
+                    />
+                    <PrivateRoute path="/gun/:id" component={Gun} exact />
+                    <PrivateRoute path="/ammo" component={Ammo} exact />
+                    <PrivateRoute
+                      path="/ammo/item"
+                      component={AmmoItem}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/ammo/item/:id"
+                      component={AmmoItem}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/gun/:gunId/history"
+                      component={History}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/history/:gunId"
+                      component={EditHistory}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/history/:gunId/:id"
+                      component={EditHistory}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/admin"
+                      roles={['ADMIN']}
+                      component={Admin}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/user"
+                      roles={['ADMIN']}
+                      component={User}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/user/:id"
+                      roles={['ADMIN']}
+                      component={User}
+                      exact
+                    />
+                    <PrivateRoute path="/profile" component={Profile} exact />
+                  </Switch>
+                  {loggedOut && <Redirect to={{ pathname: '/login' }} />}
+                </Container>
+              </Paper>
+            </ProvideAuth>
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     </>
   );

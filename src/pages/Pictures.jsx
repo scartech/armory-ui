@@ -4,14 +4,14 @@ import {
   Button,
   Divider,
   Typography,
-  makeStyles,
   Snackbar,
   IconButton,
   Fab,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+  Alert,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
 import { UploadFile } from '../components';
