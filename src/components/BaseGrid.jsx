@@ -1,59 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { DataGrid } from '@mui/x-data-grid';
+import PubSub from 'pubsub-js';
+import ReactDataGrid from '@inovua/reactdatagrid-community';
+import '@inovua/reactdatagrid-community/base.css';
+import '@inovua/reactdatagrid-community/theme/default-light.css';
+import '@inovua/reactdatagrid-community/theme/default-dark.css';
 
-function BaseGrid({ rows, columns, storageKey }) {
-  const [sortModel, setSortModel] = useState(() => {
-    const model =
-      JSON.parse(localStorage.getItem(`${storageKey}-sortmodel`)) ?? [];
-    return model;
+function BaseGrid({ rows, columns }) {
+  const [theme, setTheme] = useState(() => {
+    const useDark = localStorage.getItem('darkState') === 'true';
+    return useDark ? 'default-dark' : 'default-light';
   });
 
-  const [hiddenColumns, setHiddenColumns] = useState(() => {
-    const storageColumns =
-      JSON.parse(localStorage.getItem(`${storageKey}-hiddencolumns`)) ?? [];
-    return storageColumns;
+  PubSub.subscribe('THEME-CHANGE', (msg, data) => {
+    setTheme(data ? 'default-dark' : 'default-light');
   });
-
-  const handleColumnVisibilityChange = (params) => {
-    let newHiddenColumns;
-    const { field, isVisible } = params;
-
-    if (isVisible) {
-      newHiddenColumns = hiddenColumns.filter((x) => x !== params.field);
-    } else {
-      newHiddenColumns = [...hiddenColumns, field];
-    }
-
-    setHiddenColumns(newHiddenColumns);
-  };
-
-  const handleSortModelChange = (model) => {
-    setSortModel(model);
-    localStorage.setItem(`${storageKey}-sortmodel`, JSON.stringify(model));
-  };
-
-  useEffect(() => {
-    localStorage.setItem(
-      `${storageKey}-hiddencolumns`,
-      JSON.stringify(hiddenColumns),
-    );
-  }, [hiddenColumns, storageKey]);
 
   return (
     <>
-      <DataGrid
-        autoHeight
-        isRowSelectable={() => false}
-        disableSelectionOnClick
-        density="standard"
-        rows={rows}
+      <ReactDataGrid
+        idProperty="id"
         columns={columns}
-        pageSize={25}
-        rowsPerPageOptions={[25]}
-        onColumnVisibilityChange={handleColumnVisibilityChange}
-        onSortModelChange={handleSortModelChange}
-        sortModel={sortModel}
+        dataSource={rows}
+        theme={theme}
       />
     </>
   );
@@ -62,7 +31,6 @@ function BaseGrid({ rows, columns, storageKey }) {
 BaseGrid.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  storageKey: PropTypes.string.isRequired,
 };
 
 export default BaseGrid;

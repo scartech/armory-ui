@@ -92,6 +92,7 @@ function App() {
 
   const handleThemeChange = () => {
     localStorage.setItem('darkState', !darkState);
+    PubSub.publish('THEME-CHANGE', !darkState);
     setDarkState(!darkState);
   };
 

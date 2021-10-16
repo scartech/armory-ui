@@ -10,94 +10,79 @@ import BaseGrid from './BaseGrid';
 const gridStorageKey = 'gungrid';
 
 function GunGrid({ guns, handleDeleteClick }) {
-  const hiddenColumnNames =
-    JSON.parse(localStorage.getItem(`${gridStorageKey}-hiddencolumns`)) ?? [];
-
   const columns = [
     {
-      field: 'id',
-      hide: hiddenColumnNames.includes('id'),
-      headerName: 'Edit',
-      minWidth: 200,
-      renderCell: (params) => (
-        <div>
-          <Link to={`/gun/${params.id}`}>
-            <IconButton size="large">
-              <EditIcon />
-            </IconButton>
-          </Link>
-          <Link to={`/images/${params.id}`}>
-            <IconButton size="large">
-              <PhotoCameraIcon />
-            </IconButton>
-          </Link>
-          <Link to={`/gun/${params.id}/history`}>
-            <IconButton size="large">
-              <EventNoteIcon />
-            </IconButton>
-          </Link>
-          <IconButton
-            onClick={() => handleDeleteClick(`${params.id}`)}
-            size="large"
-          >
-            <DeleteIcon />
+      name: 'id',
+      header: 'Ops',
+      width: 210,
+      render: (value) => [
+        <Link to={`/gun/${value.data.id}`}>
+          <IconButton size="large">
+            <EditIcon />
           </IconButton>
-        </div>
-      ),
+        </Link>,
+        <Link to={`/images/${value.data.id}`}>
+          <IconButton size="large">
+            <PhotoCameraIcon />
+          </IconButton>
+        </Link>,
+        <Link to={`/gun/${value.data.id}/history`}>
+          <IconButton size="large">
+            <EventNoteIcon />
+          </IconButton>
+        </Link>,
+        <IconButton
+          onClick={() => handleDeleteClick(`${value.data.id}`)}
+          size="large"
+        >
+          <DeleteIcon />
+        </IconButton>,
+      ],
     },
     {
-      field: 'name',
-      hide: hiddenColumnNames.includes('name'),
-      headerName: 'Name',
-      flex: 1,
+      name: 'name',
+      header: 'Name',
+      defaultFlex: 1,
     },
     {
-      field: 'manufacturer',
-      hide: hiddenColumnNames.includes('manufacturer'),
-      headerName: 'Manufacturer',
-      flex: 1,
+      name: 'manufacturer',
+      header: 'Manufacturer',
+      defaultFlex: 1,
     },
     {
-      field: 'modelName',
-      hide: hiddenColumnNames.includes('modelName'),
-      headerName: 'Model',
-      flex: 1,
+      name: 'modelName',
+      header: 'Model',
+      defaultFlex: 1,
     },
     {
-      field: 'serialNumber',
-      hide: hiddenColumnNames.includes('serialNumber'),
-      headerName: 'Serial Number',
-      flex: 1,
+      name: 'serialNumber',
+      header: 'Serial Number',
+      defaultFlex: 1,
     },
     {
-      field: 'type',
-      hide: hiddenColumnNames.includes('type'),
-      headerName: 'Type',
-      flex: 1,
+      name: 'type',
+      header: 'Type',
+      defaultFlex: 1,
     },
     {
-      field: 'action',
-      hide: hiddenColumnNames.includes('action'),
-      headerName: 'Action',
-      flex: 1,
+      name: 'action',
+      header: 'Action',
+      defaultFlex: 1,
     },
     {
-      field: 'caliber',
-      hide: hiddenColumnNames.includes('caliber'),
-      headerName: 'Caliber',
-      flex: 1,
+      name: 'caliber',
+      header: 'Caliber',
+      defaultFlex: 1,
     },
     {
-      field: 'dealer',
-      hide: hiddenColumnNames.includes('dealer'),
-      headerName: 'Dealer',
-      flex: 1,
+      name: 'dealer',
+      header: 'Dealer',
+      defaultFlex: 1,
     },
     {
-      field: 'ffl',
-      hide: hiddenColumnNames.includes('ffl'),
-      headerName: 'FFL',
-      flex: 1,
+      name: 'ffl',
+      header: 'FFL',
+      defaultFlex: 1,
     },
   ];
 

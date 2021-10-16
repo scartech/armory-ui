@@ -8,84 +8,95 @@ import BaseGrid from './BaseGrid';
 const gridStorageKey = 'ammogrid';
 
 function AmmoGrid({ ammo, handleDeleteClick }) {
-  const hiddenColumnNames =
-    JSON.parse(localStorage.getItem(`${gridStorageKey}-hiddencolumns`)) ?? [];
+  const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 4,
+  });
+
+  const numberFormatter = new Intl.NumberFormat('en-US');
 
   const columns = [
     {
-      field: 'id',
-      headerName: 'Edit',
-      minWidth: 120,
-      hide: hiddenColumnNames.includes('id'),
-      renderCell: (params) => (
-        <div>
-          <Link to={`/ammo/item/${params.id}`}>
-            <IconButton size="large">
-              <EditIcon />
-            </IconButton>
-          </Link>
-          <IconButton
-            onClick={() => handleDeleteClick(`${params.id}`)}
-            size="large"
-          >
-            <DeleteIcon />
+      name: 'id',
+      header: 'Ops',
+      width: 120,
+      render: (value) => [
+        <Link to={`/ammo/item/${value.data.id}`}>
+          <IconButton size="large">
+            <EditIcon />
           </IconButton>
-        </div>
-      ),
+        </Link>,
+        <IconButton
+          onClick={() => handleDeleteClick(`${value.data.id}`)}
+          size="large"
+        >
+          <DeleteIcon />
+        </IconButton>,
+      ],
     },
     {
-      field: 'caliber',
-      headerName: 'Caliber',
-      hide: hiddenColumnNames.includes('caliber'),
-      flex: 1,
+      name: 'caliber',
+      header: 'Caliber',
+      defaultFlex: 1,
     },
     {
-      field: 'name',
-      headerName: 'Name',
-      hide: hiddenColumnNames.includes('name'),
-      flex: 1,
+      name: 'name',
+      header: 'Name',
+      defaultFlex: 1,
     },
     {
-      field: 'brand',
-      headerName: 'Brand',
-      hide: hiddenColumnNames.includes('brand'),
-      flex: 1,
+      name: 'brand',
+      header: 'Brand',
+      defaultFlex: 1,
     },
     {
-      field: 'weight',
-      headerName: 'Weight',
-      hide: hiddenColumnNames.includes('weight'),
-      flex: 1,
+      name: 'weight',
+      header: 'Weight',
+      defaultFlex: 1,
     },
     {
-      field: 'bulletType',
-      headerName: 'Bullet Type',
-      hide: hiddenColumnNames.includes('bulletType'),
-      flex: 1,
+      name: 'bulletType',
+      header: 'Bullet Type',
+      defaultFlex: 1,
     },
     {
-      field: 'roundCount',
-      headerName: 'Round Count',
-      hide: hiddenColumnNames.includes('roundCount'),
-      flex: 1,
+      name: 'roundCount',
+      header: 'Round Count',
+      defaultFlex: 1,
+      render: (value) => {
+        const val = value?.data
+          ? numberFormatter.format(value.data.roundCount)
+          : '$0.00';
+        return val;
+      },
     },
     {
-      field: 'purchasedFrom',
-      headerName: 'Purchased From',
-      hide: hiddenColumnNames.includes('purchasedFrom'),
-      flex: 1,
+      name: 'purchasedFrom',
+      header: 'Purchased From',
+      defaultFlex: 1,
     },
     {
-      field: 'purchasePrice',
-      headerName: 'Purchase Price',
-      hide: hiddenColumnNames.includes('purchasePrice'),
-      flex: 1,
+      name: 'purchasePrice',
+      header: 'Purchase Price',
+      defaultFlex: 1,
+      render: (value) => {
+        const val = value?.data
+          ? currencyFormatter.format(value.data.purchasePrice)
+          : '$0.00';
+        return val;
+      },
     },
     {
-      field: 'pricePerRound',
-      headerName: 'Price Per Round',
-      hide: hiddenColumnNames.includes('pricePerRound'),
-      flex: 1,
+      name: 'pricePerRound',
+      header: 'Price Per Round',
+      defaultFlex: 1,
+      render: (value) => {
+        const val = value?.data
+          ? currencyFormatter.format(value.data.pricePerRound)
+          : '$0.00';
+        return val;
+      },
     },
   ];
 
