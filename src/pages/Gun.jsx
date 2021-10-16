@@ -10,6 +10,7 @@ import {
   IconButton,
   Fab,
   Alert,
+  Autocomplete,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -19,7 +20,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
-import { ACTION_TYPES, GUN_TYPES } from '../utils';
+import { ACTION_TYPES, GUN_TYPES, CALIBER_TYPES } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -200,13 +201,21 @@ function Gun() {
               </MenuItem>
             ))}
           </TextField>
-          <TextField
-            className={classes.text}
-            label="Caliber"
+          <Autocomplete
+            freeSolo
+            autoSelect
+            options={CALIBER_TYPES}
             value={caliber}
-            variant="standard"
-            onChange={(event) => setCaliber(event.target.value)}
-            fullWidth
+            onChange={(event, value) => setCaliber(value)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                className={classes.text}
+                variant="standard"
+                label="Caliber"
+                fullWidth
+              />
+            )}
           />
           <TextField
             className={classes.text}
