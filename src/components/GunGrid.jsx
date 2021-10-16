@@ -85,7 +85,7 @@ function GunGrid({ guns, handleDeleteClick }) {
     <>
       <DataGrid
         autoHeight
-        isRowSelectable={false}
+        isRowSelectable={() => false}
         disableSelectionOnClick
         density="standard"
         rows={guns}

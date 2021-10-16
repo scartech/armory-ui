@@ -74,7 +74,7 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
         columns={columns}
         pageSize={25}
         rowsPerPageOptions={[25]}
-        isRowSelectable={false}
+        isRowSelectable={() => false}
         disableSelectionOnClick
         density="standard"
       />
