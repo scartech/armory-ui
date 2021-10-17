@@ -21,6 +21,8 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
       name: 'id',
       header: 'Ops',
       width: 120,
+      sortable: false,
+      draggable: false,
       render: (value) => [
         <Link to={`/ammo/item/${value.data.id}`}>
           <IconButton size="large">
@@ -102,7 +104,7 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
 
   return (
     <div style={{ width: '100%' }}>
-      <BaseGrid rows={ammo} columns={columns} storageKey={gridStorageKey} />
+      <BaseGrid data={ammo} columns={columns} storageKey={gridStorageKey} />
     </div>
   );
 }
