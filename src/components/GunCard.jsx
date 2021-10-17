@@ -1,4 +1,13 @@
-import { Card, CardActions, CardContent, CardMedia, IconButton, Grid, Typography } from '@mui/material';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Grid,
+  Typography,
+} from '@mui/material';
+import { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,6 +17,8 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import Carousel from 'react-gallery-carousel';
 import GunCardItem from './GunCardItem';
+import { useAuth } from '../hooks';
+import { GunService } from '../services';
 import 'react-gallery-carousel/dist/index.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,25 +35,80 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GunCard({ gun, handleDeleteClick }) {
+  const auth = useAuth();
   const classes = useStyles();
 
-  const images = [
-    {
-      src: gun.frontImage
-        ? gun.frontImage
-        : 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Front%20Image',
-    },
-    {
-      src: gun.backImage
-        ? gun.backImage
-        : 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Rear%20Image',
-    },
-    {
-      src: gun.serialImage
-        ? gun.serialImage
-        : 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Serial%20Image',
-    },
-  ];
+  const [frontImage, setFrontImage] = useState({
+    type: 'front',
+    src: 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Front%20Image',
+  });
+
+  const [backImage, setBackImage] = useState({
+    type: 'back',
+    src: 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Back%20Image',
+  });
+
+  const [serialImage, setSerialImage] = useState({
+    type: 'serial',
+    src: 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Serial%20Image',
+  });
+
+  const [receiptImage, setReceiptImage] = useState({
+    type: 'receipt',
+    src: 'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Receipt%20Image',
+  });
+
+  const [images, setImages] = useState([
+    frontImage,
+    backImage,
+    serialImage,
+    receiptImage,
+  ]);
+
+  useEffect(() => {
+    async function fetchImage(type) {
+      const image = await GunService.getImage(auth.user, gun.id, type);
+
+      if (image) {
+        switch (type) {
+          case 'front':
+            setFrontImage(image);
+            break;
+          case 'back':
+            setBackImage(image);
+            break;
+          case 'serial':
+            setSerialImage(image);
+            break;
+          case 'receipt':
+            setReceiptImage(image);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (gun.hasFrontRawImage) {
+      fetchImage('front');
+    }
+
+    if (gun.hasBackRawImage) {
+      fetchImage('back');
+    }
+
+    if (gun.hasSerialRawImage) {
+      fetchImage('serial');
+    }
+
+    if (gun.hasReceiptRawImage) {
+      fetchImage('receipt');
+    }
+  }, [gun, auth.user]);
+
+  useEffect(() => {
+    setImages([frontImage, backImage, serialImage, receiptImage]);
+  }, [frontImage, backImage, serialImage, receiptImage]);
 
   return (
     <Card className={classes.root}>

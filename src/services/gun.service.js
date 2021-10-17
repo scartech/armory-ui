@@ -47,6 +47,48 @@ class GunService {
    *
    * @param {*} user
    * @param {*} id
+   * @param {*} type
+   * @returns
+   */
+  static async getImage(user, id, type) {
+    if (!user) {
+      return undefined;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.get(`/api/guns/images/${id}/${type}`);
+      return res.data;
+    } catch (error) {
+      return undefined;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @param {*} id
+   * @param {*} type
+   * @returns
+   */
+  static async getImages(user, id) {
+    if (!user) {
+      return undefined;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.get(`/api/guns/images/${id}`);
+      return res.data;
+    } catch (error) {
+      return undefined;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @param {*} id
    * @param {*} data
    * @returns
    */

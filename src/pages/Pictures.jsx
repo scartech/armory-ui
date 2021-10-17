@@ -55,6 +55,7 @@ function Pictures() {
   const [frontImageSrc, setFrontImageSrc] = useState(DEFAULT_IMG);
   const [backImageSrc, setBackImageSrc] = useState(DEFAULT_IMG);
   const [serialImageSrc, setSerialImageSrc] = useState(DEFAULT_IMG);
+  const [receiptImageSrc, setReceiptImageSrc] = useState(DEFAULT_IMG);
   const [fireRedirect, setFireRedirect] = useState(false);
 
   const handleClose = () => {
@@ -68,6 +69,7 @@ function Pictures() {
       frontImage: frontImageSrc,
       backImage: backImageSrc,
       serialImage: serialImageSrc,
+      receiptImage: receiptImageSrc,
     };
 
     setOpen(false);
@@ -84,12 +86,13 @@ function Pictures() {
 
   useEffect(() => {
     async function fetchGun() {
-      const gun = await GunService.get(auth.user, id);
+      const gun = await GunService.getImages(auth.user, id);
       if (gun) {
         setName(gun.name);
         setFrontImageSrc(gun.frontImage ?? DEFAULT_IMG);
         setBackImageSrc(gun.backImage ?? DEFAULT_IMG);
         setSerialImageSrc(gun.serialImage ?? DEFAULT_IMG);
+        setReceiptImageSrc(gun.receiptImage ?? DEFAULT_IMG);
       }
     }
 
@@ -129,6 +132,13 @@ function Pictures() {
           name="Serial Number"
           imageSrc={serialImageSrc}
           setImageSrc={setSerialImageSrc}
+        />
+        <Divider variant="middle" className={classes.divider} />
+        <UploadFile
+          key="receipt"
+          name="Receipt"
+          imageSrc={receiptImageSrc}
+          setImageSrc={setReceiptImageSrc}
         />
         <Button
           variant="contained"
