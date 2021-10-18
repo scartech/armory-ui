@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import Icon from '@mdi/react';
-import { mdiPistol } from '@mdi/js';
+import { mdiPistol, mdiDotsHexagon } from '@mdi/js';
 import DashboardCard from './DashboardCard';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -29,6 +29,11 @@ function Dashboard({ data }) {
         title="Pistols"
         icon={<Icon path={mdiPistol} size={1.5} />}
         message={`${numberFormatter.format(data.pistolCount)}`}
+      />
+      <DashboardCard
+        title="Shotguns"
+        icon={<Icon path={mdiDotsHexagon} size={1.5} />}
+        message={`${numberFormatter.format(data.shotgunCount)}`}
       />
       <DashboardCard
         title="Rounds Purchased"
