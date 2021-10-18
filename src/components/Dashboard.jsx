@@ -46,12 +46,12 @@ function Dashboard({ data }) {
         message={`${currencyFormatter.format(data.totalInvestment)}`}
       />
       <DashboardCard
-        title="Total Gun Investment"
+        title="Gun Investment"
         icon={<i className="gi gi-usd" />}
         message={`${currencyFormatter.format(data.totalGunCost)}`}
       />
       <DashboardCard
-        title="Total Ammo Investment"
+        title="Ammo Investment"
         icon={<i className="gi gi-usd" />}
         message={`${currencyFormatter.format(data.totalAmmoCost)}`}
       />
