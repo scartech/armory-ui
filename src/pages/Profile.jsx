@@ -17,9 +17,6 @@ import { useAuth } from '../hooks';
 import { ProfileService } from '../services';
 
 const useStyles = makeStyles((theme) => ({
-  text: {
-    marginBottom: theme.spacing(2),
-  },
   title: {
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
@@ -134,18 +131,18 @@ function Profile() {
           </Link>
         </Typography>
         <TextField
-          className={classes.text}
           label="Name"
           value={name}
           variant="standard"
+          margin="normal"
           onChange={(event) => setName(event.target.value)}
           fullWidth
         />
         <TextField
-          className={classes.text}
           label="Email"
           value={email}
           variant="standard"
+          margin="normal"
           onChange={(event) => setEmail(event.target.value)}
           fullWidth
           required
@@ -164,20 +161,20 @@ function Profile() {
           Change Password
         </Typography>
         <TextField
-          className={classes.text}
           label="Password"
           value={password}
           variant="standard"
           type="password"
+          margin="normal"
           onChange={(event) => setPassword(event.target.value)}
           fullWidth
         />
         <TextField
-          className={classes.text}
           label="Confirm Password"
           value={passwordConfirm}
           variant="standard"
           type="password"
+          margin="normal"
           onChange={(event) => setPasswordConfirm(event.target.value)}
           fullWidth
         />

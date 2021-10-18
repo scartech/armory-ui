@@ -21,9 +21,6 @@ import { HistoryService } from '../services';
 import { HISTORY_TYPES } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
-  text: {
-    marginBottom: theme.spacing(2),
-  },
   title: {
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
@@ -119,11 +116,11 @@ function EditHistory() {
             </Link>
           </Typography>
           <TextField
-            className={classes.text}
             label="Type"
             select
             value={type}
             variant="standard"
+            margin="normal"
             onChange={(event) => setType(event.target.value)}
             fullWidth
           >
@@ -134,10 +131,10 @@ function EditHistory() {
             ))}
           </TextField>
           <TextField
-            className={classes.text}
             label="Name"
             value={name}
             variant="standard"
+            margin="normal"
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
@@ -148,27 +145,23 @@ function EditHistory() {
             onChange={(date) => setEventDate(date)}
             format="MM/DD/yyyy"
             renderInput={(params) => (
-              <TextField
-                className={classes.text}
-                variant="standard"
-                {...params}
-              />
+              <TextField variant="standard" margin="normal" {...params} />
             )}
           />
           <TextField
-            className={classes.text}
             label="Round Count"
             value={roundCount}
             type="number"
             variant="standard"
+            margin="normal"
             onChange={(event) => setRoundCount(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Narrative"
             value={narrative}
             variant="standard"
+            margin="normal"
             onChange={(event) => setNarrative(event.target.value)}
             fullWidth
           />

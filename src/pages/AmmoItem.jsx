@@ -22,9 +22,6 @@ import { AmmoService } from '../services';
 import { CALIBER_TYPES } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
-  text: {
-    marginBottom: theme.spacing(2),
-  },
   title: {
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
@@ -159,10 +156,10 @@ function AmmoItem() {
             </Link>
           </Typography>
           <TextField
-            className={classes.text}
             label="Brand"
             value={brand}
             variant="standard"
+            margin="normal"
             onChange={(event) => setBrand(event.target.value)}
             fullWidth
           />
@@ -175,7 +172,7 @@ function AmmoItem() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                className={classes.text}
+                margin="normal"
                 variant="standard"
                 label="Caliber"
                 fullWidth
@@ -183,43 +180,34 @@ function AmmoItem() {
             )}
           />
           <TextField
-            className={classes.text}
             label="Name"
             value={name}
             variant="standard"
+            margin="normal"
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Bullet Type"
             value={bulletType}
             variant="standard"
+            margin="normal"
             onChange={(event) => setBulletType(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Weight"
             value={weight}
             variant="standard"
+            margin="normal"
             onChange={(event) => setWeight(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
-            label="Round Count"
-            value={roundCount}
-            variant="standard"
-            type="number"
-            onChange={handleRoundCountChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.text}
             label="Muzzle Velocity"
             value={muzzleVelocity}
             variant="standard"
+            margin="normal"
             onChange={(event) => setMuzzleVelocity(event.target.value)}
             fullWidth
           />
@@ -230,27 +218,32 @@ function AmmoItem() {
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
             renderInput={(params) => (
-              <TextField
-                className={classes.text}
-                variant="standard"
-                {...params}
-              />
+              <TextField margin="normal" variant="standard" {...params} />
             )}
           />
           <TextField
-            className={classes.text}
             label="Purchased From"
             value={purchasedFrom}
             variant="standard"
+            margin="normal"
             onChange={(event) => setPurchasedFrom(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
+            label="Round Count"
+            value={roundCount}
+            variant="standard"
+            type="number"
+            margin="normal"
+            onChange={handleRoundCountChange}
+            fullWidth
+          />
+          <TextField
             label="Purchase Price"
             value={purchasePrice}
             variant="standard"
             type="number"
+            margin="normal"
             onChange={handlePriceChange}
             fullWidth
             InputProps={{
@@ -260,11 +253,11 @@ function AmmoItem() {
             }}
           />
           <TextField
-            className={classes.text}
             label="Price per Round"
             value={pricePerRound}
             variant="standard"
             type="number"
+            margin="normal"
             onChange={(event) => setPricePerRound(event.target.value)}
             fullWidth
             disabled

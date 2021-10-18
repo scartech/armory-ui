@@ -23,9 +23,6 @@ import { GunService } from '../services';
 import { ACTION_TYPES, GUN_TYPES, CALIBER_TYPES } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
-  text: {
-    marginBottom: theme.spacing(2),
-  },
   title: {
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
@@ -140,43 +137,43 @@ function Gun() {
             </Link>
           </Typography>
           <TextField
-            className={classes.text}
             label="Name"
             value={name}
             variant="standard"
+            margin="normal"
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Serial Number"
             value={serialNumber}
             variant="standard"
+            margin="normal"
             onChange={(event) => setSerialNumber(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Manufacturer"
             value={manufacturer}
             variant="standard"
+            margin="normal"
             onChange={(event) => setManufacturer(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Model"
             value={modelName}
             variant="standard"
+            margin="normal"
             onChange={(event) => setModelName(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Type"
             select
             value={type}
             variant="standard"
+            margin="normal"
             onChange={(event) => setType(event.target.value)}
             fullWidth
           >
@@ -187,11 +184,11 @@ function Gun() {
             ))}
           </TextField>
           <TextField
-            className={classes.text}
             label="Action"
             select
             value={action}
             variant="standard"
+            margin="normal"
             onChange={(event) => setAction(event.target.value)}
             fullWidth
           >
@@ -210,35 +207,35 @@ function Gun() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                className={classes.text}
                 variant="standard"
                 label="Caliber"
+                margin="normal"
                 fullWidth
               />
             )}
           />
           <TextField
-            className={classes.text}
             label="Dealer"
             value={dealer}
             variant="standard"
+            margin="normal"
             onChange={(event) => setDealer(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="FFL"
             value={ffl}
             variant="standard"
+            margin="normal"
             onChange={(event) => setFfl(event.target.value)}
             fullWidth
           />
           <TextField
-            className={classes.text}
             label="Purchase Price"
             value={purchasePrice}
             variant="standard"
             type="number"
+            margin="normal"
             onChange={(event) => setPurchasePrice(event.target.value)}
             fullWidth
             InputProps={{
@@ -254,11 +251,7 @@ function Gun() {
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
             renderInput={(params) => (
-              <TextField
-                className={classes.text}
-                variant="standard"
-                {...params}
-              />
+              <TextField variant="standard" margin="normal" {...params} />
             )}
           />
           <Button
