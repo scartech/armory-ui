@@ -44,7 +44,7 @@ function EditHistory() {
   const [narrative, setNarrative] = useState('');
   const [type, setType] = useState('Range Day');
   const [roundCount, setRoundCount] = useState(0);
-  const [eventDate, setEventDate] = useState('');
+  const [eventDate, setEventDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
