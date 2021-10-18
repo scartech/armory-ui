@@ -7,15 +7,15 @@ import BaseGrid from './BaseGrid';
 
 const gridStorageKey = 'ammogrid';
 
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 4,
+});
+
+const numberFormatter = new Intl.NumberFormat('en-US');
+
 function AmmoGrid({ ammo, handleDeleteClick }) {
-  const currencyFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 4,
-  });
-
-  const numberFormatter = new Intl.NumberFormat('en-US');
-
   const columns = [
     {
       name: 'id',
