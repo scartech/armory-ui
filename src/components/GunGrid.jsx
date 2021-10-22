@@ -86,11 +86,7 @@ function GunGrid({ guns, handleDeleteClick }) {
     },
   ];
 
-  return (
-    <>
-      <BaseGrid data={guns} columns={columns} storageKey={gridStorageKey} />
-    </>
-  );
+  return <BaseGrid data={guns} columns={columns} storageKey={gridStorageKey} />;
 }
 
 GunGrid.propTypes = {

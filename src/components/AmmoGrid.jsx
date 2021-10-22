@@ -102,11 +102,7 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
     },
   ];
 
-  return (
-    <div style={{ width: '100%' }}>
-      <BaseGrid data={ammo} columns={columns} storageKey={gridStorageKey} />
-    </div>
-  );
+  return <BaseGrid data={ammo} columns={columns} storageKey={gridStorageKey} />;
 }
 
 AmmoGrid.propTypes = {

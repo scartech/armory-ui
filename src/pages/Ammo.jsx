@@ -114,7 +114,7 @@ function Ammo() {
   }, [savedAmmo]);
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" className={classes.container}>
       <Typography className={classes.title} variant="h4">
         Ammo
         <Chip size="medium" label={count} className={classes.count} />

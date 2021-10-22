@@ -7,6 +7,15 @@ import '@inovua/reactdatagrid-community/base.css';
 import '@inovua/reactdatagrid-community/theme/default-light.css';
 import '@inovua/reactdatagrid-community/theme/default-dark.css';
 
+const gridStyle = {
+  minHeight: 250,
+  height: '65vh',
+};
+
+const scrollProps = {
+  autoHide: false,
+};
+
 function BaseGrid({ data, columns, storageKey }) {
   const loadData = ({ sortInfo }) => {
     if (sortInfo === null || sortInfo === undefined) {
@@ -191,6 +200,8 @@ function BaseGrid({ data, columns, storageKey }) {
         onColumnOrderChange={handleColumnOrderChange}
         onBatchColumnResize={handleBatchColumnResize}
         onColumnVisibleChange={handleColumnVisibleChange}
+        style={gridStyle}
+        scrollProps={scrollProps}
       />
       <Button variant="text" onClick={handleResetLayout}>
         Reset Layout
