@@ -54,7 +54,7 @@ function Dashboard({ data }) {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={4} padding={2}>
       <Grid item xs={12} lg={12}>
         <Card className={classes.graphCard} variant="elevation" elevation={5}>
           <Grid align="center">
