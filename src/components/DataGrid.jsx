@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import { Button } from '@mui/material';
@@ -6,6 +7,13 @@ import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/base.css';
 import '@inovua/reactdatagrid-community/theme/default-light.css';
 import '@inovua/reactdatagrid-community/theme/default-dark.css';
+import { CSVLink } from 'react-csv';
+
+const useStyles = makeStyles((theme) => ({
+  csvLink: {
+    textDecoration: 'none',
+  },
+}));
 
 const gridStyle = {
   minHeight: 250,
@@ -19,7 +27,9 @@ const scrollProps = {
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable function-paren-newline */
-function DataGrid({ data, columns, storageKey }) {
+function DataGrid({ data, columns, storageKey, csvName }) {
+  const classes = useStyles();
+
   const [gridSkip, setGridSkip] = useState(() => {
     const savedSkip = JSON.parse(localStorage.getItem(`${storageKey}-skip`));
     return savedSkip ?? 0;
@@ -248,6 +258,9 @@ function DataGrid({ data, columns, storageKey }) {
       <Button variant="text" onClick={handleResetLayout}>
         Reset Layout
       </Button>
+      <CSVLink data={data} className={classes.csvLink} filename={csvName}>
+        <Button variant="text">Download CSV</Button>
+      </CSVLink>
     </>
   );
 }
@@ -256,6 +269,7 @@ DataGrid.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   storageKey: PropTypes.string.isRequired,
+  csvName: PropTypes.string.isRequired,
 };
 
 export default DataGrid;

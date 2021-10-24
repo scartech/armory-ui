@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DataGrid from './DataGrid';
 
 const gridStorageKey = 'ammogrid';
+const csvName = 'Ammo-Data.csv';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -102,7 +103,14 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
     },
   ];
 
-  return <DataGrid data={ammo} columns={columns} storageKey={gridStorageKey} />;
+  return (
+    <DataGrid
+      data={ammo}
+      columns={columns}
+      storageKey={gridStorageKey}
+      csvName={csvName}
+    />
+  );
 }
 
 AmmoGrid.propTypes = {

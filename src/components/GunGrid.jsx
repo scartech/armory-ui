@@ -8,6 +8,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import DataGrid from './DataGrid';
 
 const gridStorageKey = 'gungrid';
+const csvName = 'Gun-Data.csv';
 
 function GunGrid({ guns, handleDeleteClick }) {
   const columns = [
@@ -86,7 +87,14 @@ function GunGrid({ guns, handleDeleteClick }) {
     },
   ];
 
-  return <DataGrid data={guns} columns={columns} storageKey={gridStorageKey} />;
+  return (
+    <DataGrid
+      data={guns}
+      columns={columns}
+      storageKey={gridStorageKey}
+      csvName={csvName}
+    />
+  );
 }
 
 GunGrid.propTypes = {
