@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
     height: 160,
-    margin: theme.spacing(2),
+    margin: 'auto',
     '& i': {
       fontSize: '25px',
     },
