@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import BaseGrid from './BaseGrid';
+import DataGrid from './DataGrid';
 
 const gridStorageKey = 'gungrid';
 
@@ -86,7 +86,7 @@ function GunGrid({ guns, handleDeleteClick }) {
     },
   ];
 
-  return <BaseGrid data={guns} columns={columns} storageKey={gridStorageKey} />;
+  return <DataGrid data={guns} columns={columns} storageKey={gridStorageKey} />;
 }
 
 GunGrid.propTypes = {

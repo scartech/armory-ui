@@ -16,18 +16,45 @@ const scrollProps = {
   autoHide: false,
 };
 
-function BaseGrid({ data, columns, storageKey }) {
-  const loadData = ({ sortInfo }) => {
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable function-paren-newline */
+function DataGrid({ data, columns, storageKey }) {
+  const [gridSkip, setGridSkip] = useState(() => {
+    const savedSkip = JSON.parse(localStorage.getItem(`${storageKey}-skip`));
+    return savedSkip ?? 0;
+  });
+
+  const [gridLimit, setGridLimit] = useState(() => {
+    const savedLimit = JSON.parse(localStorage.getItem(`${storageKey}-limit`));
+    return savedLimit ?? 10;
+  });
+
+  const loadData = ({ skip, limit, sortInfo }) => {
+    let response;
+
     if (sortInfo === null || sortInfo === undefined) {
-      return data;
+      response = data;
+    } else if (sortInfo.dir === -1) {
+      response = data.sort((a, b) =>
+        a[sortInfo.id] < b[sortInfo.id] ? 1 : -1,
+      );
+    } else {
+      response = data.sort((a, b) =>
+        a[sortInfo.id] > b[sortInfo.id] ? 1 : -1,
+      );
     }
 
-    if (sortInfo.dir === -1) {
-      return data.sort((a, b) => (a[sortInfo.id] < b[sortInfo.id] ? 1 : -1));
-    }
-
-    return data.sort((a, b) => (a[sortInfo.id] > b[sortInfo.id] ? 1 : -1));
+    return new Promise((resolve) => {
+      resolve({
+        data: response.slice(skip, skip + limit),
+        count: data.length,
+      });
+    });
   };
+  /* eslint-enable no-confusing-arrow */
+  /* eslint-enable implicit-arrow-linebreak */
+  /* eslint-enable function-paren-newline */
 
   const dataSource = useCallback(loadData, [data]);
 
@@ -110,6 +137,14 @@ function BaseGrid({ data, columns, storageKey }) {
     );
   }, [columnWidths, storageKey]);
 
+  useEffect(() => {
+    localStorage.setItem(`${storageKey}-skip`, JSON.stringify(gridSkip));
+  }, [gridSkip, storageKey]);
+
+  useEffect(() => {
+    localStorage.setItem(`${storageKey}-limit`, JSON.stringify(gridLimit));
+  }, [gridLimit, storageKey]);
+
   const [theme, setTheme] = useState(() => {
     const useDark = localStorage.getItem('darkState') === 'true';
     return useDark ? 'default-dark' : 'default-light';
@@ -172,6 +207,8 @@ function BaseGrid({ data, columns, storageKey }) {
   const handleResetLayout = () => {
     setSortInfo([]);
     setColumnOrder(columns.map((column) => column.name));
+    setGridSkip(0);
+    setGridLimit(10);
     setVisibleColumns(
       columns
         .filter((column) => column.visible !== false)
@@ -200,8 +237,13 @@ function BaseGrid({ data, columns, storageKey }) {
         onColumnOrderChange={handleColumnOrderChange}
         onBatchColumnResize={handleBatchColumnResize}
         onColumnVisibleChange={handleColumnVisibleChange}
+        onLimitChange={setGridLimit}
+        onSkipChange={setGridSkip}
         style={gridStyle}
         scrollProps={scrollProps}
+        pagination
+        limit={gridLimit}
+        skip={gridSkip}
       />
       <Button variant="text" onClick={handleResetLayout}>
         Reset Layout
@@ -210,10 +252,10 @@ function BaseGrid({ data, columns, storageKey }) {
   );
 }
 
-BaseGrid.propTypes = {
+DataGrid.propTypes = {
   data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   storageKey: PropTypes.string.isRequired,
 };
 
-export default BaseGrid;
+export default DataGrid;

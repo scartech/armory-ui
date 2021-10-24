@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import BaseGrid from './BaseGrid';
+import DataGrid from './DataGrid';
 
 const gridStorageKey = 'ammogrid';
 
@@ -102,7 +102,7 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
     },
   ];
 
-  return <BaseGrid data={ammo} columns={columns} storageKey={gridStorageKey} />;
+  return <DataGrid data={ammo} columns={columns} storageKey={gridStorageKey} />;
 }
 
 AmmoGrid.propTypes = {
