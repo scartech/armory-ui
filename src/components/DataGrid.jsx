@@ -9,7 +9,7 @@ import '@inovua/reactdatagrid-community/theme/default-light.css';
 import '@inovua/reactdatagrid-community/theme/default-dark.css';
 import { CSVLink } from 'react-csv';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   csvLink: {
     textDecoration: 'none',
   },

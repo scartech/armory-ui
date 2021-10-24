@@ -1,8 +1,23 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Grid, Card, CardContent, Typography } from '@mui/material';
 import Icon from '@mdi/react';
 import { mdiPistol, mdiDotsHexagon } from '@mdi/js';
+import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
+import { v4 as uuidv4 } from 'uuid';
 import DashboardCard from './DashboardCard';
+
+const useStyles = makeStyles(() => ({
+  graphCard: {
+    width: 350,
+    height: 350,
+    margin: 'auto',
+    '& i': {
+      fontSize: '25px',
+    },
+  },
+}));
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -11,10 +26,47 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 
 const numberFormatter = new Intl.NumberFormat('en-US');
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function Dashboard({ data }) {
+  const [gunPieData, setGunPieData] = useState([]);
+
+  useEffect(() => {
+    setGunPieData([
+      { name: 'Pistols', value: data.pistolCount, key: uuidv4() },
+      { name: 'Rifles', value: data.rifleCount, key: uuidv4() },
+      { name: 'Shotguns', value: data.shotgunCount, key: uuidv4() },
+    ]);
+  }, [data]);
+
+  const gunPieChart = (
+    <PieChart width={300} height={300}>
+      <Pie dataKey="value" data={gunPieData} label>
+        {gunPieData.map((entry, index) => (
+          <Cell key={`${entry.key}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
+  );
+
+  const classes = useStyles();
+
   return (
     <Grid container spacing={4}>
+      <Grid item xs={12} lg={6}>
+        <Card className={classes.graphCard} variant="elevation" elevation={5}>
+          <Grid align="center">
+            <CardContent>
+              <Typography color="textSecondary" variant="h6">
+                Gun Types
+              </Typography>
+              {gunPieChart}
+            </CardContent>
+          </Grid>
+        </Card>
+      </Grid>
       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
         <DashboardCard
           title="Total Guns"
