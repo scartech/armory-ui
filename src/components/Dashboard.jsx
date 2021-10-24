@@ -55,7 +55,7 @@ function Dashboard({ data }) {
 
   return (
     <Grid container spacing={4}>
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} lg={12}>
         <Card className={classes.graphCard} variant="elevation" elevation={5}>
           <Grid align="center">
             <CardContent>
