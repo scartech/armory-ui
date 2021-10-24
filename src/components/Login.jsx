@@ -9,25 +9,24 @@ import {
   TextField,
   Button,
   Typography,
-  InputAdornment,
+  Container,
 } from '@mui/material';
-import AlternateEmailSharpIcon from '@mui/icons-material/AlternateEmailSharp';
-import VpnKeySharpIcon from '@mui/icons-material/VpnKeySharp';
 import { useAuth } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
   textboxMargin: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
   buttonStyle: {
     margin: '20px 0',
   },
   paperStyle: {
-    padding: 20,
-    height: '265px',
-    width: 280,
     margin: '0px auto',
-    marginTop: 40,
+    marginTop: theme.spacing(9),
   },
   largeAvatar: {
     width: theme.spacing(7),
@@ -62,8 +61,8 @@ function Login({ loginFailure }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid>
-        <Paper elevation={5} className={classes.paperStyle}>
+      <Container component="main" maxWidth="xs" className={classes.root}>
+        <Paper elevation={0} className={classes.paperStyle}>
           <Grid align="center">
             <Avatar className={classes.largeAvatar}>
               <i className="gi gi-dogtags" color="inherit" />
@@ -71,35 +70,23 @@ function Login({ loginFailure }) {
             <Typography variant="h5">Welcome to the Armory</Typography>
           </Grid>
           <TextField
-            placeholder="Enter email"
-            size="small"
+            label="Email Address"
             fullWidth
             required
+            autoComplete="email"
+            autoFocus
             className={classes.textboxMargin}
             onChange={(e) => setEmail(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AlternateEmailSharpIcon />
-                </InputAdornment>
-              ),
-            }}
           />
           <TextField
-            placeholder="Enter password"
+            label="Password"
             type="password"
             fullWidth
             required
-            size="small"
+            autoComplete="current-password"
+            variant="outlined"
             className={classes.textboxMargin}
             onChange={(e) => setPassword(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <VpnKeySharpIcon />
-                </InputAdornment>
-              ),
-            }}
           />
           <Button
             type="submit"
@@ -111,7 +98,7 @@ function Login({ loginFailure }) {
             Sign in
           </Button>
         </Paper>
-      </Grid>
+      </Container>
     </form>
   );
 }
