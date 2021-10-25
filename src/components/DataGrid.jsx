@@ -41,18 +41,20 @@ function DataGrid({ data, columns, storageKey, csvName }) {
   });
 
   const loadData = ({ skip, limit, sortInfo }) => {
-    let response;
+    let response = data;
 
-    if (sortInfo === null || sortInfo === undefined) {
-      response = data;
-    } else if (sortInfo.dir === -1) {
-      response = data.sort((a, b) =>
-        a[sortInfo.id] < b[sortInfo.id] ? 1 : -1,
-      );
-    } else {
-      response = data.sort((a, b) =>
-        a[sortInfo.id] > b[sortInfo.id] ? 1 : -1,
-      );
+    if (sortInfo !== null || (sortInfo !== undefined && sortInfo.length > 0)) {
+      sortInfo.forEach((sortProps) => {
+        if (sortProps.dir === -1) {
+          response = response.sort((a, b) =>
+            a[sortProps.id] < b[sortProps.id] ? 1 : -1,
+          );
+        } else {
+          response = response.sort((a, b) =>
+            a[sortProps.id] > b[sortProps.id] ? 1 : -1,
+          );
+        }
+      });
     }
 
     return new Promise((resolve) => {

@@ -85,6 +85,11 @@ function GunGrid({ guns, handleDeleteClick }) {
       header: 'FFL',
       defaultFlex: 1,
     },
+    {
+      name: 'rating',
+      header: 'Rating',
+      defaultFlex: 1,
+    },
   ];
 
   return (
