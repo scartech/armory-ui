@@ -6,6 +6,7 @@ import {
   IconButton,
   Grid,
   Typography,
+  Rating,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
@@ -141,6 +142,9 @@ function GunCard({ gun, handleDeleteClick }) {
           <GunCardItem label="Caliber" value={gun.caliber} />
           <GunCardItem label="Dealer" value={gun.dealer} />
           <GunCardItem label="FFL" value={gun.ffl} />
+          <Grid item xs={12}>
+            <Rating value={gun.rating} readOnly />
+          </Grid>
         </Grid>
       </CardContent>
       <CardActions>

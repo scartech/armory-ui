@@ -11,6 +11,7 @@ import {
   Fab,
   Alert,
   Autocomplete,
+  Rating,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -58,6 +59,7 @@ function Gun() {
   const [message, setMessage] = useState('');
   const [gunId, setGunId] = useState(null);
   const [fireRedirect, setFireRedirect] = useState(false);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     async function fetchGun() {
@@ -74,6 +76,7 @@ function Gun() {
         setDealer(gun.dealer ?? '');
         setAction(gun.action ?? '');
         setFfl(gun.ffl ?? '');
+        setRating(parseFloat(gun.rating));
       }
     }
 
@@ -104,6 +107,7 @@ function Gun() {
       dealer,
       action,
       ffl,
+      rating,
     };
 
     setOpen(false);
@@ -136,6 +140,12 @@ function Gun() {
               </Fab>
             </Link>
           </Typography>
+          <Typography component="legend">Rating</Typography>
+          <Rating
+            value={rating}
+            precision={0.5}
+            onChange={(event, value) => setRating(value)}
+          />
           <TextField
             label="Name"
             value={name}
