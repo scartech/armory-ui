@@ -143,7 +143,7 @@ function GunCard({ gun, handleDeleteClick }) {
           <GunCardItem label="Dealer" value={gun.dealer} />
           <GunCardItem label="FFL" value={gun.ffl} />
           <Grid item xs={12}>
-            <Rating value={gun.rating} readOnly />
+            <Rating value={gun.rating} precision={0.5} readOnly />
           </Grid>
         </Grid>
       </CardContent>
