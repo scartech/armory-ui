@@ -12,7 +12,6 @@ import {
   Alert,
   Autocomplete,
   Rating,
-  Select,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -44,8 +43,6 @@ function Gun() {
   const classes = useStyles();
   const { id } = useParams();
   const countryOptions = useMemo(() => countryList().getData(), []);
-
-  console.log(countryList().getData());
 
   const [isNew, setIsNew] = useState(true);
   const [modelName, setModelName] = useState('');
@@ -264,7 +261,7 @@ function Gun() {
               <TextField
                 {...params}
                 variant="standard"
-                label="Country"
+                label="Country of Origin"
                 margin="normal"
                 fullWidth
               />
