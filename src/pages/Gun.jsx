@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, useMemo, Fragment } from 'react';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   Alert,
   Autocomplete,
   Rating,
+  Select,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -19,6 +20,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import countryList from 'react-select-country-list';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
 import { ACTION_TYPES, GUN_TYPES, CALIBER_TYPES } from '../utils';
@@ -41,6 +43,9 @@ function Gun() {
   const auth = useAuth();
   const classes = useStyles();
   const { id } = useParams();
+  const countryOptions = useMemo(() => countryList().getData(), []);
+
+  console.log(countryList().getData());
 
   const [isNew, setIsNew] = useState(true);
   const [modelName, setModelName] = useState('');
@@ -248,6 +253,22 @@ function Gun() {
             margin="normal"
             onChange={(event) => setFfl(event.target.value)}
             fullWidth
+          />
+          <Autocomplete
+            freeSolo
+            autoSelect
+            options={countryOptions}
+            value={country}
+            onChange={(event, value) => setCountry(value)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Country"
+                margin="normal"
+                fullWidth
+              />
+            )}
           />
           <TextField
             label="Estimated Value"
