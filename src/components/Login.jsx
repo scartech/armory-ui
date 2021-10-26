@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   paperStyle: {
     margin: '0px auto',
     marginTop: theme.spacing(9),
+    backgroundColor: 'transparent',
   },
   largeAvatar: {
     width: theme.spacing(7),
