@@ -305,6 +305,17 @@ function Gun() {
               <TextField variant="standard" margin="normal" {...params} />
             )}
           />
+          <TextField
+            label="Notes"
+            value={notes}
+            variant="standard"
+            margin="normal"
+            onChange={(event) => setNotes(event.target.value)}
+            fullWidth
+            multiline
+            rows={4}
+            maxRows={4}
+          />
           <Button
             variant="contained"
             onClick={(event) => handleSubmit(event, isNew)}
