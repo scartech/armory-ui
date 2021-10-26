@@ -60,6 +60,9 @@ function Gun() {
   const [gunId, setGunId] = useState(null);
   const [fireRedirect, setFireRedirect] = useState(false);
   const [rating, setRating] = useState(0);
+  const [country, setCountry] = useState('');
+  const [estimatedValue, setEstimatedValue] = useState(0);
+  const [notes, setNotes] = useState('');
 
   useEffect(() => {
     async function fetchGun() {
@@ -77,6 +80,9 @@ function Gun() {
         setAction(gun.action ?? '');
         setFfl(gun.ffl ?? '');
         setRating(parseFloat(gun.rating));
+        setCountry(gun.country ?? '');
+        setEstimatedValue(gun.estimatedValue ?? 0);
+        setNotes(gun.notes ?? '');
       }
     }
 
@@ -108,6 +114,9 @@ function Gun() {
       action,
       ffl,
       rating,
+      country,
+      estimatedValue,
+      notes,
     };
 
     setOpen(false);
@@ -239,6 +248,20 @@ function Gun() {
             margin="normal"
             onChange={(event) => setFfl(event.target.value)}
             fullWidth
+          />
+          <TextField
+            label="Estimated Value"
+            value={estimatedValue}
+            variant="standard"
+            type="number"
+            margin="normal"
+            onChange={(event) => setEstimatedValue(event.target.value)}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
           />
           <TextField
             label="Purchase Price"
