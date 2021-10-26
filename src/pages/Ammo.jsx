@@ -77,7 +77,7 @@ function Ammo() {
 
     const deleted = await AmmoService.delete(auth.user, ammoId);
     if (deleted) {
-      setSnackMessage('Successfully deleted the ammo.');
+      setSnackMessage('Successfully deleted the ammo purchase.');
       setSnackSeverity('info');
 
       const ammoz = await AmmoService.all(auth.user);
@@ -85,7 +85,7 @@ function Ammo() {
         setAmmoItems(ammoz);
       }
     } else {
-      setSnackMessage('Failed to delete the ammo.');
+      setSnackMessage('Failed to delete the ammo purchase.');
       setSnackSeverity('error');
     }
 
@@ -107,7 +107,7 @@ function Ammo() {
 
   useEffect(() => {
     if (savedAmmo) {
-      setSnackMessage('Successfully saved ammo.');
+      setSnackMessage('Successfully saved ammo purchase.');
       setSnackSeverity('info');
       setSnackOpen(true);
     }
