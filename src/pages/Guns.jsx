@@ -91,6 +91,7 @@ function Guns() {
       const gunz = await GunService.all(auth.user);
       if (gunz) {
         setGuns(gunz);
+        setCount(gunz.length);
       }
     } else {
       setSnackMessage('Failed to delete the gun.');

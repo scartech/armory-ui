@@ -83,6 +83,7 @@ function Ammo() {
       const ammoz = await AmmoService.all(auth.user);
       if (ammoz) {
         setAmmoItems(ammoz);
+        setCount(ammoz.length);
       }
     } else {
       setSnackMessage('Failed to delete the ammo purchase.');
