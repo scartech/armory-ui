@@ -8,6 +8,9 @@ import '@inovua/reactdatagrid-community/base.css';
 import '@inovua/reactdatagrid-community/theme/default-light.css';
 import '@inovua/reactdatagrid-community/theme/default-dark.css';
 import { CSVLink } from 'react-csv';
+import { BrowserView, MobileView } from 'react-device-detect';
+import { v4 as uuidv4 } from 'uuid';
+import MobileGridItem from './MobileGridItem';
 
 const useStyles = makeStyles(() => ({
   csvLink: {
@@ -43,7 +46,7 @@ function DataGrid({ data, columns, storageKey, csvName }) {
   const loadData = ({ skip, limit, sortInfo }) => {
     let response = data;
 
-    if (sortInfo !== null || (sortInfo !== undefined && sortInfo.length > 0)) {
+    if (sortInfo !== null && sortInfo !== undefined && sortInfo.length > 0) {
       sortInfo.forEach((sortProps) => {
         if (sortProps.dir === -1) {
           response = response.sort((a, b) =>
@@ -238,31 +241,38 @@ function DataGrid({ data, columns, storageKey, csvName }) {
 
   return (
     <>
-      <ReactDataGrid
-        idProperty="id"
-        columns={gridColumns}
-        dataSource={dataSource}
-        theme={theme}
-        sortInfo={sortInfo}
-        columnOrder={columnOrder}
-        onSortInfoChange={handleSortInfoChange}
-        onColumnOrderChange={handleColumnOrderChange}
-        onBatchColumnResize={handleBatchColumnResize}
-        onColumnVisibleChange={handleColumnVisibleChange}
-        onLimitChange={setGridLimit}
-        onSkipChange={setGridSkip}
-        style={gridStyle}
-        scrollProps={scrollProps}
-        pagination
-        limit={gridLimit}
-        skip={gridSkip}
-      />
-      <Button variant="text" onClick={handleResetLayout}>
-        Reset Layout
-      </Button>
-      <CSVLink data={data} className={classes.csvLink} filename={csvName}>
-        <Button variant="text">Download CSV</Button>
-      </CSVLink>
+      <BrowserView>
+        <ReactDataGrid
+          idProperty="id"
+          columns={gridColumns}
+          dataSource={dataSource}
+          theme={theme}
+          sortInfo={sortInfo}
+          columnOrder={columnOrder}
+          onSortInfoChange={handleSortInfoChange}
+          onColumnOrderChange={handleColumnOrderChange}
+          onBatchColumnResize={handleBatchColumnResize}
+          onColumnVisibleChange={handleColumnVisibleChange}
+          onLimitChange={setGridLimit}
+          onSkipChange={setGridSkip}
+          style={gridStyle}
+          scrollProps={scrollProps}
+          pagination
+          limit={gridLimit}
+          skip={gridSkip}
+        />
+        <Button variant="text" onClick={handleResetLayout}>
+          Reset Layout
+        </Button>
+        <CSVLink data={data} className={classes.csvLink} filename={csvName}>
+          <Button variant="text">Download CSV</Button>
+        </CSVLink>
+      </BrowserView>
+      <MobileView>
+        {data.map((item) => (
+          <MobileGridItem key={uuidv4()} data={item} columns={columns} />
+        ))}
+      </MobileView>
     </>
   );
 }

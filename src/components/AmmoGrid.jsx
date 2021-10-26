@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { v4 as uuidv4 } from 'uuid';
 import DataGrid from './DataGrid';
 
 const gridStorageKey = 'ammogrid';
@@ -24,13 +25,15 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
       width: 120,
       sortable: false,
       draggable: false,
+      isOp: true,
       render: (value) => [
-        <Link to={`/ammo/item/${value.data.id}`}>
+        <Link to={`/ammo/item/${value.data.id}`} key={uuidv4()}>
           <IconButton size="large">
             <EditIcon />
           </IconButton>
         </Link>,
         <IconButton
+          key={uuidv4()}
           onClick={() => handleDeleteClick(`${value.data.id}`)}
           size="large"
         >
@@ -67,10 +70,11 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
       name: 'roundCount',
       header: 'Round Count',
       defaultFlex: 1,
+      hasRender: true,
       render: (value) => {
         const val = value?.data
           ? numberFormatter.format(value.data.roundCount)
-          : '$0.00';
+          : '0';
         return val;
       },
     },
@@ -83,6 +87,7 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
       name: 'purchasePrice',
       header: 'Purchase Price',
       defaultFlex: 1,
+      hasRender: true,
       render: (value) => {
         const val = value?.data
           ? currencyFormatter.format(value.data.purchasePrice)

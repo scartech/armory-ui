@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { IconButton } from '@mui/material';
+import { IconButton, Rating } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import EventNoteIcon from '@mui/icons-material/EventNote';
+import { v4 as uuidv4 } from 'uuid';
 import DataGrid from './DataGrid';
 
 const gridStorageKey = 'gungrid';
@@ -16,23 +17,25 @@ function GunGrid({ guns, handleDeleteClick }) {
       name: 'id',
       header: 'Ops',
       width: 210,
+      isOp: true,
       render: (value) => [
-        <Link to={`/gun/${value.data.id}`}>
+        <Link to={`/gun/${value.data.id}`} key={uuidv4()}>
           <IconButton size="large">
             <EditIcon />
           </IconButton>
         </Link>,
-        <Link to={`/images/${value.data.id}`}>
+        <Link to={`/images/${value.data.id}`} key={uuidv4()}>
           <IconButton size="large">
             <PhotoCameraIcon />
           </IconButton>
         </Link>,
-        <Link to={`/gun/${value.data.id}/history`}>
+        <Link to={`/gun/${value.data.id}/history`} key={uuidv4()}>
           <IconButton size="large">
             <EventNoteIcon />
           </IconButton>
         </Link>,
         <IconButton
+          key={uuidv4()}
           onClick={() => handleDeleteClick(`${value.data.id}`)}
           size="large"
         >
@@ -89,6 +92,10 @@ function GunGrid({ guns, handleDeleteClick }) {
       name: 'rating',
       header: 'Rating',
       defaultFlex: 1,
+      hasRender: true,
+      render: (value) => (
+        <Rating value={value.data.rating} precision={0.5} readOnly />
+      ),
     },
   ];
 
