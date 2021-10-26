@@ -69,7 +69,7 @@ function MainDrawer() {
             <ListItemIcon>
               <i className="gi gi-ammo" />
             </ListItemIcon>
-            <ListItemText primary="Ammo" />
+            <ListItemText primary="Ammo Purchases" />
           </ListItem>
           {auth.user.role === 'ADMIN' && (
             <>

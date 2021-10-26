@@ -116,7 +116,7 @@ function Ammo() {
   return (
     <Container maxWidth="xl" className={classes.container}>
       <Typography className={classes.title} variant="h4">
-        Ammo
+        Ammo Purchases
         <Chip size="medium" label={count} className={classes.count} />
         <Link to="/ammo/item">
           <Fab color="primary" className={classes.fab}>
@@ -145,7 +145,7 @@ function Ammo() {
         <DialogTitle>Delete?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete the ammo?
+            Are you sure you want to delete the ammo purchase?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -148,7 +148,7 @@ function AmmoItem() {
       <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h4">
-            {isNew ? 'New Ammo' : 'Edit Ammo'}
+            {isNew ? 'New Ammo Purchase' : 'Edit Ammo Purchase'}
             <Link to="/ammo">
               <Fab color="primary" className={classes.fab}>
                 <ArrowBackIcon />
