@@ -313,7 +313,6 @@ function Gun() {
             onChange={(event) => setNotes(event.target.value)}
             fullWidth
             multiline
-            rows={4}
             maxRows={4}
           />
           <Button
