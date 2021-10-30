@@ -9,6 +9,44 @@ class ProfileService {
    * @param {*} user
    * @returns
    */
+  static async refreshTotp(user) {
+    if (!user) {
+      return undefined;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.post('/api/profile/totp');
+      return res.data;
+    } catch (error) {
+      return undefined;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @returns
+   */
+  static async validateTotp(user, data) {
+    if (!user) {
+      return undefined;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.post('/api/profile/validatetotp', data);
+      return res.data;
+    } catch (error) {
+      return undefined;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @returns
+   */
   static async get(user) {
     if (!user) {
       return undefined;

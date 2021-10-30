@@ -35,6 +35,26 @@ export function useProvideAuth() {
     }
   };
 
+  const signinTotp = async (code) => {
+    try {
+      const res = await axios.post(`${Config.getAPIBaseUrl()}/login/totp`, {
+        code,
+      });
+
+      sessionStorage.setItem('token', res.data.token);
+      const val = jwt(res.data.token);
+
+      // Store the JWT token in the user for use in calls to the API
+      val.user.token = res.data.token;
+      setUser(val.user);
+
+      return val.user;
+    } catch (error) {
+      setUser(false);
+      return undefined;
+    }
+  };
+
   const signout = () => {
     sessionStorage.removeItem('token');
     setUser(false);
@@ -51,6 +71,7 @@ export function useProvideAuth() {
     user,
     signin,
     signout,
+    signinTotp,
   };
 }
 
