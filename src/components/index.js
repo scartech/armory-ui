@@ -11,7 +11,6 @@ import GunGrid from './GunGrid';
 import AmmoGrid from './AmmoGrid';
 import MainDrawer from './MainDrawer';
 import Dashboard from './Dashboard';
-import TextMask from './TextMask';
 
 export {
   Login,
@@ -27,5 +26,4 @@ export {
   AmmoGrid,
   MainDrawer,
   Dashboard,
-  TextMask,
 };
