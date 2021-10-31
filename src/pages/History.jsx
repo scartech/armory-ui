@@ -29,8 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
-    marginRight: theme.spacing(3),
+    left: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
+  fabRight: {
+    position: 'relative',
+    left: theme.spacing(2),
   },
   fileInput: {
     display: 'none',
@@ -111,7 +115,7 @@ function History() {
   return (
     <>
       <div>
-        <Typography className={classes.title} variant="h4">
+        <Typography className={classes.title} variant="h5">
           {name}
           <Chip
             size="medium"
@@ -124,7 +128,7 @@ function History() {
             </Fab>
           </Link>
           <Link to={`/history/${gunId}`}>
-            <Fab color="primary" className={classes.fab}>
+            <Fab color="primary" className={classes.fabRight}>
               <AddIcon />
             </Fab>
           </Link>

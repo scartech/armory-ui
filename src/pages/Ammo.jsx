@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
-    marginRight: theme.spacing(3),
+    left: theme.spacing(2),
   },
   container: {
     margin: 'auto',
@@ -116,7 +115,7 @@ function Ammo() {
 
   return (
     <Container maxWidth="xl" className={classes.container}>
-      <Typography className={classes.title} variant="h4">
+      <Typography className={classes.title} variant="h5">
         Ammo Purchases
         <Chip size="medium" label={count} className={classes.count} />
         <Link to="/ammo/item">

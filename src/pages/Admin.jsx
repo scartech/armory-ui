@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
+    left: theme.spacing(2),
   },
 }));
 
@@ -107,7 +107,7 @@ function Admin() {
 
   return (
     <div>
-      <Typography className={classes.title} variant="h4">
+      <Typography className={classes.title} variant="h5">
         Administration
         <Link to="/user">
           <Fab color="primary" className={classes.fab}>

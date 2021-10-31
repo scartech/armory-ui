@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
+    left: theme.spacing(2),
   },
   fileInput: {
     display: 'none',
@@ -105,7 +105,7 @@ function Pictures() {
   return (
     <>
       <form noValidate autoComplete="off">
-        <Typography className={classes.title} variant="h4">
+        <Typography className={classes.title} variant="h5">
           {name}
           <Link to="/guns">
             <Fab color="primary" className={classes.fab}>

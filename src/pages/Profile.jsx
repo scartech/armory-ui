@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
+    left: theme.spacing(2),
   },
   divider: {
     margin: theme.spacing(5),
@@ -244,7 +244,7 @@ function Profile() {
       <form noValidate autoComplete="off">
         <Typography className={classes.title} variant="h5">
           User Profile
-          <Link to="/guns">
+          <Link to="/">
             <Fab color="primary" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>

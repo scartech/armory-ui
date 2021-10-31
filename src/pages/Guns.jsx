@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
-    marginRight: theme.spacing(3),
+    left: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   container: {
     margin: 'auto',
@@ -130,7 +130,7 @@ function Guns() {
 
   return (
     <Container maxWidth="xl">
-      <Typography className={classes.title} variant="h4">
+      <Typography className={classes.title} variant="h5">
         Guns
         <Chip size="medium" label={count} className={classes.count} />
         <Fab

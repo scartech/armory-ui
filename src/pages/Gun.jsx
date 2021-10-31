@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
+    left: theme.spacing(2),
   },
 }));
 
@@ -143,7 +143,7 @@ function Gun() {
     <>
       <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
-          <Typography className={classes.title} variant="h4">
+          <Typography className={classes.title} variant="h5">
             {isNew ? 'New Gun' : 'Edit Gun'}
             <Link to="/guns">
               <Fab color="primary" aria-label="back" className={classes.fab}>

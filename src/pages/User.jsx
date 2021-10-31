@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
+    left: theme.spacing(2),
   },
 }));
 
@@ -113,7 +113,7 @@ function User() {
   return (
     <>
       <form noValidate autoComplete="off">
-        <Typography className={classes.title} variant="h4">
+        <Typography className={classes.title} variant="h5">
           {isNew ? 'New User' : 'Edit User'}
           <Link to="/admin">
             <Fab color="primary" className={classes.fab}>

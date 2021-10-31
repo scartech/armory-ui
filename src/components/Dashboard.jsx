@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
     '& i': {
       fontSize: '25px',
     },
+    backgroundColor: 'transparent',
   },
 }));
 
@@ -56,7 +57,7 @@ function Dashboard({ data }) {
   return (
     <Grid container spacing={4} padding={2}>
       <Grid item xs={12} lg={12}>
-        <Card className={classes.graphCard} variant="elevation" elevation={5}>
+        <Card className={classes.graphCard} variant="elevation" elevation={1}>
           <Grid align="center">
             <CardContent>
               <Typography color="textSecondary" variant="h6">

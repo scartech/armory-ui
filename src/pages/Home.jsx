@@ -46,7 +46,7 @@ function Home() {
 
   return (
     <Container maxWidth="xl">
-      <Typography className={classes.title} variant="h4">
+      <Typography className={classes.title} variant="h5">
         Dashboard
       </Typography>
       <div className={classes.container}>

@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     '& i': {
       fontSize: '25px',
     },
+    backgroundColor: 'transparent',
   },
   largeAvatar: {
     width: theme.spacing(8),
@@ -25,7 +26,7 @@ function DashboardCard({ title, icon, message }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} variant="elevation" elevation={5}>
+    <Card className={classes.root} variant="elevation" elevation={1}>
       <Grid align="center">
         <CardContent>
           <Typography color="textSecondary" variant="h6" gutterBottom>

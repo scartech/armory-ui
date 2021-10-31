@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'relative',
-    left: theme.spacing(3),
+    left: theme.spacing(2),
   },
 }));
 
@@ -107,7 +107,7 @@ function EditHistory() {
     <>
       <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
-          <Typography className={classes.title} variant="h4">
+          <Typography className={classes.title} variant="h5">
             {isNew ? 'New History' : 'Edit History'}
             <Link to={`/gun/${gunId}/history`}>
               <Fab color="primary" className={classes.fab}>
