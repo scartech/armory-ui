@@ -18,6 +18,15 @@ function PrivateRoute({ component: Component, roles, ...rest }) {
           );
         }
 
+        if (user.totpEnabled && user.totpValidated && !user.totpLoggedIn) {
+          // The user needs to supply the second auth factor
+          return (
+            <Redirect
+              to={{ pathname: '/login-mfa', state: { from: props.location } }}
+            />
+          );
+        }
+
         // Check if route is restricted by a role
         if (roles && roles.indexOf(user.role) === -1) {
           // The user doesn't have permission, so redirect to the home page

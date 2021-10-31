@@ -10,6 +10,7 @@ import EditHistory from './EditHistory';
 import Ammo from './Ammo';
 import AmmoItem from './AmmoItem';
 import Home from './Home';
+import LoginMFA from './LoginMFA';
 
 export {
   Ammo,
@@ -24,4 +25,5 @@ export {
   History,
   EditHistory,
   Home,
+  LoginMFA,
 };

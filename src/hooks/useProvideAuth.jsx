@@ -35,10 +35,11 @@ export function useProvideAuth() {
     }
   };
 
-  const signinTotp = async (code) => {
+  const signinTotp = async (code, userId) => {
     try {
       const res = await axios.post(`${Config.getAPIBaseUrl()}/login/totp`, {
         code,
+        userId,
       });
 
       sessionStorage.setItem('token', res.data.token);
@@ -50,7 +51,6 @@ export function useProvideAuth() {
 
       return val.user;
     } catch (error) {
-      setUser(false);
       return undefined;
     }
   };

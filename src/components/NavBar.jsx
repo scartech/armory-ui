@@ -60,6 +60,14 @@ function NavBar({ handleThemeChange, darkState }) {
     return <></>;
   }
 
+  if (
+    auth?.user?.totpValidated &&
+    auth?.user?.totpEnabled &&
+    !auth?.user?.totpLoggedIn
+  ) {
+    return <></>;
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>

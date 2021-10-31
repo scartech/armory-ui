@@ -27,6 +27,7 @@ import {
   History,
   EditHistory,
   Home,
+  LoginMFA,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks';
@@ -116,6 +117,7 @@ function App() {
                 <Container maxWidth="xl">
                   <Switch>
                     <Route path="/login" component={Signin} />
+                    <Route path="/login-mfa" component={LoginMFA} exact />
                     <PrivateRoute path="/" component={Home} exact />
                     <PrivateRoute path="/guns" component={Guns} exact />
                     <PrivateRoute path="/gun" component={Gun} exact />
