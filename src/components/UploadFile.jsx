@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   Typography,
   InputLabel,
@@ -9,6 +9,12 @@ import {
   Grid,
   CardActions,
   IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
@@ -38,6 +44,7 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
     'https://fakeimg.pl/440x230/282828/eae0d0/?retina=1&text=No%20Image';
   const classes = useStyles();
   const fileInputRef = useRef(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const images = [
     {
@@ -45,8 +52,17 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
     },
   ];
 
-  const handleDeleteClick = () => {
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleDialogCloseDelete = async () => {
     setImageSrc(DEFAULT_IMG);
+    setDialogOpen(false);
+  };
+
+  const handleDeleteClick = () => {
+    setDialogOpen(true);
   };
 
   const handleFileChange = (e) => {
@@ -112,6 +128,22 @@ function UploadFile({ name, imageSrc, setImageSrc }) {
           onChange={handleFileChange}
         />
       </InputLabel>
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Delete?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete the picture?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogCloseDelete} color="primary">
+            Yes
+          </Button>
+          <Button onClick={handleDialogClose} color="primary">
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

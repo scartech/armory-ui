@@ -7,6 +7,12 @@ import {
   Fab,
   Chip,
   Alert,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -58,11 +64,32 @@ function History() {
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [historyIdToDelete, setHistoryIdToDelete] = useState(null);
 
   const savedHistory = location?.state?.savedHistory || false;
 
   const handleDelete = async (id) => {
-    const deleted = await HistoryService.delete(auth.user, gunId, id);
+    setHistoryIdToDelete(id);
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleDialogCloseDelete = async () => {
+    setDialogOpen(false);
+
+    const deleted = await HistoryService.delete(
+      auth.user,
+      gunId,
+      historyIdToDelete,
+    );
     if (deleted) {
       setMessage('Successfully deleted the history.');
       setSeverity('info');
@@ -77,10 +104,6 @@ function History() {
     }
 
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -166,6 +189,22 @@ function History() {
           {message}
         </Alert>
       </Snackbar>
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Delete?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete the event?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogCloseDelete} color="primary">
+            Yes
+          </Button>
+          <Button onClick={handleDialogClose} color="primary">
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
