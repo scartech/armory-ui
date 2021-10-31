@@ -292,7 +292,7 @@ function Profile() {
           .
         </Typography>
         <Box>
-          {totpValidated && <Chip label="MFA Active" color="primary" />}
+          {totpValidated && <Chip label="MFA Validated" color="primary" />}
           {!totpValidated && (
             <Chip
               label="MFA Validation Required"
