@@ -110,7 +110,7 @@ function Admin() {
       <Typography className={classes.title} variant="h5">
         Administration
         <Link to="/user">
-          <Fab color="primary" className={classes.fab}>
+          <Fab color="primary" size="small" className={classes.fab}>
             <AddIcon />
           </Fab>
         </Link>

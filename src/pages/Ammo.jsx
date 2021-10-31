@@ -119,7 +119,7 @@ function Ammo() {
         Ammo Purchases
         <Chip size="medium" label={count} className={classes.count} />
         <Link to="/ammo/item">
-          <Fab color="primary" className={classes.fab}>
+          <Fab color="primary" size="small" className={classes.fab}>
             <AddIcon />
           </Fab>
         </Link>

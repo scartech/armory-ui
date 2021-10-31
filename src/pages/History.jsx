@@ -123,12 +123,12 @@ function History() {
             className={classes.count}
           />
           <Link to="/guns">
-            <Fab color="primary" className={classes.fab}>
+            <Fab color="primary" size="small" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
           </Link>
           <Link to={`/history/${gunId}`}>
-            <Fab color="primary" className={classes.fabRight}>
+            <Fab color="primary" size="small" className={classes.fabRight}>
               <AddIcon />
             </Fab>
           </Link>

@@ -108,7 +108,7 @@ function Pictures() {
         <Typography className={classes.title} variant="h5">
           {name}
           <Link to="/guns">
-            <Fab color="primary" className={classes.fab}>
+            <Fab color="primary" size="small" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
           </Link>

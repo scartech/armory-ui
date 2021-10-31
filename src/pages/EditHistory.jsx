@@ -110,7 +110,7 @@ function EditHistory() {
           <Typography className={classes.title} variant="h5">
             {isNew ? 'New History' : 'Edit History'}
             <Link to={`/gun/${gunId}/history`}>
-              <Fab color="primary" className={classes.fab}>
+              <Fab color="primary" size="small" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
             </Link>

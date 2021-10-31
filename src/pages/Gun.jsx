@@ -146,7 +146,12 @@ function Gun() {
           <Typography className={classes.title} variant="h5">
             {isNew ? 'New Gun' : 'Edit Gun'}
             <Link to="/guns">
-              <Fab color="primary" aria-label="back" className={classes.fab}>
+              <Fab
+                color="primary"
+                aria-label="back"
+                size="small"
+                className={classes.fab}
+              >
                 <ArrowBackIcon />
               </Fab>
             </Link>

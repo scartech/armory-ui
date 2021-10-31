@@ -150,7 +150,7 @@ function AmmoItem() {
           <Typography className={classes.title} variant="h5">
             {isNew ? 'New Ammo Purchase' : 'Edit Ammo Purchase'}
             <Link to="/ammo">
-              <Fab color="primary" className={classes.fab}>
+              <Fab color="primary" size="small" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
             </Link>

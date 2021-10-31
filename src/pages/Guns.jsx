@@ -136,13 +136,19 @@ function Guns() {
         <Fab
           color="primary"
           variant="circular"
+          size="small"
           className={classes.fab}
           onClick={handleUseGridClick}
         >
           {useGrid ? <ViewCompactIcon /> : <GridOnIcon />}
         </Fab>
         <Link to="/gun">
-          <Fab color="primary" variant="circular" className={classes.fab}>
+          <Fab
+            color="primary"
+            size="small"
+            variant="circular"
+            className={classes.fab}
+          >
             <AddIcon />
           </Fab>
         </Link>

@@ -116,7 +116,7 @@ function User() {
         <Typography className={classes.title} variant="h5">
           {isNew ? 'New User' : 'Edit User'}
           <Link to="/admin">
-            <Fab color="primary" className={classes.fab}>
+            <Fab color="primary" size="small" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
           </Link>

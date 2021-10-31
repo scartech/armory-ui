@@ -245,7 +245,7 @@ function Profile() {
         <Typography className={classes.title} variant="h5">
           User Profile
           <Link to="/">
-            <Fab color="primary" className={classes.fab}>
+            <Fab color="primary" size="small" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
           </Link>
