@@ -133,7 +133,7 @@ function User() {
         <TextField
           label="Name"
           value={name}
-          variant="standard"
+          variant="outlined"
           margin="normal"
           onChange={(event) => setName(event.target.value)}
           fullWidth
@@ -141,7 +141,7 @@ function User() {
         <TextField
           label="Email"
           value={email}
-          variant="standard"
+          variant="outlined"
           margin="normal"
           onChange={(event) => setEmail(event.target.value)}
           fullWidth
@@ -151,7 +151,7 @@ function User() {
           label="Role"
           select
           value={role}
-          variant="standard"
+          variant="outlined"
           margin="normal"
           onChange={(event) => setRole(event.target.value)}
           fullWidth
@@ -167,7 +167,7 @@ function User() {
               <TextField
                 label="Password"
                 value={password}
-                variant="standard"
+                variant="outlined"
                 type="password"
                 margin="normal"
                 onChange={(event) => setPassword(event.target.value)}
@@ -176,7 +176,7 @@ function User() {
               <TextField
                 label="Confirm Password"
                 value={passwordConfirm}
-                variant="standard"
+                variant="outlined"
                 type="password"
                 margin="normal"
                 onChange={(event) => setPasswordConfirm(event.target.value)}

@@ -158,7 +158,7 @@ function AmmoItem() {
           <TextField
             label="Brand"
             value={brand}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setBrand(event.target.value)}
             fullWidth
@@ -173,7 +173,7 @@ function AmmoItem() {
               <TextField
                 {...params}
                 margin="normal"
-                variant="standard"
+                variant="outlined"
                 label="Caliber"
                 fullWidth
               />
@@ -182,7 +182,7 @@ function AmmoItem() {
           <TextField
             label="Name"
             value={name}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setName(event.target.value)}
             fullWidth
@@ -190,7 +190,7 @@ function AmmoItem() {
           <TextField
             label="Bullet Type"
             value={bulletType}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setBulletType(event.target.value)}
             fullWidth
@@ -198,7 +198,7 @@ function AmmoItem() {
           <TextField
             label="Weight"
             value={weight}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setWeight(event.target.value)}
             fullWidth
@@ -206,7 +206,7 @@ function AmmoItem() {
           <TextField
             label="Muzzle Velocity"
             value={muzzleVelocity}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setMuzzleVelocity(event.target.value)}
             fullWidth
@@ -218,13 +218,13 @@ function AmmoItem() {
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
             renderInput={(params) => (
-              <TextField margin="normal" variant="standard" {...params} />
+              <TextField margin="normal" variant="outlined" {...params} />
             )}
           />
           <TextField
             label="Purchased From"
             value={purchasedFrom}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setPurchasedFrom(event.target.value)}
             fullWidth
@@ -232,7 +232,7 @@ function AmmoItem() {
           <TextField
             label="Round Count"
             value={roundCount}
-            variant="standard"
+            variant="outlined"
             type="number"
             margin="normal"
             onChange={handleRoundCountChange}
@@ -241,7 +241,7 @@ function AmmoItem() {
           <TextField
             label="Purchase Price"
             value={purchasePrice}
-            variant="standard"
+            variant="outlined"
             type="number"
             margin="normal"
             onChange={handlePriceChange}
@@ -255,17 +255,17 @@ function AmmoItem() {
           <TextField
             label="Price per Round"
             value={pricePerRound}
-            variant="standard"
+            variant="outlined"
             type="number"
             margin="normal"
             onChange={(event) => setPricePerRound(event.target.value)}
             fullWidth
-            disabled
             color="primary"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
               ),
+              readOnly: true,
             }}
           />
           <Button

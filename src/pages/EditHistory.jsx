@@ -119,7 +119,7 @@ function EditHistory() {
             label="Type"
             select
             value={type}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setType(event.target.value)}
             fullWidth
@@ -133,7 +133,7 @@ function EditHistory() {
           <TextField
             label="Name"
             value={name}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setName(event.target.value)}
             fullWidth
@@ -145,14 +145,14 @@ function EditHistory() {
             onChange={(date) => setEventDate(date)}
             format="MM/DD/yyyy"
             renderInput={(params) => (
-              <TextField variant="standard" margin="normal" {...params} />
+              <TextField variant="outlined" margin="normal" {...params} />
             )}
           />
           <TextField
             label="Round Count"
             value={roundCount}
             type="number"
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setRoundCount(event.target.value)}
             fullWidth
@@ -160,7 +160,7 @@ function EditHistory() {
           <TextField
             label="Narrative"
             value={narrative}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setNarrative(event.target.value)}
             fullWidth

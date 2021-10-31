@@ -165,7 +165,7 @@ function Gun() {
           <TextField
             label="Name"
             value={name}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setName(event.target.value)}
             fullWidth
@@ -173,7 +173,7 @@ function Gun() {
           <TextField
             label="Serial Number"
             value={serialNumber}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setSerialNumber(event.target.value)}
             fullWidth
@@ -181,7 +181,7 @@ function Gun() {
           <TextField
             label="Manufacturer"
             value={manufacturer}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setManufacturer(event.target.value)}
             fullWidth
@@ -189,7 +189,7 @@ function Gun() {
           <TextField
             label="Model"
             value={modelName}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setModelName(event.target.value)}
             fullWidth
@@ -198,7 +198,7 @@ function Gun() {
             label="Type"
             select
             value={type}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setType(event.target.value)}
             fullWidth
@@ -213,7 +213,7 @@ function Gun() {
             label="Action"
             select
             value={action}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setAction(event.target.value)}
             fullWidth
@@ -233,7 +233,7 @@ function Gun() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
+                variant="outlined"
                 label="Caliber"
                 margin="normal"
                 fullWidth
@@ -243,7 +243,7 @@ function Gun() {
           <TextField
             label="Dealer"
             value={dealer}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setDealer(event.target.value)}
             fullWidth
@@ -251,7 +251,7 @@ function Gun() {
           <TextField
             label="FFL"
             value={ffl}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setFfl(event.target.value)}
             fullWidth
@@ -265,7 +265,7 @@ function Gun() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
+                variant="outlined"
                 label="Country of Origin"
                 margin="normal"
                 fullWidth
@@ -275,7 +275,7 @@ function Gun() {
           <TextField
             label="Estimated Value"
             value={estimatedValue}
-            variant="standard"
+            variant="outlined"
             type="number"
             margin="normal"
             onChange={(event) => setEstimatedValue(event.target.value)}
@@ -289,7 +289,7 @@ function Gun() {
           <TextField
             label="Purchase Price"
             value={purchasePrice}
-            variant="standard"
+            variant="outlined"
             type="number"
             margin="normal"
             onChange={(event) => setPurchasePrice(event.target.value)}
@@ -307,13 +307,13 @@ function Gun() {
             onChange={(date) => setPurchaseDate(date)}
             format="MM/DD/yyyy"
             renderInput={(params) => (
-              <TextField variant="standard" margin="normal" {...params} />
+              <TextField variant="outlined" margin="normal" {...params} />
             )}
           />
           <TextField
             label="Notes"
             value={notes}
-            variant="standard"
+            variant="outlined"
             margin="normal"
             onChange={(event) => setNotes(event.target.value)}
             fullWidth
