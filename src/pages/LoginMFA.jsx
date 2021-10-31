@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
   totpInput: {
     fontSize: '2em',
     borderRadius: '4px',
-    margin: '0 1rem',
     height: '2rem',
     width: '2rem !important',
     border: '1px solid rbga(0, 0, 0, 0,3)',
@@ -53,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
   totpInputContainer: {
     marginTop: '10px',
     marginBottom: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -106,8 +107,9 @@ function LoginMFA() {
           <Grid align="center" className={classes.boxMargin}>
             <Typography variant="subtitle1">Enter verification code</Typography>
           </Grid>
-          <Box className={classes.totpInputContainer}>
+          <Box>
             <OtpInput
+              containerStyle={classes.totpInputContainer}
               inputStyle={classes.totpInput}
               value={code}
               onChange={handleCodeChange}

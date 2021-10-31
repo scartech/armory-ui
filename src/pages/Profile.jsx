@@ -51,16 +51,17 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
   },
   totpInput: {
-    fontSize: '2em',
+    fontSize: '1.5em',
     borderRadius: '4px',
-    margin: '0 1rem',
-    height: '2rem',
-    width: '2rem !important',
-    border: '1px solid rbga(0, 0, 0, 0,3)',
+    height: '1.5rem',
+    width: '1.5rem !important',
+    border: '1px solid rbga(0, 0, 0, 0.3)',
   },
   totpInputContainer: {
     marginTop: '10px',
     marginBottom: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -406,8 +407,9 @@ function Profile() {
       <Dialog open={validateDialogOpen} onClose={handleValidateDialogClose}>
         <DialogTitle>Enter verification code</DialogTitle>
         <DialogContent>
-          <Box className={classes.totpInputContainer}>
+          <Box>
             <OtpInput
+              containerStyle={classes.totpInputContainer}
               inputStyle={classes.totpInput}
               value={codeToValidate}
               onChange={handleCodetoValidateChange}
