@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks';
@@ -24,6 +25,9 @@ const useStyles = makeStyles(() => ({
   },
   fullList: {
     width: 'auto',
+  },
+  ammoIcon: {
+    fontSize: '25px !important',
   },
 }));
 
@@ -65,9 +69,20 @@ function MainDrawer() {
             </ListItemIcon>
             <ListItemText primary="Guns" />
           </ListItem>
+          <ListItem
+            button
+            component={Link}
+            to="/inventory"
+            onClick={toggleDrawer}
+          >
+            <ListItemIcon>
+              <InventoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inventory" />
+          </ListItem>
           <ListItem button component={Link} to="/ammo" onClick={toggleDrawer}>
             <ListItemIcon>
-              <i className="gi gi-ammo" />
+              <i className={`${classes.ammoIcon} gi gi-ammo`} />
             </ListItemIcon>
             <ListItemText primary="Ammo Purchases" />
           </ListItem>

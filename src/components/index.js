@@ -11,6 +11,7 @@ import GunGrid from './GunGrid';
 import AmmoGrid from './AmmoGrid';
 import MainDrawer from './MainDrawer';
 import Dashboard from './Dashboard';
+import InventoryGrid from './InventoryGrid';
 
 export {
   Login,
@@ -26,4 +27,5 @@ export {
   AmmoGrid,
   MainDrawer,
   Dashboard,
+  InventoryGrid,
 };

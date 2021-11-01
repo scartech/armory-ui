@@ -28,6 +28,8 @@ import {
   EditHistory,
   Home,
   LoginMFA,
+  Inventory,
+  InventoryItem,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks';
@@ -128,6 +130,21 @@ function App() {
                     />
                     <PrivateRoute path="/gun/:id" component={Gun} exact />
                     <PrivateRoute path="/ammo" component={Ammo} exact />
+                    <PrivateRoute
+                      path="/inventory"
+                      component={Inventory}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/inventory/item"
+                      component={InventoryItem}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/inventory/item/:id"
+                      component={InventoryItem}
+                      exact
+                    />
                     <PrivateRoute
                       path="/ammo/item"
                       component={AmmoItem}

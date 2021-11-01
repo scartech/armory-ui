@@ -11,6 +11,8 @@ import Ammo from './Ammo';
 import AmmoItem from './AmmoItem';
 import Home from './Home';
 import LoginMFA from './LoginMFA';
+import Inventory from './Inventory';
+import InventoryItem from './InventoryItem';
 
 export {
   Ammo,
@@ -26,4 +28,6 @@ export {
   EditHistory,
   Home,
   LoginMFA,
+  Inventory,
+  InventoryItem,
 };

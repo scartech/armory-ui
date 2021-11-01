@@ -20,8 +20,8 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
-import { AmmoService } from '../services';
-import { AmmoGrid } from '../components';
+import { InventoryService } from '../services';
+import { InventoryGrid } from '../components';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -43,23 +43,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Ammo() {
+function Inventory() {
   const auth = useAuth();
   const classes = useStyles();
   const location = useLocation();
-  const [ammoItems, setAmmoItems] = useState([]);
+
+  const [inventoryItems, setInventoryItems] = useState([]);
+  const [inventoryId, setInventoryId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [ammoId, setAmmoId] = useState(null);
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackSeverity, setSnackSeverity] = useState('error');
   const [snackMessage, setSnackMessage] = useState('');
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const savedAmmo = location?.state?.savedAmmo || false;
+  const savedInventory = location?.state?.savedInventory || false;
 
   const handleDeleteClick = (id) => {
-    setAmmoId(id);
+    setInventoryId(id);
     setDialogOpen(true);
   };
 
@@ -74,18 +75,18 @@ function Ammo() {
   const handleDialogCloseDelete = async () => {
     setDialogOpen(false);
 
-    const deleted = await AmmoService.delete(auth.user, ammoId);
+    const deleted = await InventoryService.delete(auth.user, inventoryId);
     if (deleted) {
-      setSnackMessage('Successfully deleted the ammo purchase.');
+      setSnackMessage('Successfully deleted the inventory item.');
       setSnackSeverity('info');
 
-      const ammoz = await AmmoService.all(auth.user);
-      if (ammoz) {
-        setAmmoItems(ammoz);
-        setCount(ammoz.length);
+      const inventory = await InventoryService.all(auth.user);
+      if (inventory) {
+        setInventoryItems(inventory);
+        setCount(inventory.length);
       }
     } else {
-      setSnackMessage('Failed to delete the ammo purchase.');
+      setSnackMessage('Failed to delete the inventory item.');
       setSnackSeverity('error');
     }
 
@@ -94,11 +95,11 @@ function Ammo() {
 
   useEffect(() => {
     async function fetchAmmo() {
-      const ammoz = await AmmoService.all(auth.user);
-      if (ammoz) {
+      const items = await InventoryService.all(auth.user);
+      if (items) {
         setLoading(false);
-        setAmmoItems(ammoz);
-        setCount(ammoz.length);
+        setInventoryItems(items);
+        setCount(items.length);
       }
     }
 
@@ -106,19 +107,19 @@ function Ammo() {
   }, [auth.user]);
 
   useEffect(() => {
-    if (savedAmmo) {
-      setSnackMessage('Successfully saved ammo purchase.');
+    if (savedInventory) {
+      setSnackMessage('Successfully saved the inventory item.');
       setSnackSeverity('info');
       setSnackOpen(true);
     }
-  }, [savedAmmo]);
+  }, [savedInventory]);
 
   return (
     <Container maxWidth="xl" className={classes.container}>
       <Typography className={classes.title} variant="h5">
-        Ammo Purchases
+        Inventory
         <Chip size="medium" label={count} className={classes.count} />
-        <Link to="/ammo/item">
+        <Link to="/inventory/item">
           <Fab color="primary" size="small" className={classes.fab}>
             <AddIcon />
           </Fab>
@@ -138,14 +139,17 @@ function Ammo() {
             </div>
           </>
         ) : (
-          <AmmoGrid ammo={ammoItems} handleDeleteClick={handleDeleteClick} />
+          <InventoryGrid
+            inventory={inventoryItems}
+            handleDeleteClick={handleDeleteClick}
+          />
         )}
       </div>
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Delete?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete the ammo purchase?
+            Are you sure you want to delete the inventory item?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -181,4 +185,4 @@ function Ammo() {
   );
 }
 
-export default Ammo;
+export default Inventory;
