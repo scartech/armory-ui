@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   appbar: {
-    height: '90px',
+    height: '50px',
     justifyContent: 'center',
   },
 }));
@@ -73,7 +73,7 @@ function NavBar({ handleThemeChange, darkState }) {
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <MainDrawer />
-          <Typography variant="h3" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             Armory
           </Typography>
           <IconButton onClick={handleThemeChange} size="large" color="inherit">

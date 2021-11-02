@@ -8,14 +8,12 @@ import {
   IconButton,
   Fab,
   Alert,
-  Autocomplete,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
-import { InventoryService } from '../services';
-import { INVENTORY_TYPES, CALIBER_TYPES } from '../utils';
+import { AmmoInventoryService } from '../services';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -36,46 +34,27 @@ function InventoryItem() {
   const classes = useStyles();
   const { id } = useParams();
 
-  const [isNew, setIsNew] = useState(true);
   const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  const [count, setCount] = useState(0);
+  const [caliber, setCaliber] = useState('');
+  const [brand, setBrand] = useState('');
   const [goal, setGoal] = useState(0);
   const [open, setOpen] = useState(false);
-  const [nameLabel, setNameLabel] = useState('Name');
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
   const [inventoryId, setInventoryId] = useState(null);
   const [fireRedirect, setFireRedirect] = useState(false);
 
-  const updateNameLabel = (itemType) => {
-    switch (itemType) {
-      case 'Ammunition':
-        setNameLabel('Caliber');
-        break;
-      case 'Magazine':
-        setNameLabel('Caliber & Capacity');
-        break;
-      default:
-        setNameLabel('Name');
-        break;
-    }
-  };
-
   useEffect(() => {
     async function fetchInventory() {
-      const inventory = await InventoryService.get(auth.user, id);
+      const inventory = await AmmoInventoryService.get(auth.user, id);
       if (inventory) {
         setName(inventory.name ?? '');
-        setType(inventory.type ?? '');
-        setCount(inventory.count ?? 0);
+        setCaliber(inventory.caliber ?? '');
+        setBrand(inventory.brand ?? '');
         setGoal(inventory.goal ?? 0);
-
-        updateNameLabel(inventory.type);
       }
     }
 
-    setIsNew(!Boolean(id));
     setInventoryId(id);
 
     if (Boolean(id)) {
@@ -87,33 +66,20 @@ function InventoryItem() {
     setOpen(false);
   };
 
-  const handleTypeChange = (event, value) => {
-    setType(value);
-    updateNameLabel(value);
-  };
-
-  const handleSubmit = async (event, isNewInventory) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
-      name,
-      type,
-      count: count || 0,
       goal: goal || 0,
     };
 
     setOpen(false);
 
-    let inventoryItem;
-    if (isNewInventory) {
-      inventoryItem = await InventoryService.create(auth.user, data);
-    } else {
-      inventoryItem = await InventoryService.update(
-        auth.user,
-        inventoryId,
-        data,
-      );
-    }
+    const inventoryItem = await AmmoInventoryService.update(
+      auth.user,
+      inventoryId,
+      data,
+    );
 
     if (inventoryItem) {
       setFireRedirect(true);
@@ -128,53 +94,36 @@ function InventoryItem() {
     <>
       <form noValidate autoComplete="off">
         <Typography className={classes.title} variant="h5">
-          {isNew ? 'New Inventory' : 'Edit Inventory'}
+          Edit Ammo Inventory
           <Link to="/inventory">
             <Fab color="primary" size="small" className={classes.fab}>
               <ArrowBackIcon />
             </Fab>
           </Link>
         </Typography>
-        <Autocomplete
-          freeSolo
-          autoSelect
-          options={INVENTORY_TYPES}
-          value={type}
-          onChange={handleTypeChange}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              margin="normal"
-              variant="outlined"
-              label="Type"
-              fullWidth
-            />
-          )}
-        />
-        <Autocomplete
-          freeSolo
-          autoSelect
-          options={CALIBER_TYPES}
-          value={name}
-          onChange={(event, value) => setName(value)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              margin="normal"
-              variant="outlined"
-              label={nameLabel}
-              fullWidth
-            />
-          )}
-        />
         <TextField
-          label="Count"
-          value={count}
+          label="Caliber"
+          value={caliber}
           variant="outlined"
           margin="normal"
-          type="number"
-          onChange={(event) => setCount(event.target.value)}
           fullWidth
+          disabled
+        />
+        <TextField
+          label="Brand"
+          value={brand}
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          disabled
+        />
+        <TextField
+          label="Name"
+          value={name}
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          disabled
         />
         <TextField
           label="Goal"
@@ -187,7 +136,7 @@ function InventoryItem() {
         />
         <Button
           variant="contained"
-          onClick={(event) => handleSubmit(event, isNew)}
+          onClick={(event) => handleSubmit(event)}
           fullWidth
           color="primary"
           className={classes.button}

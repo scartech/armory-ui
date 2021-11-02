@@ -3,7 +3,7 @@ import { AxiosUtils } from '../utils';
 /**
  *
  */
-class InventoryService {
+class AmmoInventoryService {
   /**
    *
    * @param {*} user
@@ -105,4 +105,4 @@ class InventoryService {
   }
 }
 
-export default InventoryService;
+export default AmmoInventoryService;
