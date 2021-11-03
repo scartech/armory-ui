@@ -5,12 +5,6 @@ import {
   Typography,
   IconButton,
   Fab,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Button,
   Snackbar,
   Alert,
   Skeleton,
@@ -48,8 +42,6 @@ function Ammo() {
   const classes = useStyles();
   const location = useLocation();
   const [ammoItems, setAmmoItems] = useState([]);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [ammoId, setAmmoId] = useState(null);
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackSeverity, setSnackSeverity] = useState('error');
   const [snackMessage, setSnackMessage] = useState('');
@@ -58,38 +50,8 @@ function Ammo() {
 
   const savedAmmo = location?.state?.savedAmmo || false;
 
-  const handleDeleteClick = (id) => {
-    setAmmoId(id);
-    setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
-
   const handleSnackClose = () => {
     setSnackOpen(false);
-  };
-
-  const handleDialogCloseDelete = async () => {
-    setDialogOpen(false);
-
-    const deleted = await AmmoService.delete(auth.user, ammoId);
-    if (deleted) {
-      setSnackMessage('Successfully deleted the ammo purchase.');
-      setSnackSeverity('info');
-
-      const ammoz = await AmmoService.all(auth.user);
-      if (ammoz) {
-        setAmmoItems(ammoz);
-        setCount(ammoz.length);
-      }
-    } else {
-      setSnackMessage('Failed to delete the ammo purchase.');
-      setSnackSeverity('error');
-    }
-
-    setSnackOpen(true);
   };
 
   useEffect(() => {
@@ -138,25 +100,9 @@ function Ammo() {
             </div>
           </>
         ) : (
-          <AmmoGrid ammo={ammoItems} handleDeleteClick={handleDeleteClick} />
+          <AmmoGrid ammo={ammoItems} />
         )}
       </div>
-      <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Delete?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete the ammo purchase?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogCloseDelete} color="primary">
-            Yes
-          </Button>
-          <Button onClick={handleDialogClose} color="primary">
-            No
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',

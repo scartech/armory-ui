@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { v4 as uuidv4 } from 'uuid';
 import DataGrid from './DataGrid';
@@ -17,12 +16,12 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 
-function AmmoGrid({ ammo, handleDeleteClick }) {
+function AmmoGrid({ ammo }) {
   const columns = [
     {
       name: 'id',
       header: 'Ops',
-      width: 120,
+      width: 60,
       sortable: false,
       draggable: false,
       isOp: true,
@@ -32,13 +31,6 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
             <EditIcon />
           </IconButton>
         </Link>,
-        <IconButton
-          key={uuidv4()}
-          onClick={() => handleDeleteClick(`${value.data.id}`)}
-          size="large"
-        >
-          <DeleteIcon />
-        </IconButton>,
       ],
     },
     {
@@ -120,7 +112,6 @@ function AmmoGrid({ ammo, handleDeleteClick }) {
 
 AmmoGrid.propTypes = {
   ammo: PropTypes.array.isRequired,
-  handleDeleteClick: PropTypes.func.isRequired,
 };
 
 export default AmmoGrid;
