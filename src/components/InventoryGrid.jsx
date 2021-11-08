@@ -10,6 +10,12 @@ const csvName = 'Inventory-Data.csv';
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 4,
+});
+
 function InventoryGrid({ inventory }) {
   const columns = [
     {
@@ -44,13 +50,49 @@ function InventoryGrid({ inventory }) {
     },
     {
       name: 'count',
-      header: 'Count',
+      header: 'Current Stock',
       defaultFlex: 1,
       hasRender: true,
       render: (value) => {
         const val = value?.data
           ? numberFormatter.format(value.data.count)
           : '0';
+        return val;
+      },
+    },
+    {
+      name: 'totalPurchased',
+      header: 'Total Purchased',
+      defaultFlex: 1,
+      hasRender: true,
+      render: (value) => {
+        const val = value?.data
+          ? numberFormatter.format(value.data.totalPurchased)
+          : '0';
+        return val;
+      },
+    },
+    {
+      name: 'totalShot',
+      header: 'Total Shot',
+      defaultFlex: 1,
+      hasRender: true,
+      render: (value) => {
+        const val = value?.data
+          ? numberFormatter.format(value.data.totalShot)
+          : '0';
+        return val;
+      },
+    },
+    {
+      name: 'totalPurchasePrice',
+      header: 'Total Investment',
+      defaultFlex: 1,
+      hasRender: true,
+      render: (value) => {
+        const val = value?.data
+          ? currencyFormatter.format(value.data.totalPurchasePrice)
+          : '$0.00';
         return val;
       },
     },

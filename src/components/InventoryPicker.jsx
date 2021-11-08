@@ -74,11 +74,12 @@ function InventoryPicker({
   useEffect(() => {
     const gr = {};
     inventories.forEach((inventory) => {
-      gr[inventory.id] = 0;
+      gr[inventory.id] =
+        inventory.id in roundsFired ? roundsFired[inventory.id] : 0;
     });
 
     setGunRounds(gr);
-  }, [inventories]);
+  }, [inventories, roundsFired]);
 
   useEffect(() => {
     async function fetchInventory() {
@@ -94,8 +95,9 @@ function InventoryPicker({
   }, [auth.user]);
 
   const handleRoundCountChange = (event, inventory) => {
+    const value = parseInt(event.target.value);
     const gr = { ...gunRounds };
-    gr[inventory.id] = parseInt(event.target.value);
+    gr[inventory.id] = !Number.isNaN(value) ? value : 0;
     setGunRounds(gr);
     setRoundsFired(gr);
   };
@@ -181,7 +183,7 @@ function InventoryPicker({
                       margin="normal"
                       size="small"
                       type="number"
-                      value={gunRounds[inventory.id] || 0}
+                      value={gunRounds[inventory.id].toString() || 0}
                       onChange={(event) =>
                         handleRoundCountChange(event, inventory)
                       }

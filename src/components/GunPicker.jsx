@@ -172,7 +172,7 @@ function GunPicker({
                         margin="normal"
                         size="small"
                         type="number"
-                        value={gunRounds[gun.id] || 0}
+                        value={gunRounds[gun.id].toString() || 0}
                         onChange={(event) =>
                           handleRoundCountChange(event, gun.id)
                         }
