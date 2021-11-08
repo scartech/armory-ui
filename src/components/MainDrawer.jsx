@@ -62,12 +62,6 @@ function MainDrawer() {
             <ListItemText primary="Home" />
           </ListItem>
           <Divider />
-          <ListItem button component={Link} to="/guns" onClick={toggleDrawer}>
-            <ListItemIcon>
-              <i className="gi gi-gun" />
-            </ListItemIcon>
-            <ListItemText primary="Guns" />
-          </ListItem>
           <ListItem
             button
             component={Link}
@@ -84,6 +78,23 @@ function MainDrawer() {
               <i className={`${classes.ammoIcon} gi gi-usd`} />
             </ListItemIcon>
             <ListItemText primary="Ammo Purchases" />
+          </ListItem>
+          <ListItem button component={Link} to="/guns" onClick={toggleDrawer}>
+            <ListItemIcon>
+              <i className="gi gi-gun" />
+            </ListItemIcon>
+            <ListItemText primary="Guns" />
+          </ListItem>
+          <ListItem
+            button
+            component={Link}
+            to="/rangedays"
+            onClick={toggleDrawer}
+          >
+            <ListItemIcon>
+              <i className={`${classes.ammoIcon} gi gi-radar`} />
+            </ListItemIcon>
+            <ListItemText primary="Range Days" />
           </ListItem>
           {auth.user.role === 'ADMIN' && (
             <>

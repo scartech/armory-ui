@@ -85,21 +85,18 @@ function History() {
   const handleDialogCloseDelete = async () => {
     setDialogOpen(false);
 
-    const deleted = await HistoryService.delete(
-      auth.user,
-      gunId,
-      historyIdToDelete,
-    );
+    const deleted = await HistoryService.delete(auth.user, historyIdToDelete);
+
     if (deleted) {
       setMessage('Successfully deleted the history.');
       setSeverity('info');
 
-      const events = await HistoryService.all(auth.user, gunId);
+      const events = await HistoryService.allForGun(auth.user, gunId);
       if (events) {
         setHistory(events);
       }
     } else {
-      setMessage('Failed to delete the gun.');
+      setMessage('Failed to delete the event.');
       setSeverity('error');
     }
 
@@ -115,7 +112,7 @@ function History() {
     }
 
     async function fetchHistory() {
-      const entries = await HistoryService.all(auth.user, gunId);
+      const entries = await HistoryService.allForGun(auth.user, gunId);
       if (entries) {
         setHistory(entries);
       }

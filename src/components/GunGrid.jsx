@@ -16,28 +16,28 @@ function GunGrid({ guns, handleDeleteClick }) {
     {
       name: 'id',
       header: 'Ops',
-      width: 210,
+      width: 160,
       isOp: true,
       render: (value) => [
         <Link to={`/gun/${value.data.id}`} key={uuidv4()}>
-          <IconButton size="large">
+          <IconButton size="small">
             <EditIcon />
           </IconButton>
         </Link>,
         <Link to={`/images/${value.data.id}`} key={uuidv4()}>
-          <IconButton size="large">
+          <IconButton size="small">
             <PhotoCameraIcon />
           </IconButton>
         </Link>,
         <Link to={`/gun/${value.data.id}/history`} key={uuidv4()}>
-          <IconButton size="large">
+          <IconButton size="small">
             <EventNoteIcon />
           </IconButton>
         </Link>,
         <IconButton
           key={uuidv4()}
           onClick={() => handleDeleteClick(`${value.data.id}`)}
-          size="large"
+          size="small"
         >
           <DeleteIcon />
         </IconButton>,
@@ -62,16 +62,19 @@ function GunGrid({ guns, handleDeleteClick }) {
       name: 'serialNumber',
       header: 'Serial Number',
       defaultFlex: 1,
+      visible: false,
     },
     {
       name: 'type',
       header: 'Type',
       defaultFlex: 1,
+      visible: false,
     },
     {
       name: 'action',
       header: 'Action',
       defaultFlex: 1,
+      visible: false,
     },
     {
       name: 'caliber',
@@ -79,14 +82,26 @@ function GunGrid({ guns, handleDeleteClick }) {
       defaultFlex: 1,
     },
     {
+      name: 'lastShot',
+      header: 'Last Shot',
+      defaultFlex: 1,
+    },
+    {
+      name: 'roundsShotCount',
+      header: 'Total Rounds Shot',
+      defaultFlex: 1,
+    },
+    {
       name: 'dealer',
       header: 'Dealer',
       defaultFlex: 1,
+      visible: false,
     },
     {
       name: 'ffl',
       header: 'FFL',
       defaultFlex: 1,
+      visible: false,
     },
     {
       name: 'rating',

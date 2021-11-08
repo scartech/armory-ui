@@ -13,6 +13,8 @@ import Home from './Home';
 import LoginMFA from './LoginMFA';
 import Inventory from './Inventory';
 import InventoryItem from './InventoryItem';
+import RangeDays from './RangeDays';
+import RangeDay from './RangeDay';
 
 export {
   Ammo,
@@ -30,4 +32,6 @@ export {
   LoginMFA,
   Inventory,
   InventoryItem,
+  RangeDays,
+  RangeDay,
 };

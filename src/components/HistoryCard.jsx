@@ -1,4 +1,11 @@
-import { Card, CardActions, CardContent, IconButton, Grid, Typography } from '@mui/material';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  IconButton,
+  Grid,
+  Typography,
+} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -30,8 +37,10 @@ function HistoryCard({ gunId, history, handleDeleteClick }) {
             <Typography variant="h5">{history.name}</Typography>
           </Grid>
           <GunCardItem label="Type" value={history.type} />
-          <GunCardItem label="Round Count" value={history.roundCount} />
-          <GunCardItem label="Narrative" value={history.narrative} />
+          {history.type === 'Range Day' && (
+            <GunCardItem label="Round Count" value={history.roundsShotCount} />
+          )}
+          <GunCardItem label="Notes" value={history.notes} />
           <GunCardItem label="Date" value={history.eventDate} />
         </Grid>
       </CardContent>
@@ -41,9 +50,14 @@ function HistoryCard({ gunId, history, handleDeleteClick }) {
             <EditIcon />
           </IconButton>
         </Link>
-        <IconButton onClick={() => handleDeleteClick(`${history.id}`)} size="large">
-          <DeleteIcon />
-        </IconButton>
+        {history.type !== 'Range Day' && (
+          <IconButton
+            onClick={() => handleDeleteClick(`${history.id}`)}
+            size="large"
+          >
+            <DeleteIcon />
+          </IconButton>
+        )}
       </CardActions>
     </Card>
   );

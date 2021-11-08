@@ -12,6 +12,9 @@ import AmmoGrid from './AmmoGrid';
 import MainDrawer from './MainDrawer';
 import Dashboard from './Dashboard';
 import InventoryGrid from './InventoryGrid';
+import RangeDayGrid from './RangeDayGrid';
+import GunPicker from './GunPicker';
+import InventoryPicker from './InventoryPicker';
 
 export {
   Login,
@@ -28,4 +31,7 @@ export {
   MainDrawer,
   Dashboard,
   InventoryGrid,
+  RangeDayGrid,
+  GunPicker,
+  InventoryPicker,
 };

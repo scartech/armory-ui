@@ -30,6 +30,8 @@ import {
   LoginMFA,
   Inventory,
   InventoryItem,
+  RangeDays,
+  RangeDay,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth } from './hooks';
@@ -130,6 +132,17 @@ function App() {
                     />
                     <PrivateRoute path="/gun/:id" component={Gun} exact />
                     <PrivateRoute path="/ammo" component={Ammo} exact />
+                    <PrivateRoute path="/rangeday" component={RangeDay} exact />
+                    <PrivateRoute
+                      path="/rangeday/:id"
+                      component={RangeDay}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/rangedays"
+                      component={RangeDays}
+                      exact
+                    />
                     <PrivateRoute
                       path="/inventory"
                       component={Inventory}

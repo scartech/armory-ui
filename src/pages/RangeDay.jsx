@@ -4,11 +4,12 @@ import {
   Button,
   TextField,
   Typography,
-  MenuItem,
   Snackbar,
   IconButton,
   Fab,
   Alert,
+  Divider,
+  Chip,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -18,7 +19,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../hooks';
 import { HistoryService } from '../services';
-import { HISTORY_TYPES } from '../utils';
+import { GunPicker, InventoryPicker } from '../components';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -32,42 +33,56 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     left: theme.spacing(2),
   },
+  divider: {
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
+  },
 }));
 
-function EditHistory() {
+function RangeDay() {
   const auth = useAuth();
   const classes = useStyles();
-  const { id, gunId } = useParams();
+  const { id } = useParams();
 
   const [isNew, setIsNew] = useState(true);
   const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
-  const [type, setType] = useState('Cleaning');
-  const [roundCount, setRoundCount] = useState(0);
   const [eventDate, setEventDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  const [gunIds, setGunIds] = useState([]);
+  const [roundsFired, setRoundsFired] = useState({});
+  const [inventoryRoundsFired, setInventoryRoundsFired] = useState({});
+  const [inventoryIds, setInventoryIds] = useState([]);
+  const [snackOpen, setSnackOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
-  const [rangeDay, setRangeDay] = useState(false);
 
   const [fireRedirect, setFireRedirect] = useState(false);
+
+  //   useEffect(() => {
+  //     console.log(roundsFired);
+  //   }, [roundsFired]);
 
   useEffect(() => {
     async function fetchHistory() {
       const history = await HistoryService.get(auth.user, id);
       if (history) {
-        setRangeDay(history.type === 'Range Day');
-        setNotes(history.notes ?? '');
-        setType(history.type ?? '');
         setLocation(history.location ?? '');
+        setNotes(history.notes ?? '');
         setEventDate(history.eventDate ?? null);
+        setGunIds(history.guns.map((x) => x.id));
+        setInventoryIds(history.inventories.map((x) => x.id));
 
-        if (history.guns) {
-          const guns = history.guns.filter((x) => x.id === parseInt(gunId));
-          if (guns.length === 1 && guns[0].HistoryGun) {
-            setRoundCount(guns[0].HistoryGun.roundCount);
-          }
-        }
+        const rFired = {};
+        history.guns.forEach((gun) => {
+          rFired[gun.id] = gun?.HistoryGun?.roundCount ?? 0;
+        });
+        setRoundsFired(rFired);
+
+        const iFired = {};
+        history.inventories.forEach((inv) => {
+          iFired[inv.id] = inv?.HistoryInventory?.roundCount ?? 0;
+        });
+        setInventoryRoundsFired(iFired);
       }
     }
 
@@ -76,31 +91,31 @@ function EditHistory() {
     if (Boolean(id)) {
       fetchHistory();
     }
-  }, [auth.user, id, gunId]);
+  }, [auth.user, id]);
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleSnackClose = () => {
+    setSnackOpen(false);
   };
 
   const handleSubmit = async (event, isNewHistory) => {
     event.preventDefault();
 
     const data = {
-      roundCount,
+      location,
       notes,
-      type,
+      type: 'Range Day',
       eventDate: eventDate || null,
-      gunIds: [gunId],
-      inventoryIds: [],
-      gunRoundsFired: {},
-      inventoryRoundsFired: {},
+      gunIds,
+      inventoryIds,
+      gunRoundsFired: roundsFired,
+      inventoryRoundsFired,
     };
 
-    setOpen(false);
+    setSnackOpen(false);
 
     let history;
     if (isNewHistory) {
-      history = await HistoryService.create(auth.user, data);
+      history = await HistoryService.createRangeDay(auth.user, data);
     } else {
       history = await HistoryService.update(auth.user, id, data);
     }
@@ -109,8 +124,8 @@ function EditHistory() {
       setFireRedirect(true);
     } else {
       setSeverity('error');
-      setMessage('Unable to save the history.');
-      setOpen(true);
+      setMessage('Unable to save the range day.');
+      setSnackOpen(true);
     }
   };
 
@@ -119,85 +134,57 @@ function EditHistory() {
       <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h5">
-            {rangeDay && 'View History'}
-            {isNew && 'New History'}
-            {!isNew && !rangeDay && 'Edit History'}
-            <Link to={`/gun/${gunId}/history`}>
+            {isNew ? 'New Range Day' : 'Edit Range Day'}
+            <Link to="/rangedays">
               <Fab color="primary" size="small" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
             </Link>
           </Typography>
-          {rangeDay ? (
-            <TextField
-              label="Type"
-              value="Range Day"
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              disabled
-            />
-          ) : (
-            <TextField
-              label="Type"
-              select
-              value={type}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              onChange={(event) => setType(event.target.value)}
-            >
-              {HISTORY_TYPES.filter((x) => x !== 'Range Day').map(
-                (historyType) => (
-                  <MenuItem key={historyType} value={historyType}>
-                    {historyType}
-                  </MenuItem>
-                ),
-              )}
-            </TextField>
-          )}
-          {rangeDay && (
-            <TextField
-              label="Location"
-              value={location}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              disabled={rangeDay}
-            />
-          )}
+          <TextField
+            label="Location"
+            value={location}
+            variant="outlined"
+            margin="normal"
+            onChange={(event) => setLocation(event.target.value)}
+            fullWidth
+          />
           <DatePicker
             clearable
             label="Date"
             value={eventDate}
             onChange={(date) => setEventDate(date)}
             format="MM/DD/yyyy"
-            disabled={rangeDay}
             renderInput={(params) => (
               <TextField variant="outlined" margin="normal" {...params} />
             )}
           />
-          {rangeDay && (
-            <TextField
-              label="Round Count"
-              value={roundCount}
-              type="number"
-              variant="outlined"
-              margin="normal"
-              disabled={rangeDay}
-              onChange={(event) => setRoundCount(event.target.value)}
-              fullWidth
-            />
-          )}
           <TextField
             label="Notes"
             value={notes}
             variant="outlined"
             margin="normal"
-            disabled={rangeDay}
             multiline
             onChange={(event) => setNotes(event.target.value)}
             fullWidth
+          />
+          <Divider className={classes.divider}>
+            <Chip label="Guns Used" color="primary" />
+          </Divider>
+          <GunPicker
+            selectedGunIds={gunIds}
+            setSelectedGunIds={setGunIds}
+            roundsFired={roundsFired}
+            setRoundsFired={setRoundsFired}
+          />
+          <Divider className={classes.divider}>
+            <Chip label="Ammo Used" color="primary" />
+          </Divider>
+          <InventoryPicker
+            selectedIds={inventoryIds}
+            setSelectedIds={setInventoryIds}
+            roundsFired={inventoryRoundsFired}
+            setRoundsFired={setInventoryRoundsFired}
           />
           <Button
             variant="contained"
@@ -205,7 +192,6 @@ function EditHistory() {
             fullWidth
             color="primary"
             className={classes.button}
-            disabled={rangeDay}
           >
             Submit
           </Button>
@@ -215,26 +201,30 @@ function EditHistory() {
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={open}
+          open={snackOpen}
           autoHideDuration={5000}
-          onClose={() => setOpen(false)}
+          onClose={() => setSnackOpen(false)}
           action={
             <Fragment>
-              <IconButton size="small" color="inherit" onClick={handleClose}>
+              <IconButton
+                size="small"
+                color="inherit"
+                onClick={handleSnackClose}
+              >
                 <CloseIcon fontSize="small" />
               </IconButton>
             </Fragment>
           }
         >
-          <Alert onClose={handleClose} severity={severity}>
+          <Alert onClose={handleSnackClose} severity={severity}>
             {message}
           </Alert>
         </Snackbar>
         {fireRedirect && (
           <Redirect
             to={{
-              pathname: `/gun/${gunId}/history`,
-              state: { savedHistory: true },
+              pathname: '/rangedays',
+              state: { savedRangeDay: true },
             }}
           />
         )}
@@ -243,4 +233,4 @@ function EditHistory() {
   );
 }
 
-export default EditHistory;
+export default RangeDay;
