@@ -74,11 +74,11 @@ function GunPicker({
   useEffect(() => {
     const gr = {};
     guns.forEach((gun) => {
-      gr[gun.id] = 0;
+      gr[gun.id] = gun.id in roundsFired ? roundsFired[gun.id] : 0;
     });
 
     setGunRounds(gr);
-  }, [guns]);
+  }, [guns, roundsFired]);
 
   useEffect(() => {
     async function fetchGuns() {
