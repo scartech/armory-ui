@@ -7,6 +7,12 @@ import {
   Snackbar,
   Alert,
   Skeleton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -46,11 +52,43 @@ function Inventory() {
   const [snackMessage, setSnackMessage] = useState('');
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   const savedInventory = location?.state?.savedInventory || false;
 
   const handleSnackClose = () => {
     setSnackOpen(false);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleDialogCloseDelete = async () => {
+    setDialogOpen(false);
+
+    const deleted = await AmmoInventoryService.delete(auth.user, deleteId);
+    if (deleted) {
+      setSnackMessage('Successfully deleted the inventory.');
+      setSnackSeverity('info');
+
+      const items = await AmmoInventoryService.all(auth.user);
+      if (items) {
+        setInventoryItems(items);
+        setCount(items.length);
+      }
+    } else {
+      setSnackMessage('Failed to delete the inventory.');
+      setSnackSeverity('error');
+    }
+
+    setSnackOpen(true);
+  };
+
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);
+    setDialogOpen(true);
   };
 
   useEffect(() => {
@@ -94,7 +132,10 @@ function Inventory() {
             </div>
           </>
         ) : (
-          <InventoryGrid inventory={inventoryItems} />
+          <InventoryGrid
+            inventory={inventoryItems}
+            handleDeleteClick={handleDeleteClick}
+          />
         )}
       </div>
       <Snackbar
@@ -117,6 +158,22 @@ function Inventory() {
           {snackMessage}
         </Alert>
       </Snackbar>
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Delete?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete the inventory?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogCloseDelete} color="primary">
+            Yes
+          </Button>
+          <Button onClick={handleDialogClose} color="primary">
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
