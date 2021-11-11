@@ -4,14 +4,26 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import Icon from '@mdi/react';
 import { mdiPistol, mdiDotsHexagon } from '@mdi/js';
-import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  Tooltip,
+  Bar,
+  BarChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
 import { v4 as uuidv4 } from 'uuid';
 import DashboardCard from './DashboardCard';
 
 const useStyles = makeStyles(() => ({
   graphCard: {
-    width: 350,
-    height: 350,
+    width: '100%',
+    height: 400,
     margin: 'auto',
     '& i': {
       fontSize: '25px',
@@ -31,6 +43,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function Dashboard({ data }) {
   const [gunPieData, setGunPieData] = useState([]);
+  const [ammoBarData, setAmmoBarData] = useState([]);
 
   useEffect(() => {
     setGunPieData([
@@ -38,25 +51,52 @@ function Dashboard({ data }) {
       { name: 'Rifles', value: data.rifleCount, key: uuidv4() },
       { name: 'Shotguns', value: data.shotgunCount, key: uuidv4() },
     ]);
+
+    const ammoValues = [];
+    if (Object.keys(data).length > 0) {
+      Object.keys(data.ammoBreakdown).forEach((caliber) => {
+        ammoValues.push({
+          key: uuidv4(),
+          value: data.ammoBreakdown[caliber],
+          name: caliber,
+        });
+      });
+    }
+
+    setAmmoBarData(ammoValues);
   }, [data]);
 
+  const ammoColumnChart = (
+    <ResponsiveContainer width="100%" height={350}>
+      <BarChart data={ammoBarData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Bar key={uuidv4()} dataKey="value" fill={COLORS[0]} barSize={30} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+
   const gunPieChart = (
-    <PieChart width={300} height={300}>
-      <Pie dataKey="value" data={gunPieData} label>
-        {gunPieData.map((entry, index) => (
-          <Cell key={`${entry.key}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-      <Tooltip />
-      <Legend />
-    </PieChart>
+    <ResponsiveContainer width="100%" height={350}>
+      <PieChart>
+        <Pie dataKey="value" data={gunPieData} label>
+          {gunPieData.map((entry, index) => (
+            <Cell key={`${entry.key}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
   );
 
   const classes = useStyles();
 
   return (
     <Grid container spacing={4} padding={2}>
-      <Grid item xs={12} lg={12}>
+      <Grid item xs={12} lg={6}>
         <Card className={classes.graphCard} variant="elevation" elevation={1}>
           <Grid align="center">
             <CardContent>
@@ -64,6 +104,18 @@ function Dashboard({ data }) {
                 Gun Types
               </Typography>
               {gunPieChart}
+            </CardContent>
+          </Grid>
+        </Card>
+      </Grid>
+      <Grid item xs={12} lg={6}>
+        <Card className={classes.graphCard} variant="outlined">
+          <Grid align="center">
+            <CardContent>
+              <Typography color="textSecondary" variant="h6">
+                Ammo in Stock
+              </Typography>
+              {ammoColumnChart}
             </CardContent>
           </Grid>
         </Card>
@@ -100,7 +152,21 @@ function Dashboard({ data }) {
         <DashboardCard
           title="Rounds Purchased"
           icon={<i className="gi gi-ammo" />}
-          message={`${numberFormatter.format(data.totalRoundCount)}`}
+          message={`${numberFormatter.format(data.totalRoundsPurchased)}`}
+        />
+      </Grid>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+        <DashboardCard
+          title="Rounds Shot"
+          icon={<i className="gi gi-ammo" />}
+          message={`${numberFormatter.format(data.totalRoundsShot)}`}
+        />
+      </Grid>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+        <DashboardCard
+          title="Rounds in Stock"
+          icon={<i className="gi gi-ammo" />}
+          message={`${numberFormatter.format(data.totalAmmoInStock)}`}
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
