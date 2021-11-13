@@ -1,14 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import {
-  Checkbox,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   IconButton,
   Fab,
   Dialog,
@@ -21,13 +13,12 @@ import {
   Alert,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { UserService } from '../services';
+import { UserGrid } from '../components';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -115,47 +106,7 @@ function Admin() {
           </Fab>
         </Link>
       </Typography>
-      <TableContainer component={Paper}>
-        <Table size="medium">
-          <TableHead>
-            <TableRow>
-              <TableCell>Edit</TableCell>
-              <TableCell>Delete</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Enabled</TableCell>
-              <TableCell>Role</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell width={40}>
-                  <Link to={`/user/${user.id}`}>
-                    <IconButton size="large">
-                      <EditIcon />
-                    </IconButton>
-                  </Link>
-                </TableCell>
-                <TableCell width={40}>
-                  <IconButton
-                    onClick={() => handleDeleteClick(`${user.id}`)}
-                    size="large"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  <Checkbox disabled checked={user.enabled} />
-                </TableCell>
-                <TableCell>{user.role}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <UserGrid data={users} handleDeleteClick={handleDeleteClick} />
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Delete?</DialogTitle>
         <DialogContent>

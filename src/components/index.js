@@ -15,6 +15,7 @@ import InventoryGrid from './InventoryGrid';
 import RangeDayGrid from './RangeDayGrid';
 import GunPicker from './GunPicker';
 import InventoryPicker from './InventoryPicker';
+import UserGrid from './UserGrid';
 
 export {
   Login,
@@ -34,4 +35,5 @@ export {
   RangeDayGrid,
   GunPicker,
   InventoryPicker,
+  UserGrid,
 };
