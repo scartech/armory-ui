@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom';
+import AmmoGridOps from './AmmoGridOps';
 import DataGrid from './DataGrid';
 
-const gridStorageKey = 'ammogrid';
 const csvName = 'Ammo-Data.csv';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -16,102 +13,92 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 
-function AmmoGrid({ ammo }) {
+function AmmoGrid({ data }) {
+  const history = useHistory();
+
   const columns = [
     {
-      name: 'id',
-      header: 'Ops',
-      width: 60,
-      sortable: false,
-      draggable: false,
-      isOp: true,
-      render: (value) => [
-        <Link to={`/ammo/item/${value.data.id}`} key={uuidv4()}>
-          <IconButton size="large">
-            <EditIcon />
-          </IconButton>
-        </Link>,
-      ],
+      selector: (row) => row.caliber,
+      name: 'Caliber',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'caliber',
-      header: 'Caliber',
-      defaultFlex: 1,
+      selector: (row) => row.name,
+      name: 'Name',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'name',
-      header: 'Name',
-      defaultFlex: 1,
+      selector: (row) => row.brand,
+      name: 'Brand',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'brand',
-      header: 'Brand',
-      defaultFlex: 1,
+      selector: (row) => row.weight,
+      name: 'Weight',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'weight',
-      header: 'Weight',
-      defaultFlex: 1,
+      selector: (row) => row.bulletType,
+      name: 'Bullet Type',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'bulletType',
-      header: 'Bullet Type',
-      defaultFlex: 1,
+      selector: (row) => row.roundCount,
+      name: 'Round Count',
+      sortable: true,
+      reorder: true,
+      format: (row) => numberFormatter.format(row.roundCount),
     },
     {
-      name: 'roundCount',
-      header: 'Round Count',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data
-          ? numberFormatter.format(value.data.roundCount)
-          : '0';
-        return val;
-      },
+      selector: (row) => row.purchasedFrom,
+      name: 'Purchased From',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'purchasedFrom',
-      header: 'Purchased From',
-      defaultFlex: 1,
+      selector: (row) => row.purchasePrice,
+      name: 'Purchase Price',
+      sortable: true,
+      reorder: true,
+      format: (row) => currencyFormatter.format(row.purchasePrice),
     },
     {
-      name: 'purchasePrice',
-      header: 'Purchase Price',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data
-          ? currencyFormatter.format(value.data.purchasePrice)
-          : '$0.00';
-        return val;
-      },
+      selector: (row) => row.pricePerRound,
+      name: 'Price Per Round',
+      sortable: true,
+      reorder: true,
+      format: (row) => currencyFormatter.format(row.pricePerRound),
     },
     {
-      name: 'pricePerRound',
-      header: 'Price Per Round',
-      defaultFlex: 1,
-      render: (value) => {
-        const val = value?.data
-          ? currencyFormatter.format(value.data.pricePerRound)
-          : '$0.00';
-        return val;
-      },
+      name: 'Ops',
+      width: '60px',
+      center: true,
+      button: true,
+      cell: (row) => <AmmoGridOps key={row.id} id={row.id} />,
     },
   ];
 
+  const handleRowDoublClicked = (ammo) => {
+    history.push(`/ammo/item/${ammo.id}`);
+  };
+
   return (
     <DataGrid
-      data={ammo}
+      data={data}
       columns={columns}
-      storageKey={gridStorageKey}
+      onRowDoubleClicked={handleRowDoublClicked}
       csvName={csvName}
     />
   );
 }
 
 AmmoGrid.propTypes = {
-  ammo: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 export default AmmoGrid;

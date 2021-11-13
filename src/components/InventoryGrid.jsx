@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom';
+import InventoryGridOps from './InventoryGridOps';
 import DataGrid from './DataGrid';
 
-const gridStorageKey = 'inventorygrid';
 const csvName = 'Inventory-Data.csv';
 
 const numberFormatter = new Intl.NumberFormat('en-US');
@@ -17,136 +13,97 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 4,
 });
 
-function InventoryGrid({ inventory, handleDeleteClick }) {
-  const buildOps = (value) => {
-    if (
-      value.data.count === 0 &&
-      value.data.totalShot === 0 &&
-      value.data.totalPurchased === 0
-    ) {
-      return [
-        <Link to={`/inventory/item/${value.data.id}`} key={uuidv4()}>
-          <IconButton size="small">
-            <EditIcon />
-          </IconButton>
-        </Link>,
-        <IconButton
-          size="small"
-          key={uuidv4()}
-          data-id={value.data.id}
-          onClick={(e) => handleDeleteClick(e.currentTarget.dataset.id)}
-        >
-          <DeleteIcon />
-        </IconButton>,
-      ];
-    }
-
-    return [
-      <Link to={`/inventory/item/${value.data.id}`} key={uuidv4()}>
-        <IconButton size="small">
-          <EditIcon />
-        </IconButton>
-      </Link>,
-    ];
-  };
+function InventoryGrid({ data, handleDeleteClick }) {
+  const history = useHistory();
 
   const columns = [
     {
-      name: 'id',
-      header: 'Ops',
-      width: 90,
-      sortable: false,
-      draggable: false,
-      isOp: true,
-      render: buildOps,
+      selector: (row) => row.caliber,
+      name: 'Caliber',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'caliber',
-      header: 'Caliber',
-      defaultFlex: 1,
+      selector: (row) => row.brand,
+      name: 'Brand',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'brand',
-      header: 'Brand',
-      defaultFlex: 1,
+      selector: (row) => row.name,
+      name: 'Name',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'name',
-      header: 'Name',
-      defaultFlex: 1,
+      selector: (row) => row.count,
+      name: 'Current Stock',
+      sortable: true,
+      reorder: true,
+      format: (row) => numberFormatter.format(row.count),
     },
     {
-      name: 'count',
-      header: 'Current Stock',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data
-          ? numberFormatter.format(value.data.count)
-          : '0';
-        return val;
-      },
+      selector: (row) => row.totalPurchased,
+      name: 'Total Purchased',
+      sortable: true,
+      reorder: true,
+      format: (row) => numberFormatter.format(row.totalPurchased),
     },
     {
-      name: 'totalPurchased',
-      header: 'Total Purchased',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data
-          ? numberFormatter.format(value.data.totalPurchased)
-          : '0';
-        return val;
-      },
+      selector: (row) => row.totalShot,
+      name: 'Total Shot',
+      sortable: true,
+      reorder: true,
+      format: (row) => numberFormatter.format(row.totalShot),
     },
     {
-      name: 'totalShot',
-      header: 'Total Shot',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data
-          ? numberFormatter.format(value.data.totalShot)
-          : '0';
-        return val;
-      },
+      selector: (row) => row.totalPurchasePrice,
+      name: 'Total Investment',
+      sortable: true,
+      reorder: true,
+      format: (row) => currencyFormatter.format(row.totalPurchasePrice),
     },
     {
-      name: 'totalPurchasePrice',
-      header: 'Total Investment',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data
-          ? currencyFormatter.format(value.data.totalPurchasePrice)
-          : '$0.00';
-        return val;
-      },
+      selector: (row) => row.goal,
+      name: 'Goal',
+      sortable: true,
+      reorder: true,
+      format: (row) => numberFormatter.format(row.goal),
     },
     {
-      name: 'goal',
-      header: 'Goal',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => {
-        const val = value?.data ? numberFormatter.format(value.data.goal) : '0';
-        return val;
-      },
+      name: 'Ops',
+      width: '60px',
+      center: true,
+      button: true,
+      cell: (row) => (
+        <InventoryGridOps
+          key={row.id}
+          id={row.id}
+          handleDeleteClick={handleDeleteClick}
+          canDelete={
+            row.count === 0 && row.totalShot === 0 && row.totalPurchased === 0
+          }
+        />
+      ),
     },
   ];
 
+  const handleRowDoublClicked = (item) => {
+    history.push(`/inventory/item/${item.id}`);
+  };
+
   return (
     <DataGrid
-      data={inventory}
+      data={data}
       columns={columns}
-      storageKey={gridStorageKey}
       csvName={csvName}
+      onRowDoubleClicked={handleRowDoublClicked}
     />
   );
 }
 
 InventoryGrid.propTypes = {
-  inventory: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
 };
 

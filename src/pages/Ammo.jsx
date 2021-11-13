@@ -100,7 +100,7 @@ function Ammo() {
             </div>
           </>
         ) : (
-          <AmmoGrid ammo={ammoItems} />
+          <AmmoGrid data={ammoItems} />
         )}
       </div>
       <Snackbar

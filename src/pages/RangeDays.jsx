@@ -100,7 +100,7 @@ function RangeDays() {
             </div>
           </>
         ) : (
-          <RangeDayGrid rangeDays={rangeDays} />
+          <RangeDayGrid data={rangeDays} />
         )}
       </div>
       <Snackbar

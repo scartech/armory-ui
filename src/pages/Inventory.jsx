@@ -133,7 +133,7 @@ function Inventory() {
           </>
         ) : (
           <InventoryGrid
-            inventory={inventoryItems}
+            data={inventoryItems}
             handleDeleteClick={handleDeleteClick}
           />
         )}

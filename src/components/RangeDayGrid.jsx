@@ -1,64 +1,63 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom';
+import RangeDayGridOps from './RangeDayGridOps';
 import DataGrid from './DataGrid';
 
-const gridStorageKey = 'rangedaygrid';
 const csvName = 'Range-Data.csv';
 
-function RangeDayGrid({ rangeDays }) {
+function RangeDayGrid({ data }) {
+  const history = useHistory();
+
   const columns = [
     {
-      name: 'id',
-      header: 'Ops',
-      width: 60,
-      sortable: false,
-      draggable: false,
-      isOp: true,
-      render: (value) => [
-        <Link to={`/rangeday/${value.data.id}`} key={uuidv4()}>
-          <IconButton>
-            <EditIcon />
-          </IconButton>
-        </Link>,
-      ],
+      selector: (row) => row.location,
+      name: 'Location',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'location',
-      header: 'Location',
-      defaultFlex: 1,
+      selector: (row) => row.roundsShotCount,
+      name: 'Total Rounds Shot',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'roundsShotCount',
-      header: 'Total Rounds Shot',
-      defaultFlex: 1,
+      selector: (row) => row.ammoUsedCount,
+      name: 'Total Ammo Used',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'ammoUsedCount',
-      header: 'Total Ammo Used',
-      defaultFlex: 1,
+      selector: (row) => row.eventDate,
+      name: 'Date',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'eventDate',
-      header: 'Date',
-      defaultFlex: 1,
+      name: 'Ops',
+      width: '60px',
+      center: true,
+      button: true,
+      cell: (row) => <RangeDayGridOps key={row.id} id={row.id} />,
     },
   ];
 
+  const handleRowDoublClicked = (item) => {
+    history.push(`/rangeday/${item.id}`);
+  };
+
   return (
     <DataGrid
-      data={rangeDays}
+      data={data}
       columns={columns}
-      storageKey={gridStorageKey}
       csvName={csvName}
+      onRowDoubleClicked={handleRowDoublClicked}
     />
   );
 }
 
 RangeDayGrid.propTypes = {
-  rangeDays: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 export default RangeDayGrid;

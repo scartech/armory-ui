@@ -1,124 +1,92 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { IconButton, Rating } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import EventNoteIcon from '@mui/icons-material/EventNote';
-import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom';
 import DataGrid from './DataGrid';
+import GunGridOps from './GunGridOps';
 
-const gridStorageKey = 'gungrid';
 const csvName = 'Gun-Data.csv';
 
 function GunGrid({ guns, handleDeleteClick }) {
+  const history = useHistory();
+
   const columns = [
     {
-      name: 'id',
-      header: 'Ops',
-      width: 160,
-      isOp: true,
-      render: (value) => [
-        <Link to={`/gun/${value.data.id}`} key={uuidv4()}>
-          <IconButton size="small">
-            <EditIcon />
-          </IconButton>
-        </Link>,
-        <Link to={`/images/${value.data.id}`} key={uuidv4()}>
-          <IconButton size="small">
-            <PhotoCameraIcon />
-          </IconButton>
-        </Link>,
-        <Link to={`/gun/${value.data.id}/history`} key={uuidv4()}>
-          <IconButton size="small">
-            <EventNoteIcon />
-          </IconButton>
-        </Link>,
-        <IconButton
-          key={uuidv4()}
-          onClick={() => handleDeleteClick(`${value.data.id}`)}
-          size="small"
-        >
-          <DeleteIcon />
-        </IconButton>,
-      ],
+      selector: (row) => row.name,
+      name: 'Name',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'name',
-      header: 'Name',
-      defaultFlex: 1,
+      selector: (row) => row.manufacturer,
+      name: 'Manufacturer',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'manufacturer',
-      header: 'Manufacturer',
-      defaultFlex: 1,
+      selector: (row) => row.modelName,
+      name: 'Model',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'modelName',
-      header: 'Model',
-      defaultFlex: 1,
+      selector: (row) => row.serialNumber,
+      name: 'Serial Number',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'serialNumber',
-      header: 'Serial Number',
-      defaultFlex: 1,
-      visible: false,
+      selector: (row) => row.type,
+      name: 'Type',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'type',
-      header: 'Type',
-      defaultFlex: 1,
-      visible: false,
+      selector: (row) => row.action,
+      name: 'Action',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'action',
-      header: 'Action',
-      defaultFlex: 1,
-      visible: false,
+      selector: (row) => row.caliber,
+      name: 'Caliber',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'caliber',
-      header: 'Caliber',
-      defaultFlex: 1,
+      selector: (row) => row.lastShot,
+      name: 'Last Shot',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'lastShot',
-      header: 'Last Shot',
-      defaultFlex: 1,
+      selector: (row) => row.roundsShotCount,
+      name: 'Total Rounds Shot',
+      sortable: true,
+      reorder: true,
     },
     {
-      name: 'roundsShotCount',
-      header: 'Total Rounds Shot',
-      defaultFlex: 1,
-    },
-    {
-      name: 'dealer',
-      header: 'Dealer',
-      defaultFlex: 1,
-      visible: false,
-    },
-    {
-      name: 'ffl',
-      header: 'FFL',
-      defaultFlex: 1,
-      visible: false,
-    },
-    {
-      name: 'rating',
-      header: 'Rating',
-      defaultFlex: 1,
-      hasRender: true,
-      render: (value) => (
-        <Rating value={value.data.rating} precision={0.5} readOnly />
+      name: 'Ops',
+      width: '60px',
+      center: true,
+      button: true,
+      cell: (row) => (
+        <GunGridOps
+          key={row.id}
+          id={row.id}
+          handleDeleteClick={handleDeleteClick}
+        />
       ),
     },
   ];
+
+  const handleRowDoublClicked = (gun) => {
+    history.push(`/gun/${gun.id}`);
+  };
 
   return (
     <DataGrid
       data={guns}
       columns={columns}
-      storageKey={gridStorageKey}
+      onRowDoubleClicked={handleRowDoublClicked}
       csvName={csvName}
     />
   );
