@@ -22,24 +22,28 @@ function InventoryGrid({ data, handleDeleteClick }) {
       name: 'Caliber',
       sortable: true,
       reorder: true,
+      field: 'caliber',
     },
     {
       selector: (row) => row.brand,
       name: 'Brand',
       sortable: true,
       reorder: true,
+      field: 'brand',
     },
     {
       selector: (row) => row.name,
       name: 'Name',
       sortable: true,
       reorder: true,
+      field: 'name',
     },
     {
       selector: (row) => row.count,
       name: 'Current Stock',
       sortable: true,
       reorder: true,
+      field: 'count',
       format: (row) => numberFormatter.format(row.count),
     },
     {
@@ -47,6 +51,7 @@ function InventoryGrid({ data, handleDeleteClick }) {
       name: 'Total Purchased',
       sortable: true,
       reorder: true,
+      field: 'totalPurchased',
       format: (row) => numberFormatter.format(row.totalPurchased),
     },
     {
@@ -54,6 +59,7 @@ function InventoryGrid({ data, handleDeleteClick }) {
       name: 'Total Shot',
       sortable: true,
       reorder: true,
+      field: 'totalShot',
       format: (row) => numberFormatter.format(row.totalShot),
     },
     {
@@ -61,6 +67,7 @@ function InventoryGrid({ data, handleDeleteClick }) {
       name: 'Total Investment',
       sortable: true,
       reorder: true,
+      field: 'totalPurchasePrice',
       format: (row) => currencyFormatter.format(row.totalPurchasePrice),
     },
     {
@@ -68,6 +75,7 @@ function InventoryGrid({ data, handleDeleteClick }) {
       name: 'Goal',
       sortable: true,
       reorder: true,
+      field: 'goal',
       format: (row) => numberFormatter.format(row.goal),
     },
     {

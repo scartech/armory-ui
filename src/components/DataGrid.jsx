@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
@@ -8,6 +8,7 @@ import { CSVLink } from 'react-csv';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { v4 as uuidv4 } from 'uuid';
 import MobileGridItem from './MobileGridItem';
+import DataGridFilter from './DataGridFilter';
 
 const useStyles = makeStyles(() => ({
   csvLink: {
@@ -18,6 +19,9 @@ const useStyles = makeStyles(() => ({
 function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
   const classes = useStyles();
 
+  const [filterText, setFilterText] = useState('');
+  const [gridData, setGridData] = useState([]);
+
   const [theme, setTheme] = useState(() => {
     const useDark = localStorage.getItem('darkState') === 'true';
     return useDark ? 'dark' : 'default';
@@ -27,16 +31,56 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
     setTheme(msgData ? 'dark' : 'default');
   });
 
+  useEffect(() => {
+    setGridData(data);
+  }, [data]);
+
   const handleRowDoubleClick = (row) => {
     onRowDoubleClicked(row);
+  };
+
+  const handleFilterTextChange = (event) => {
+    const { value } = event.target;
+    setFilterText(value);
+
+    const valueNames = columns.filter((x) => 'field' in x).map((x) => x.field);
+    const unfiltered = [...data];
+    const filtered = unfiltered.filter((x) => {
+      for (let i = 0; i < valueNames.length; i += 1) {
+        if (
+          x[valueNames[i]] !== null &&
+          x[valueNames[i]] !== undefined &&
+          x[valueNames[i]]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        ) {
+          return true;
+        }
+      }
+
+      return false;
+    });
+
+    setGridData(filtered);
+  };
+
+  const handleFilterClear = () => {
+    setFilterText('');
+    setGridData(data);
   };
 
   return (
     <>
       <BrowserView>
+        <DataGridFilter
+          filterText={filterText}
+          onFilter={handleFilterTextChange}
+          onClear={handleFilterClear}
+        />
         <DataTable
           columns={columns}
-          data={data}
+          data={gridData}
           theme={theme}
           pagination
           highlightOnHover
@@ -44,7 +88,7 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
           striped
           onRowDoubleClicked={handleRowDoubleClick}
         />
-        <CSVLink data={data} className={classes.csvLink} filename={csvName}>
+        <CSVLink data={gridData} className={classes.csvLink} filename={csvName}>
           <Button variant="text">Download CSV</Button>
         </CSVLink>
       </BrowserView>

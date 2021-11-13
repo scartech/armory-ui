@@ -14,24 +14,28 @@ function RangeDayGrid({ data }) {
       name: 'Location',
       sortable: true,
       reorder: true,
+      field: 'location',
     },
     {
       selector: (row) => row.roundsShotCount,
       name: 'Total Rounds Shot',
       sortable: true,
       reorder: true,
+      field: 'roundsShotCount',
     },
     {
       selector: (row) => row.ammoUsedCount,
       name: 'Total Ammo Used',
       sortable: true,
       reorder: true,
+      field: 'ammoUsedCount',
     },
     {
       selector: (row) => row.eventDate,
       name: 'Date',
       sortable: true,
       reorder: true,
+      field: 'eventDate',
     },
     {
       name: 'Ops',
