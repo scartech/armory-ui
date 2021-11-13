@@ -73,7 +73,7 @@ function Dashboard({ data }) {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Bar key={uuidv4()} dataKey="value" fill={COLORS[0]} barSize={30} />
+        <Bar key={uuidv4()} dataKey="value" fill={COLORS[0]} />
       </BarChart>
     </ResponsiveContainer>
   );
