@@ -12,6 +12,9 @@ import {
   Alert,
   Autocomplete,
   Rating,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -65,6 +68,9 @@ function Gun() {
   const [country, setCountry] = useState('');
   const [estimatedValue, setEstimatedValue] = useState(0);
   const [notes, setNotes] = useState('');
+  const [storageLocation, setStorageLocation] = useState('');
+  const [manufactureYear, setManufactureYear] = useState('');
+  const [nfaItem, setNfaItem] = useState(false);
 
   useEffect(() => {
     async function fetchGun() {
@@ -85,6 +91,9 @@ function Gun() {
         setCountry(gun.country ?? '');
         setEstimatedValue(gun.estimatedValue ?? 0);
         setNotes(gun.notes ?? '');
+        setStorageLocation(gun.storageLocation ?? '');
+        setManufactureYear(gun.manufactureYear ?? '');
+        setNfaItem(gun.nfaItem ?? false);
       }
     }
 
@@ -119,6 +128,9 @@ function Gun() {
       country,
       estimatedValue,
       notes,
+      storageLocation,
+      manufactureYear,
+      nfaItem,
     };
 
     setOpen(false);
@@ -162,6 +174,17 @@ function Gun() {
             precision={0.5}
             onChange={(event, value) => setRating(value)}
           />
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={nfaItem}
+                  onClick={() => setNfaItem(!nfaItem)}
+                />
+              }
+              label="NFA Item"
+            />
+          </FormGroup>
           <TextField
             label="Name"
             value={name}
@@ -256,6 +279,14 @@ function Gun() {
             onChange={(event) => setFfl(event.target.value)}
             fullWidth
           />
+          <TextField
+            label="Year Manufactured"
+            value={manufactureYear}
+            variant="outlined"
+            margin="normal"
+            onChange={(event) => setManufactureYear(event.target.value)}
+            fullWidth
+          />
           <Autocomplete
             freeSolo
             autoSelect
@@ -299,6 +330,14 @@ function Gun() {
                 <InputAdornment position="start">$</InputAdornment>
               ),
             }}
+          />
+          <TextField
+            label="Storage Location"
+            value={storageLocation}
+            variant="outlined"
+            margin="normal"
+            onChange={(event) => setStorageLocation(event.target.value)}
+            fullWidth
           />
           <DatePicker
             clearable
