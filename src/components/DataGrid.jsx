@@ -10,9 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 import MobileGridItem from './MobileGridItem';
 import DataGridFilter from './DataGridFilter';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   csvLink: {
     textDecoration: 'none',
+  },
+  button: {
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -21,6 +24,9 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
 
   const [filterText, setFilterText] = useState('');
   const [gridData, setGridData] = useState([]);
+  const [striped, setStriped] = useState(
+    () => localStorage.getItem('darkState') !== 'true',
+  );
 
   const [theme, setTheme] = useState(() => {
     const useDark = localStorage.getItem('darkState') === 'true';
@@ -29,6 +35,7 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
 
   PubSub.subscribe('THEME-CHANGE', (msg, msgData) => {
     setTheme(msgData ? 'dark' : 'default');
+    setStriped(!msgData);
   });
 
   useEffect(() => {
@@ -85,11 +92,13 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
           pagination
           highlightOnHover
           pointerOnHover
-          striped
+          striped={striped}
           onRowDoubleClicked={handleRowDoubleClick}
         />
         <CSVLink data={gridData} className={classes.csvLink} filename={csvName}>
-          <Button variant="text">Download CSV</Button>
+          <Button className={classes.button} variant="text">
+            Download CSV
+          </Button>
         </CSVLink>
       </BrowserView>
       <MobileView>
