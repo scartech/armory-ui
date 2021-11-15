@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   AppBar,
   IconButton,
@@ -9,10 +8,8 @@ import {
   MenuItem,
 } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import makeStyles from '@mui/styles/makeStyles';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import MainDrawer from './MainDrawer';
 
@@ -33,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBar({ handleThemeChange, darkState }) {
+function NavBar() {
   const history = useHistory();
   const auth = useAuth();
   const classes = useStyles();
@@ -76,9 +73,6 @@ function NavBar({ handleThemeChange, darkState }) {
           <Typography variant="h4" className={classes.title}>
             Armory
           </Typography>
-          <IconButton onClick={handleThemeChange} size="large" color="inherit">
-            {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
           <IconButton
             onClick={handleClick}
             ref={divRef}
@@ -95,18 +89,10 @@ function NavBar({ handleThemeChange, darkState }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} component={Link} to="/profile">
-          Profile
-        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
 }
-
-NavBar.propTypes = {
-  handleThemeChange: PropTypes.func.isRequired,
-  darkState: PropTypes.bool.isRequired,
-};
 
 export default NavBar;

@@ -87,6 +87,26 @@ class ProfileService {
    * @param {*} data
    * @returns
    */
+  static async enableTotp(user, data) {
+    if (!user || !data) {
+      return undefined;
+    }
+
+    try {
+      const axios = AxiosUtils.createInstance(user.token);
+      const res = await axios.put('/api/profile/enabletotp', data);
+      return res.status === 200;
+    } catch (error) {
+      return undefined;
+    }
+  }
+
+  /**
+   *
+   * @param {*} user
+   * @param {*} data
+   * @returns
+   */
   static async updatePassword(user, data) {
     if (!user || !data) {
       return false;

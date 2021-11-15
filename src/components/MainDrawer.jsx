@@ -12,6 +12,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks';
 
@@ -96,6 +97,18 @@ function MainDrawer() {
             </ListItemIcon>
             <ListItemText primary="Range Days" />
           </ListItem>
+          <Divider />
+          <ListItem
+            button
+            component={Link}
+            to="/settings"
+            onClick={toggleDrawer}
+          >
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
+          </ListItem>
           {auth.user.role === 'ADMIN' && (
             <>
               <Divider />
@@ -106,7 +119,7 @@ function MainDrawer() {
                 onClick={toggleDrawer}
               >
                 <ListItemIcon>
-                  <SettingsIcon />
+                  <AdminPanelSettingsIcon />
                 </ListItemIcon>
                 <ListItemText primary="Admin" />
               </ListItem>

@@ -32,9 +32,10 @@ import {
   InventoryItem,
   RangeDays,
   RangeDay,
+  Settings,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
-import { ProvideAuth } from './hooks';
+import { ProvideAuth, useDarkMode } from './hooks';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,6 +49,17 @@ function App() {
   const classes = useStyles();
   const [darkState, setDarkState] = useState(false);
   const [loggedOut, setLoggedOut] = useState(false);
+
+  const { isDark: sysDark } = useDarkMode();
+
+  useEffect(() => {
+    const appearance = localStorage.getItem('appearance') ?? 'Auto';
+    if (appearance === 'Auto') {
+      setDarkState(sysDark);
+    } else {
+      setDarkState(appearance === 'Dark');
+    }
+  }, [sysDark]);
 
   const lightTheme = createTheme({
     palette: {
@@ -91,15 +103,9 @@ function App() {
     },
   });
 
-  useEffect(() => {
-    setDarkState(localStorage.getItem('darkState') === 'true');
-  }, []);
-
-  const handleThemeChange = () => {
-    localStorage.setItem('darkState', !darkState);
-    PubSub.publish('THEME-CHANGE', !darkState);
-    setDarkState(!darkState);
-  };
+  PubSub.subscribe('THEME-CHANGE', (msg, msgData) => {
+    setDarkState(msgData.isDark);
+  });
 
   PubSub.subscribe('UNAUTHORIZED', () => {
     setLoggedOut(true);
@@ -112,12 +118,7 @@ function App() {
           <ThemeProvider theme={darkState ? darkTheme : lightTheme}>
             <ProvideAuth>
               <Paper className={classes.root}>
-                {!loggedOut && (
-                  <NavBar
-                    handleThemeChange={handleThemeChange}
-                    darkState={darkState}
-                  />
-                )}
+                {!loggedOut && <NavBar />}
                 <Container maxWidth="xl">
                   <Switch>
                     <Route path="/login" component={Signin} />
@@ -202,6 +203,7 @@ function App() {
                       exact
                     />
                     <PrivateRoute path="/profile" component={Profile} exact />
+                    <PrivateRoute path="/settings" component={Settings} exact />
                   </Switch>
                   {loggedOut && <Redirect to={{ pathname: '/login' }} />}
                 </Container>

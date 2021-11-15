@@ -15,6 +15,7 @@ import Inventory from './Inventory';
 import InventoryItem from './InventoryItem';
 import RangeDays from './RangeDays';
 import RangeDay from './RangeDay';
+import Settings from './Settings';
 
 export {
   Ammo,
@@ -34,4 +35,5 @@ export {
   InventoryItem,
   RangeDays,
   RangeDay,
+  Settings,
 };

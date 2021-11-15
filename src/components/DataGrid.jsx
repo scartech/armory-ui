@@ -9,6 +9,7 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import { v4 as uuidv4 } from 'uuid';
 import MobileGridItem from './MobileGridItem';
 import DataGridFilter from './DataGridFilter';
+import { useDarkMode } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   csvLink: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
   const classes = useStyles();
+  const { isDark: sysDark } = useDarkMode();
 
   const [filterText, setFilterText] = useState('');
   const [gridData, setGridData] = useState([]);
@@ -29,18 +31,35 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
   );
 
   const [theme, setTheme] = useState(() => {
-    const useDark = localStorage.getItem('darkState') === 'true';
-    return useDark ? 'dark' : 'default';
+    const appearance = localStorage.getItem('appearance') ?? 'Auto';
+    if (appearance === 'Auto') {
+      return sysDark ? 'dark' : 'default';
+    }
+
+    return appearance === 'Dark' ? 'dark' : 'default';
   });
 
   PubSub.subscribe('THEME-CHANGE', (msg, msgData) => {
-    setTheme(msgData ? 'dark' : 'default');
-    setStriped(!msgData);
+    setTheme(msgData.isDark ? 'dark' : 'default');
+    setStriped(!msgData.isDark);
   });
 
   useEffect(() => {
     setGridData(data);
   }, [data]);
+
+  useEffect(() => {
+    setStriped(theme === 'default');
+  }, [theme]);
+
+  useEffect(() => {
+    const appearance = localStorage.getItem('appearance') ?? 'Auto';
+    if (appearance === 'Auto') {
+      setTheme(sysDark ? 'dark' : 'default');
+    } else {
+      setTheme(appearance === 'Dark' ? 'dark' : 'default');
+    }
+  }, [sysDark]);
 
   const handleRowDoubleClick = (row) => {
     onRowDoubleClicked(row);

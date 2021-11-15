@@ -16,6 +16,10 @@ import RangeDayGrid from './RangeDayGrid';
 import GunPicker from './GunPicker';
 import InventoryPicker from './InventoryPicker';
 import UserGrid from './UserGrid';
+import ProfileTab from './ProfileTab';
+import PasswordTab from './PasswordTab';
+import MfaTab from './MfaTab';
+import DisplayTab from './DisplayTab';
 
 export {
   Login,
@@ -36,4 +40,8 @@ export {
   GunPicker,
   InventoryPicker,
   UserGrid,
+  ProfileTab,
+  PasswordTab,
+  MfaTab,
+  DisplayTab,
 };
