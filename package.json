@@ -29,6 +29,7 @@
     "govicons": "^1.6.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
+    "passport-remember-me": "^0.0.1",
     "passport-totp": "^0.0.2",
     "prop-types": "^15.7.2",
     "pubsub-js": "^1.9.3",

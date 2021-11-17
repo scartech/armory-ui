@@ -16,9 +16,14 @@ export function useProvideAuth() {
 
   const signin = async (email, password) => {
     try {
+      const selector = localStorage.getItem('selector');
+      const validator = localStorage.getItem('validator');
+
       const res = await axios.post(`${Config.getAPIBaseUrl()}/login`, {
         email,
         password,
+        selector,
+        validator,
       });
 
       sessionStorage.setItem('token', res.data.token);
@@ -28,6 +33,11 @@ export function useProvideAuth() {
       val.user.token = res.data.token;
       setUser(val.user);
 
+      if (val.user.selector && val.user.validator) {
+        localStorage.setItem('selector', val.user.selector);
+        localStorage.setItem('validator', val.user.validator);
+      }
+
       return val.user;
     } catch (error) {
       setUser(false);
@@ -35,10 +45,11 @@ export function useProvideAuth() {
     }
   };
 
-  const signinTotp = async (code, userId) => {
+  const signinTotp = async (code, rememberMe, userId) => {
     try {
       const res = await axios.post(`${Config.getAPIBaseUrl()}/login/totp`, {
         code,
+        rememberMe,
         userId,
       });
 
@@ -48,6 +59,14 @@ export function useProvideAuth() {
       // Store the JWT token in the user for use in calls to the API
       val.user.token = res.data.token;
       setUser(val.user);
+
+      if (val.user.selector && val.user.validator) {
+        localStorage.setItem('selector', val.user.selector);
+        localStorage.setItem('validator', val.user.validator);
+      } else {
+        localStorage.removeItem('selector');
+        localStorage.removeItem('validator');
+      }
 
       return val.user;
     } catch (error) {

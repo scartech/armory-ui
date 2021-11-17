@@ -12,6 +12,9 @@ import {
   Alert,
   IconButton,
   Button,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Redirect } from 'react-router-dom';
@@ -24,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 0,
   },
   boxMargin: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   },
   buttonStyle: {
     margin: '20px 0',
@@ -65,13 +69,14 @@ function LoginMFA() {
   const { from } = location.state || { from: { pathname: '/' } };
 
   const [code, setCode] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleCodeChange = async (value) => {
     setCode(value);
 
     if (value.length === 6) {
-      const user = await auth.signinTotp(value, auth.user.id);
+      const user = await auth.signinTotp(value, rememberMe, auth.user.id);
       if (user) {
         history.replace(from);
       } else {
@@ -119,7 +124,20 @@ function LoginMFA() {
             />
           </Box>
           <Grid align="center" className={classes.boxMargin}>
-            <Button color="primary" onClick={handleLogout}>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    value={rememberMe}
+                    onClick={() => setRememberMe(!rememberMe)}
+                  />
+                }
+                label="Trust this Device"
+              />
+            </FormGroup>
+          </Grid>
+          <Grid align="center" className={classes.boxMargin}>
+            <Button color="primary" variant="contained" onClick={handleLogout}>
               Logout
             </Button>
           </Grid>
