@@ -13,7 +13,7 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 
-function AmmoGrid({ data }) {
+function AmmoGrid({ data, handleDeleteClick }) {
   const history = useHistory();
 
   const columns = [
@@ -88,7 +88,13 @@ function AmmoGrid({ data }) {
       width: '60px',
       center: true,
       button: true,
-      cell: (row) => <AmmoGridOps key={row.id} id={row.id} />,
+      cell: (row) => (
+        <AmmoGridOps
+          key={row.id}
+          id={row.id}
+          handleDeleteClick={handleDeleteClick}
+        />
+      ),
     },
   ];
 
@@ -108,6 +114,7 @@ function AmmoGrid({ data }) {
 
 AmmoGrid.propTypes = {
   data: PropTypes.array.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 };
 
 export default AmmoGrid;

@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const useStyles = makeStyles(() => ({
   mobileButton: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function AmmoGridOps({ id }) {
+function AmmoGridOps({ id, handleDeleteClick }) {
   const history = useHistory();
   const classes = useStyles();
 
@@ -41,6 +42,11 @@ function AmmoGridOps({ id }) {
     history.push(`/ammo/item/${id}`);
   };
 
+  const handleDeleteItemClick = () => {
+    handleClose();
+    handleDeleteClick(id);
+  };
+
   return (
     <>
       <BrowserView>
@@ -54,11 +60,20 @@ function AmmoGridOps({ id }) {
             </ListItemIcon>
             <ListItemText>Edit</ListItemText>
           </MenuItem>
+          <MenuItem onClick={handleDeleteItemClick}>
+            <ListItemIcon>
+              <DeleteIcon />
+            </ListItemIcon>
+            <ListItemText>Delete</ListItemText>
+          </MenuItem>
         </Menu>
       </BrowserView>
       <MobileView>
         <IconButton size="small" onClick={handleEditClick}>
           <EditIcon className={classes.mobileButton} />
+        </IconButton>
+        <IconButton size="small" onClick={handleDeleteItemClick}>
+          <DeleteIcon className={classes.mobileButton} />
         </IconButton>
       </MobileView>
     </>
@@ -67,6 +82,7 @@ function AmmoGridOps({ id }) {
 
 AmmoGridOps.propTypes = {
   id: PropTypes.number.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 };
 
 export default AmmoGridOps;

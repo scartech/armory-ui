@@ -87,7 +87,7 @@ function GunGrid({ guns, handleDeleteClick }) {
     },
   ];
 
-  const handleRowDoublClicked = (gun) => {
+  const handleRowDoubleClicked = (gun) => {
     history.push(`/gun/${gun.id}`);
   };
 
@@ -95,7 +95,7 @@ function GunGrid({ guns, handleDeleteClick }) {
     <DataGrid
       data={guns}
       columns={columns}
-      onRowDoubleClicked={handleRowDoublClicked}
+      onRowDoubleClicked={handleRowDoubleClicked}
       csvName={csvName}
     />
   );
