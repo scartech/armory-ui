@@ -33,6 +33,7 @@ import {
   RangeDays,
   RangeDay,
   Settings,
+  NotFound,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth, useDarkMode } from './hooks';
@@ -204,6 +205,7 @@ function App() {
                     />
                     <PrivateRoute path="/profile" component={Profile} exact />
                     <PrivateRoute path="/settings" component={Settings} exact />
+                    <PrivateRoute path="*" component={NotFound} />
                   </Switch>
                   {loggedOut && <Redirect to={{ pathname: '/login' }} />}
                 </Container>
