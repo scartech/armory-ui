@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
 import {
   Button,
@@ -13,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../hooks';
 
 const useStyles = makeStyles(() => ({
@@ -32,6 +33,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function MainDrawer() {
+  const history = useHistory();
   const auth = useAuth();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -42,6 +44,12 @@ function MainDrawer() {
 
   const handleMenuOpen = () => {
     setOpen(!open);
+  };
+
+  const handleLogout = () => {
+    toggleDrawer();
+    auth.signout();
+    history.push('/login');
   };
 
   // Don't display the navbar until the user has logged in.
@@ -125,6 +133,13 @@ function MainDrawer() {
               </ListItem>
             </>
           )}
+          <Divider />
+          <ListItem button onClick={handleLogout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
         </List>
       </Drawer>
     </>

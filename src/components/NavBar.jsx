@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Typography,
-  Menu,
-  MenuItem,
-} from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import { AppBar, Toolbar } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import MainDrawer from './MainDrawer';
+import logo from '../assets/images/logo-white.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
-    flexGrow: 1,
-    textDecoration: 'none',
+    height: '40px',
+    marginLeft: theme.spacing(2),
   },
   appbar: {
     height: '50px',
@@ -31,26 +19,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar() {
-  const history = useHistory();
   const auth = useAuth();
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const divRef = React.useRef();
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    setAnchorEl(null);
-    auth.signout();
-    history.push('/login');
-  };
 
   // Don't display the navbar until the user has logged in.
   if (!auth?.user) {
@@ -70,27 +40,9 @@ function NavBar() {
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <MainDrawer />
-          <Typography variant="h4" className={classes.title}>
-            Armory
-          </Typography>
-          <IconButton
-            onClick={handleClick}
-            ref={divRef}
-            size="large"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+          <img src={logo} alt="Logo" className={classes.title} />
         </Toolbar>
       </AppBar>
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
     </div>
   );
 }

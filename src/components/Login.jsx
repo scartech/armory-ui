@@ -1,22 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
-import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  Container,
-} from '@mui/material';
-import { useAuth } from '../hooks';
+import { Grid, Paper, TextField, Button, Container } from '@mui/material';
+import { useAuth, useDarkMode } from '../hooks';
+import whitelogo from '../assets/images/logo-white.png';
+import blacklogo from '../assets/images/logo-black.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 0,
     paddingRight: 0,
+  },
+  logo: {
+    height: '65px',
   },
   textboxMargin: {
     marginTop: theme.spacing(3),
@@ -29,14 +26,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(9),
     backgroundColor: 'transparent',
   },
-  largeAvatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    backgroundColor: theme.palette.primary.main,
-    '& i': {
-      fontSize: '30px',
-    },
-  },
 }));
 
 function Login({ loginFailure }) {
@@ -44,10 +33,23 @@ function Login({ loginFailure }) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+
   const { from } = location.state || { from: { pathname: '/' } };
 
+  const [darkState, setDarkState] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { isDark: sysDark } = useDarkMode();
+
+  useEffect(() => {
+    const appearance = localStorage.getItem('appearance') ?? 'Auto';
+    if (appearance === 'Auto') {
+      setDarkState(sysDark);
+    } else {
+      setDarkState(appearance === 'Dark');
+    }
+  }, [sysDark]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,10 +67,11 @@ function Login({ loginFailure }) {
       <Container component="main" maxWidth="xs" className={classes.root}>
         <Paper elevation={0} className={classes.paperStyle}>
           <Grid align="center">
-            <Avatar className={classes.largeAvatar}>
-              <i className="gi gi-dogtags" color="inherit" />
-            </Avatar>
-            <Typography variant="h5">Welcome to the Armory</Typography>
+            <img
+              src={darkState ? whitelogo : blacklogo}
+              alt="Logo"
+              className={classes.logo}
+            />
           </Grid>
           <TextField
             label="Email Address"
