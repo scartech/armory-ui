@@ -34,6 +34,8 @@ import {
   RangeDay,
   Settings,
   NotFound,
+  Accessories,
+  Accessory,
 } from './pages';
 import { PrivateRoute, NavBar } from './components';
 import { ProvideAuth, useDarkMode } from './hooks';
@@ -125,6 +127,21 @@ function App() {
                     <Route path="/login" component={Signin} />
                     <Route path="/login-mfa" component={LoginMFA} exact />
                     <PrivateRoute path="/" component={Home} exact />
+                    <PrivateRoute
+                      path="/accessories"
+                      component={Accessories}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/accessory"
+                      component={Accessory}
+                      exact
+                    />
+                    <PrivateRoute
+                      path="/accessory/:id"
+                      component={Accessory}
+                      exact
+                    />
                     <PrivateRoute path="/guns" component={Guns} exact />
                     <PrivateRoute path="/gun" component={Gun} exact />
                     <PrivateRoute

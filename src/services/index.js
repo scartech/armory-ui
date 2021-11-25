@@ -6,6 +6,7 @@ import HistoryService from './history.service';
 import AmmoService from './ammo.service';
 import DashboardService from './dashboard.service';
 import AmmoInventoryService from './ammoinventory.service';
+import AccessoryService from './accessory.service';
 
 export {
   AuthService,
@@ -16,4 +17,5 @@ export {
   HistoryService,
   DashboardService,
   AmmoInventoryService,
+  AccessoryService,
 };

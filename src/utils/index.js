@@ -6,6 +6,7 @@ import ROLES from './Role';
 import Config from './Config';
 import HISTORY_TYPES from './HistoryType';
 import CALIBER_TYPES from './Calibers';
+import ACCESSORY_TYPES from './AccessoryType';
 
 export {
   AxiosUtils,
@@ -16,4 +17,5 @@ export {
   ACTION_TYPES,
   ROLES,
   CALIBER_TYPES,
+  ACCESSORY_TYPES,
 };

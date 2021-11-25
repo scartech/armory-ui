@@ -15,6 +15,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { GiMachineGunMagazine } from 'react-icons/gi';
 import { useAuth } from '../hooks';
 
 const useStyles = makeStyles(() => ({
@@ -27,8 +28,14 @@ const useStyles = makeStyles(() => ({
   fullList: {
     width: 'auto',
   },
-  ammoIcon: {
+  accessoryIcon: {
     fontSize: '25px !important',
+  },
+  ammoIcon: {
+    fontSize: '22px !important',
+  },
+  moneyIcon: {
+    fontSize: '24px !important',
   },
 }));
 
@@ -74,6 +81,17 @@ function MainDrawer() {
           <ListItem
             button
             component={Link}
+            to="/accessories"
+            onClick={toggleDrawer}
+          >
+            <ListItemIcon>
+              <GiMachineGunMagazine className={classes.accessoryIcon} />
+            </ListItemIcon>
+            <ListItemText primary="Accessories" />
+          </ListItem>
+          <ListItem
+            button
+            component={Link}
             to="/inventory"
             onClick={toggleDrawer}
           >
@@ -84,7 +102,7 @@ function MainDrawer() {
           </ListItem>
           <ListItem button component={Link} to="/ammo" onClick={toggleDrawer}>
             <ListItemIcon>
-              <i className={`${classes.ammoIcon} gi gi-usd`} />
+              <i className={`${classes.moneyIcon} gi gi-usd`} />
             </ListItemIcon>
             <ListItemText primary="Ammo Purchases" />
           </ListItem>

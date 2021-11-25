@@ -20,6 +20,8 @@ import ProfileTab from './ProfileTab';
 import PasswordTab from './PasswordTab';
 import MfaTab from './MfaTab';
 import DisplayTab from './DisplayTab';
+import AccessoryGrid from './AccessoryGrid';
+import SimpleGunPicker from './SimpleGunPicker';
 
 export {
   Login,
@@ -44,4 +46,6 @@ export {
   PasswordTab,
   MfaTab,
   DisplayTab,
+  AccessoryGrid,
+  SimpleGunPicker,
 };

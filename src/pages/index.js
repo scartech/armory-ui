@@ -17,6 +17,8 @@ import RangeDays from './RangeDays';
 import RangeDay from './RangeDay';
 import Settings from './Settings';
 import NotFound from './NotFound';
+import Accessories from './Accessories';
+import Accessory from './Accessory';
 
 export {
   Ammo,
@@ -38,4 +40,6 @@ export {
   RangeDay,
   Settings,
   NotFound,
+  Accessories,
+  Accessory,
 };
