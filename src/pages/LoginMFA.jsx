@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from 'react-router';
 import {
   Grid,
   Paper,
-  Avatar,
   Box,
   Typography,
   Container,
@@ -19,7 +18,9 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Redirect } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
-import { useAuth } from '../hooks';
+import { useAuth, useDarkMode } from '../hooks';
+import whitelogo from '../assets/images/logo-white.png';
+import blacklogo from '../assets/images/logo-black.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,13 +39,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(9),
     backgroundColor: 'transparent',
   },
-  largeAvatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-    backgroundColor: theme.palette.primary.main,
-    '& i': {
-      fontSize: '30px',
-    },
+  logo: {
+    height: '65px',
   },
   totpInput: {
     fontSize: '2em',
@@ -68,9 +64,21 @@ function LoginMFA() {
   const location = useLocation();
   const { from } = location.state || { from: { pathname: '/' } };
 
+  const [darkState, setDarkState] = useState(false);
   const [code, setCode] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const { isDark: sysDark } = useDarkMode();
+
+  useEffect(() => {
+    const appearance = localStorage.getItem('appearance') ?? 'Auto';
+    if (appearance === 'Auto') {
+      setDarkState(sysDark);
+    } else {
+      setDarkState(appearance === 'Dark');
+    }
+  }, [sysDark]);
 
   const handleCodeChange = async (value) => {
     setCode(value);
@@ -104,10 +112,11 @@ function LoginMFA() {
       <Container component="main" maxWidth="xs" className={classes.root}>
         <Paper elevation={0} className={classes.paperStyle}>
           <Grid align="center">
-            <Avatar className={classes.largeAvatar}>
-              <i className="gi gi-dogtags" color="inherit" />
-            </Avatar>
-            <Typography variant="h5">Welcome to the Armory</Typography>
+            <img
+              src={darkState ? whitelogo : blacklogo}
+              alt="Logo"
+              className={classes.logo}
+            />
           </Grid>
           <Grid align="center" className={classes.boxMargin}>
             <Typography variant="subtitle1">Enter verification code</Typography>
