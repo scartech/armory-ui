@@ -62,6 +62,14 @@ function AccessoryGrid({ data, handleDeleteClick }) {
       format: (row) => currencyFormatter.format(row.purchasePrice),
     },
     {
+      selector: (row) => row.pricePerItem,
+      name: 'Price Per Item',
+      sortable: true,
+      reorder: true,
+      field: 'pricePerItem',
+      format: (row) => currencyFormatter.format(row.pricePerItem),
+    },
+    {
       name: 'Ops',
       width: '60px',
       center: true,

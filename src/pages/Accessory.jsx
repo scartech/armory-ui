@@ -51,6 +51,8 @@ function Accessory() {
   const [purchasedFrom, setPurchasedFrom] = useState('');
   const [purchaseDate, setPurchaseDate] = useState(new Date());
   const [purchasePrice, setPurchasePrice] = useState(0);
+  const [pricePerItem, setPricePerItem] = useState(0);
+  const [magazineCapacity, setMagazineCapacity] = useState(0);
   const [manufacturer, setManufacturer] = useState('');
   const [country, setCountry] = useState('');
   const [notes, setNotes] = useState('');
@@ -80,6 +82,9 @@ function Accessory() {
         setPurchasePrice(accessory.purchasePrice ?? 0);
         setPurchaseDate(accessory.purchaseDate ?? null);
         setCount(accessory.count ?? 1);
+        setPricePerItem(accessory.pricePerItem ?? 0);
+        setMagazineCapacity(accessory.magazineCapacity ?? 0);
+        setCount(accessory.count ?? 1);
         setGunIds(accessory.guns ? accessory.guns.map((x) => x.id) : []);
       }
     }
@@ -100,6 +105,30 @@ function Accessory() {
     setGunIds(gunIds.filter((x) => x !== gunId));
   };
 
+  const handleCountChange = (e) => {
+    const { value } = e.target;
+    setCount(value);
+
+    if (purchasePrice > 0 && value > 0) {
+      const perItem = purchasePrice / value;
+      setPricePerItem(perItem.toFixed(4));
+    } else {
+      setPricePerItem(0);
+    }
+  };
+
+  const handlePriceChange = (e) => {
+    const { value } = e.target;
+    setPurchasePrice(value);
+
+    if (count > 0 && value > 0) {
+      const perItem = value / count;
+      setPricePerItem(perItem.toFixed(4));
+    } else {
+      setPricePerItem(0);
+    }
+  };
+
   const handleSubmit = async (event, isNewAccessory) => {
     event.preventDefault();
 
@@ -116,6 +145,8 @@ function Accessory() {
       purchasedFrom,
       purchaseDate: purchaseDate || null,
       purchasePrice: purchasePrice || 0,
+      pricePerItem: pricePerItem || 0,
+      magazineCapacity: magazineCapacity || 0,
       gunIds,
     };
 
@@ -169,6 +200,17 @@ function Accessory() {
               />
             )}
           />
+          {type === 'Magazine' && (
+            <TextField
+              label="Magazine Capacity"
+              value={magazineCapacity}
+              variant="outlined"
+              type="number"
+              margin="normal"
+              onChange={(event) => setMagazineCapacity(event.target.value)}
+              fullWidth
+            />
+          )}
           <TextField
             label="Model Name"
             value={modelName}
@@ -226,15 +268,6 @@ function Accessory() {
             )}
           />
           <TextField
-            label="Count"
-            value={count}
-            variant="outlined"
-            type="number"
-            margin="normal"
-            onChange={(event) => setCount(event.target.value)}
-            fullWidth
-          />
-          <TextField
             label="Purchased From"
             value={purchasedFrom}
             variant="outlined"
@@ -253,17 +286,42 @@ function Accessory() {
             )}
           />
           <TextField
+            label="Count"
+            value={count}
+            variant="outlined"
+            type="number"
+            margin="normal"
+            onChange={handleCountChange}
+            fullWidth
+          />
+          <TextField
             label="Purchase Price"
             value={purchasePrice}
             variant="outlined"
             type="number"
             margin="normal"
-            onChange={(event) => setPurchasePrice(event.target.value)}
+            onChange={handlePriceChange}
             fullWidth
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
               ),
+            }}
+          />
+          <TextField
+            label="Price per Item"
+            value={pricePerItem}
+            variant="outlined"
+            type="number"
+            margin="normal"
+            onChange={(event) => setPricePerItem(event.target.value)}
+            fullWidth
+            color="primary"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+              readOnly: true,
             }}
           />
           <TextField

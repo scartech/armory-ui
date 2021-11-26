@@ -127,9 +127,11 @@ function AmmoItem() {
     const { value } = e.target;
     setRoundCount(value);
 
-    if (purchasePrice > 0) {
+    if (purchasePrice > 0 && value > 0) {
       const perRound = purchasePrice / value;
       setPricePerRound(perRound.toFixed(4));
+    } else {
+      setPricePerRound(0);
     }
   };
 
