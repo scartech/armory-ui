@@ -1,11 +1,21 @@
 const ACCESSORY_TYPES = [
-  'Magazine',
-  'Sling',
   'Bag/Case',
-  'Light',
+  'Belt',
+  'Bipod/Tripod/Rest',
+  'Eye & Ear Protection',
+  'Knife',
+  'Flashlight',
+  'Gun Light',
+  'Holster',
+  'Lower Receiver',
+  'Magazine',
   'Optic',
-  'Spare Part',
   'Parts Kit',
+  'Sling',
+  'Spare Part',
+  'Storage',
+  'Targets',
+  'Other',
 ];
 
 export default ACCESSORY_TYPES;
