@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
+import Icon from '@mdi/react';
+import { mdiAmmunition, mdiMagazineRifle } from '@mdi/js';
 import {
   Button,
   Drawer,
@@ -15,7 +17,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { GiMachineGunMagazine } from 'react-icons/gi';
 import { useAuth } from '../hooks';
 
 const useStyles = makeStyles(() => ({
@@ -85,7 +86,7 @@ function MainDrawer() {
             onClick={toggleDrawer}
           >
             <ListItemIcon>
-              <GiMachineGunMagazine className={classes.accessoryIcon} />
+              <Icon path={mdiMagazineRifle} size={1.0} />
             </ListItemIcon>
             <ListItemText primary="Accessories" />
           </ListItem>
@@ -96,7 +97,7 @@ function MainDrawer() {
             onClick={toggleDrawer}
           >
             <ListItemIcon>
-              <i className={`${classes.ammoIcon} gi gi-ammo`} />
+              <Icon path={mdiAmmunition} size={1.0} />
             </ListItemIcon>
             <ListItemText primary="Ammo Inventory" />
           </ListItem>

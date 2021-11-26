@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, Grid, Typography, Avatar } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
@@ -20,9 +21,12 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '40px',
     },
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
-function DashboardCard({ title, icon, message }) {
+function DashboardCard({ title, icon, message, linkPath }) {
   const classes = useStyles();
 
   return (
@@ -32,7 +36,11 @@ function DashboardCard({ title, icon, message }) {
           <Typography color="textSecondary" variant="h6" gutterBottom>
             {title}
           </Typography>
-          <Avatar className={classes.largeAvatar}>{icon}</Avatar>
+          <Link className={classes.link} to={linkPath}>
+            <Avatar className={classes.largeAvatar} variant="rounded">
+              {icon}
+            </Avatar>
+          </Link>
           <Typography color="textSecondary" variant="h6" gutterBottom>
             {message}
           </Typography>
@@ -46,6 +54,7 @@ DashboardCard.propTypes = {
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   icon: PropTypes.object.isRequired,
+  linkPath: PropTypes.object.isRequired,
 };
 
 export default DashboardCard;

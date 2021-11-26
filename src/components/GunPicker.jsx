@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginBottom: theme.spacing(2),
   },
+  list: {
+    background: 'transparent',
+    minWidth: '200px',
+  },
 }));
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -188,7 +192,7 @@ function GunPicker({
       <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
         <DialogTitle>Select Guns</DialogTitle>
         <DialogContent>
-          <Paper variant="elevation" elevation={0}>
+          <Paper variant="elevation" elevation={0} className={classes.list}>
             {guns.map((gun) => (
               <FormGroup key={gun.id}>
                 <FormControlLabel

@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginBottom: theme.spacing(2),
   },
+  list: {
+    background: 'transparent',
+    minWidth: '200px',
+  },
 }));
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -197,7 +201,7 @@ function InventoryPicker({
       <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
         <DialogTitle>Select Ammo</DialogTitle>
         <DialogContent>
-          <Paper variant="elevation" elevation={0}>
+          <Paper variant="elevation" elevation={0} className={classes.list}>
             {inventories.map((inventory) => (
               <FormGroup key={inventory.id}>
                 <FormControlLabel
