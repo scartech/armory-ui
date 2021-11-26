@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Box, Tabs, Tab, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Brightness6Icon from '@mui/icons-material/Brightness6';
+import LoginIcon from '@mui/icons-material/Login';
+import PasswordIcon from '@mui/icons-material/Password';
 import { PasswordTab, ProfileTab, MfaTab, DisplayTab } from '../components';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,10 +38,22 @@ function Settings() {
         scrollButtons="auto"
         allowScrollButtonsMobile
       >
-        <Tab label="Profile" />
-        <Tab label="Display" />
-        <Tab label="Multi-Factor Auth" />
-        <Tab label="Change Password" />
+        <Tab
+          icon={<AccountCircleIcon />}
+          iconPosition="start"
+          label="Profile"
+        />
+        <Tab icon={<Brightness6Icon />} iconPosition="start" label="Display" />
+        <Tab
+          icon={<LoginIcon />}
+          iconPosition="start"
+          label="Multi-Factor Auth"
+        />
+        <Tab
+          icon={<PasswordIcon />}
+          iconPosition="start"
+          label="Change Password"
+        />
       </Tabs>
       <Box className={classes.container}>
         <Box hidden={tabValue !== 0}>
