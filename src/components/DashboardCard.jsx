@@ -54,7 +54,7 @@ DashboardCard.propTypes = {
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   icon: PropTypes.object.isRequired,
-  linkPath: PropTypes.object.isRequired,
+  linkPath: PropTypes.string.isRequired,
 };
 
 export default DashboardCard;

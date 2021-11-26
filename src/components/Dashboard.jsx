@@ -218,7 +218,7 @@ function Dashboard({ data }) {
           title="Rifles"
           icon={<i className="gi gi-gun" />}
           message={`${numberFormatter.format(data.rifleCount)}`}
-          linkPath="/guns"
+          linkPath="/guns?q=Rifle"
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -226,7 +226,7 @@ function Dashboard({ data }) {
           title="Pistols"
           icon={<Icon path={mdiPistol} size={1.5} />}
           message={`${numberFormatter.format(data.accessoryCount)}`}
-          linkPath="/guns"
+          linkPath="/guns?q=Pistol"
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -234,7 +234,7 @@ function Dashboard({ data }) {
           title="Shotguns"
           icon={<GiShotgunRounds className={classes.reactIcons} />}
           message={`${numberFormatter.format(data.shotgunCount)}`}
-          linkPath="/guns"
+          linkPath="/guns?q=Shotgun"
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>

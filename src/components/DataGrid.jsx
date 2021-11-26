@@ -61,6 +61,40 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
     }
   }, [sysDark]);
 
+  useEffect(() => {
+    if (filterText) {
+      const valueNames = columns
+        .filter((x) => 'field' in x)
+        .map((x) => x.field);
+      const unfiltered = [...data];
+      const filtered = unfiltered.filter((x) => {
+        for (let i = 0; i < valueNames.length; i += 1) {
+          if (
+            x[valueNames[i]] !== null &&
+            x[valueNames[i]] !== undefined &&
+            x[valueNames[i]]
+              .toString()
+              .toLowerCase()
+              .includes(filterText.toLowerCase())
+          ) {
+            return true;
+          }
+        }
+
+        return false;
+      });
+
+      setGridData(filtered);
+    } else {
+      setGridData([...data]);
+    }
+  }, [filterText, columns, data]);
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search).get('q');
+    setFilterText(query ?? '');
+  }, []);
+
   const handleRowDoubleClick = (row) => {
     onRowDoubleClicked(row);
   };
@@ -68,27 +102,6 @@ function DataGrid({ data, columns, csvName, onRowDoubleClicked }) {
   const handleFilterTextChange = (event) => {
     const { value } = event.target;
     setFilterText(value);
-
-    const valueNames = columns.filter((x) => 'field' in x).map((x) => x.field);
-    const unfiltered = [...data];
-    const filtered = unfiltered.filter((x) => {
-      for (let i = 0; i < valueNames.length; i += 1) {
-        if (
-          x[valueNames[i]] !== null &&
-          x[valueNames[i]] !== undefined &&
-          x[valueNames[i]]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
-        ) {
-          return true;
-        }
-      }
-
-      return false;
-    });
-
-    setGridData(filtered);
   };
 
   const handleFilterClear = () => {
