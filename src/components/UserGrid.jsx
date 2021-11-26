@@ -38,6 +38,20 @@ function UserGrid({ data, handleDeleteClick }) {
       field: 'enabled',
     },
     {
+      selector: (row) => row?.totpEnabled?.toString(),
+      name: 'TOTP Enabled',
+      sortable: true,
+      reorder: true,
+      field: 'totpEnabled',
+    },
+    {
+      selector: (row) => row?.totpValidated?.toString(),
+      name: 'TOTP Validated',
+      sortable: true,
+      reorder: true,
+      field: 'totpValidated',
+    },
+    {
       name: 'Ops',
       width: '60px',
       center: true,
