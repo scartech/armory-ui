@@ -75,8 +75,10 @@ function MfaTab() {
   const [totpValidated, setTotpValidated] = useState(false);
   const [totpUrl, setTotpUrl] = useState('');
   const [open, setOpen] = useState(false);
+  const [clearDialogOpen, setClearDialogOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
+  const [hasAuthToken, setHasAuthToken] = useState(false);
 
   const refreshToken = async () => {
     setShowBackdrop(true);
@@ -113,8 +115,35 @@ function MfaTab() {
     fetchUser();
   }, [auth.user]);
 
+  useEffect(() => {
+    const selector = localStorage.getItem('selector');
+    const validator = localStorage.getItem('validator');
+
+    setHasAuthToken(selector && validator);
+  }, []);
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClearDialogClose = () => {
+    setClearDialogOpen(false);
+  };
+
+  const clearToken = () => {
+    setClearDialogOpen(false);
+
+    localStorage.removeItem('selector');
+    localStorage.removeItem('validator');
+    setHasAuthToken(false);
+
+    setSeverity('info');
+    setMessage('Saved login session cleared.');
+    setOpen(true);
+  };
+
+  const handleClearAuthToken = () => {
+    setClearDialogOpen(true);
   };
 
   const handleMFAChecked = (event) => {
@@ -231,6 +260,9 @@ function MfaTab() {
           {!totpValidated && (
             <Button onClick={handleValidateTotp}>Validate</Button>
           )}
+          {hasAuthToken && (
+            <Button onClick={handleClearAuthToken}>Clear Saved Login</Button>
+          )}
         </Box>
         <QRCode value={totpUrl} size={150} className={classes.mfaText} />
         <Button
@@ -276,6 +308,23 @@ function MfaTab() {
             Yes
           </Button>
           <Button onClick={handleRefreshDialogClose} color="primary">
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={clearDialogOpen} onClose={handleClearDialogClose}>
+        <DialogTitle>Clear Saved Login?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to clear your saved TOTP login? If so, you
+            will need to enter a new TOTP token the next time you log in.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={clearToken} color="primary">
+            Yes
+          </Button>
+          <Button onClick={handleClearDialogClose} color="primary">
             No
           </Button>
         </DialogActions>

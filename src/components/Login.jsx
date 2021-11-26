@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Grid, Paper, TextField, Button, Container } from '@mui/material';
 import { useAuth, useDarkMode } from '../hooks';
 import whitelogo from '../assets/images/logo-white.png';
-import blacklogo from '../assets/images/logo-black.png';
+import colorlogo from '../assets/images/logo-color.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,7 +68,7 @@ function Login({ loginFailure }) {
         <Paper elevation={0} className={classes.paperStyle}>
           <Grid align="center">
             <img
-              src={darkState ? whitelogo : blacklogo}
+              src={darkState ? whitelogo : colorlogo}
               alt="Logo"
               className={classes.logo}
             />
