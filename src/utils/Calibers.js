@@ -5,7 +5,7 @@ const CALIBER_TYPES = [
   '22 WMR',
   '.223 Remington',
   '5.56 x 45mm',
-  '.308 Win',
+  '.308 Winchester',
   '.300 AAC Blackout',
   '7.62 x 51mm',
   '9mm',
