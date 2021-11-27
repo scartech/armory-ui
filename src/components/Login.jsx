@@ -2,7 +2,17 @@ import { useState, useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { useHistory, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
-import { Grid, Paper, TextField, Button, Container } from '@mui/material';
+import {
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Container,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useAuth, useDarkMode } from '../hooks';
 import whitelogo from '../assets/images/logo-white.png';
 import colorlogo from '../assets/images/logo-color.png';
@@ -37,6 +47,7 @@ function Login({ loginFailure }) {
   const { from } = location.state || { from: { pathname: '/' } };
 
   const [darkState, setDarkState] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -62,6 +73,14 @@ function Login({ loginFailure }) {
     }
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Container component="main" maxWidth="xs" className={classes.root}>
@@ -84,13 +103,27 @@ function Login({ loginFailure }) {
           />
           <TextField
             label="Password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
             required
             autoComplete="current-password"
             variant="outlined"
             className={classes.textboxMargin}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             type="submit"

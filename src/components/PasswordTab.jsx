@@ -1,7 +1,16 @@
 import { useState } from 'react';
-import { Button, TextField, Snackbar, IconButton, Alert } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Snackbar,
+  IconButton,
+  Alert,
+  InputAdornment,
+} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import CloseIcon from '@mui/icons-material/Close';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useAuth } from '../hooks';
 import { ProfileService } from '../services';
 
@@ -26,12 +35,21 @@ function PasswordTab() {
 
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState('error');
   const [message, setMessage] = useState('');
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const handleSubmit = async (event) => {
@@ -72,12 +90,25 @@ function PasswordTab() {
       <form noValidate autoComplete="off">
         <TextField
           label="Password"
-          value={password}
-          variant="outlined"
-          type="password"
-          margin="normal"
-          onChange={(event) => setPassword(event.target.value)}
+          type={showPassword ? 'text' : 'password'}
           fullWidth
+          margin="normal"
+          variant="outlined"
+          onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           label="Confirm Password"
