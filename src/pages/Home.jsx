@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Typography, Skeleton } from '@mui/material';
+import { Container, Skeleton } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { useAuth } from '../hooks';
 import { DashboardService } from '../services';
