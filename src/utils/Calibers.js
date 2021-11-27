@@ -1,8 +1,8 @@
 const CALIBER_TYPES = [
-  '22 LR',
-  '22 Long',
-  '22 Short',
-  '22 WMR',
+  '.22 LR',
+  '.22 Long',
+  '.22 Short',
+  '.22 WMR',
   '.223 Remington',
   '5.56 x 45mm',
   '.308 Winchester',
