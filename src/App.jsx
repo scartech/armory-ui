@@ -29,7 +29,6 @@ import {
   Home,
   LoginMFA,
   Inventory,
-  InventoryItem,
   RangeDays,
   RangeDay,
   Settings,
@@ -165,16 +164,6 @@ function App() {
                     <PrivateRoute
                       path="/inventory"
                       component={Inventory}
-                      exact
-                    />
-                    <PrivateRoute
-                      path="/inventory/item"
-                      component={InventoryItem}
-                      exact
-                    />
-                    <PrivateRoute
-                      path="/inventory/item/:id"
-                      component={InventoryItem}
                       exact
                     />
                     <PrivateRoute

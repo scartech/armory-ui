@@ -38,8 +38,8 @@ function RangeDayGrid({ data }) {
       field: 'eventDate',
     },
     {
-      name: 'Ops',
-      width: '60px',
+      name: '',
+      width: '40px',
       center: true,
       button: true,
       cell: (row) => <RangeDayGridOps key={row.id} id={row.id} />,

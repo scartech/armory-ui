@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
 import makeStyles from '@mui/styles/makeStyles';
 import {
@@ -12,7 +11,6 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 
 const useStyles = makeStyles(() => ({
   mobileButton: {
@@ -21,7 +19,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 function InventoryGridOps({ id, handleDeleteClick, canDelete }) {
-  const history = useHistory();
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,11 +34,6 @@ function InventoryGridOps({ id, handleDeleteClick, canDelete }) {
     setOpen(!open);
   };
 
-  const handleEditClick = () => {
-    handleClose();
-    history.push(`/inventory/item/${id}`);
-  };
-
   const handleDeleteItemClick = () => {
     handleClose();
     handleDeleteClick(id);
@@ -49,37 +41,28 @@ function InventoryGridOps({ id, handleDeleteClick, canDelete }) {
 
   return (
     <>
-      <BrowserView>
-        <IconButton size="small" onClick={handleOpClick}>
-          <MoreVertIcon />
-        </IconButton>
-        <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
-          <MenuItem onClick={handleEditClick}>
-            <ListItemIcon>
-              <EditIcon />
-            </ListItemIcon>
-            <ListItemText>Edit</ListItemText>
-          </MenuItem>
-          {canDelete && (
-            <MenuItem onClick={handleDeleteItemClick}>
-              <ListItemIcon>
-                <DeleteIcon />
-              </ListItemIcon>
-              <ListItemText>Delete</ListItemText>
-            </MenuItem>
-          )}
-        </Menu>
-      </BrowserView>
-      <MobileView>
-        <IconButton size="small" onClick={handleEditClick}>
-          <EditIcon className={classes.mobileButton} />
-        </IconButton>
-        {canDelete && (
-          <IconButton size="small" onClick={handleDeleteItemClick}>
-            <DeleteIcon className={classes.mobileButton} />
-          </IconButton>
-        )}
-      </MobileView>
+      {canDelete && (
+        <>
+          <BrowserView>
+            <IconButton size="small" onClick={handleOpClick}>
+              <MoreVertIcon />
+            </IconButton>
+            <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
+              <MenuItem onClick={handleDeleteItemClick}>
+                <ListItemIcon>
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText>Delete</ListItemText>
+              </MenuItem>
+            </Menu>
+          </BrowserView>
+          <MobileView>
+            <IconButton size="small" onClick={handleDeleteItemClick}>
+              <DeleteIcon className={classes.mobileButton} />
+            </IconButton>
+          </MobileView>
+        </>
+      )}
     </>
   );
 }

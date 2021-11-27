@@ -73,8 +73,8 @@ function GunGrid({ guns, handleDeleteClick }) {
       field: 'roundsShotCount',
     },
     {
-      name: 'Ops',
-      width: '60px',
+      name: '',
+      width: '40px',
       center: true,
       button: true,
       cell: (row) => (

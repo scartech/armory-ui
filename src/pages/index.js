@@ -12,7 +12,6 @@ import AmmoItem from './AmmoItem';
 import Home from './Home';
 import LoginMFA from './LoginMFA';
 import Inventory from './Inventory';
-import InventoryItem from './InventoryItem';
 import RangeDays from './RangeDays';
 import RangeDay from './RangeDay';
 import Settings from './Settings';
@@ -35,7 +34,6 @@ export {
   Home,
   LoginMFA,
   Inventory,
-  InventoryItem,
   RangeDays,
   RangeDay,
   Settings,

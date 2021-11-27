@@ -70,8 +70,8 @@ function AccessoryGrid({ data, handleDeleteClick }) {
       format: (row) => currencyFormatter.format(row.pricePerItem),
     },
     {
-      name: 'Ops',
-      width: '60px',
+      name: '',
+      width: '40px',
       center: true,
       button: true,
       cell: (row) => (

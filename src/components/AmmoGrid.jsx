@@ -84,8 +84,8 @@ function AmmoGrid({ data, handleDeleteClick }) {
       format: (row) => currencyFormatter.format(row.pricePerRound),
     },
     {
-      name: 'Ops',
-      width: '60px',
+      name: '',
+      width: '40px',
       center: true,
       button: true,
       cell: (row) => (

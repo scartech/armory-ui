@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import InventoryGridOps from './InventoryGridOps';
 import DataGrid from './DataGrid';
 
@@ -14,8 +13,6 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 
 function InventoryGrid({ data, handleDeleteClick }) {
-  const history = useHistory();
-
   const columns = [
     {
       selector: (row) => row.caliber,
@@ -71,16 +68,8 @@ function InventoryGrid({ data, handleDeleteClick }) {
       format: (row) => currencyFormatter.format(row.totalPurchasePrice),
     },
     {
-      selector: (row) => row.goal,
-      name: 'Goal',
-      sortable: true,
-      reorder: true,
-      field: 'goal',
-      format: (row) => numberFormatter.format(row.goal),
-    },
-    {
-      name: 'Ops',
-      width: '60px',
+      name: '',
+      width: '40px',
       center: true,
       button: true,
       cell: (row) => (
@@ -96,9 +85,7 @@ function InventoryGrid({ data, handleDeleteClick }) {
     },
   ];
 
-  const handleRowDoublClicked = (item) => {
-    history.push(`/inventory/item/${item.id}`);
-  };
+  const handleRowDoublClicked = () => {};
 
   return (
     <DataGrid
