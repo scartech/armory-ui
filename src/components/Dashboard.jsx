@@ -225,7 +225,7 @@ function Dashboard({ data }) {
         <DashboardCard
           title="Pistols"
           icon={<Icon path={mdiPistol} size={1.5} />}
-          message={`${numberFormatter.format(data.accessoryCount)}`}
+          message={`${numberFormatter.format(data.pistolCount)}`}
           linkPath="/guns?q=Pistol"
         />
       </Grid>
@@ -241,7 +241,7 @@ function Dashboard({ data }) {
         <DashboardCard
           title="Accessories"
           icon={<Icon path={mdiMagazinePistol} size={1.5} />}
-          message={`${numberFormatter.format(data.pistolCount)}`}
+          message={`${numberFormatter.format(data.accessoryCount)}`}
           linkPath="/accessories"
         />
       </Grid>
