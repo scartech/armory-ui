@@ -46,7 +46,7 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(0),
   textAlign: 'center',
-  minHeight: 100,
+  minHeight: 90,
   color: theme.palette.text.secondary,
 }));
 
@@ -143,6 +143,7 @@ function GunPicker({
 
   /* eslint-disable implicit-arrow-linebreak */
   /* eslint-disable react/jsx-curly-newline */
+  /* eslint-disable react/jsx-one-expression-per-line */
   return (
     <div className={classes.root}>
       <Button
@@ -169,18 +170,20 @@ function GunPicker({
                 .map((gun) => (
                   <Grid key={gun.id} item xs={12} sm={12} md={6} lg={4}>
                     <Item key={gun.id} variant="outlined">
-                      <Typography variant="caption">{gun.caliber}</Typography>
-                      <Typography variant="subtitle1">{gun.name}</Typography>
                       <TextField
                         variant="outlined"
                         margin="normal"
                         size="small"
                         type="number"
+                        label="Round Count"
                         value={gunRounds[gun.id].toString() || 0}
                         onChange={(event) =>
                           handleRoundCountChange(event, gun.id)
                         }
                       />
+                      <Typography variant="subtitle2">
+                        {gun.name}&nbsp;({gun.caliber})
+                      </Typography>
                     </Item>
                   </Grid>
                 ))
@@ -219,6 +222,7 @@ function GunPicker({
   );
   /* eslint-ensable react/jsx-curly-newline */
   /* eslint-enable implicit-arrow-linebreak */
+  /* eslint-enable react/jsx-one-expression-per-line */
 }
 
 GunPicker.propTypes = {

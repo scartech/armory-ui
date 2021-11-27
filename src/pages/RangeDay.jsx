@@ -169,7 +169,7 @@ function RangeDay() {
             fullWidth
           />
           <Divider className={classes.divider}>
-            <Chip label="Guns Used" color="primary" />
+            <Chip label="Guns Used" />
           </Divider>
           <GunPicker
             selectedGunIds={gunIds}
@@ -178,7 +178,7 @@ function RangeDay() {
             setRoundsFired={setRoundsFired}
           />
           <Divider className={classes.divider}>
-            <Chip label="Ammo Used" color="primary" />
+            <Chip label="Ammo Used" />
           </Divider>
           <InventoryPicker
             selectedIds={inventoryIds}

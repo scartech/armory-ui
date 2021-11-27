@@ -46,7 +46,7 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(0),
   textAlign: 'center',
-  minHeight: 100,
+  minHeight: 90,
   color: theme.palette.text.secondary,
 }));
 
@@ -146,6 +146,7 @@ function InventoryPicker({
 
   /* eslint-disable implicit-arrow-linebreak */
   /* eslint-disable react/jsx-curly-newline */
+  /* eslint-disable react/jsx-one-expression-per-line */
   return (
     <div className={classes.root}>
       <Button
@@ -173,25 +174,21 @@ function InventoryPicker({
               .map((inventory) => (
                 <Grid key={inventory.id} item xs={12} sm={12} md={6} lg={4}>
                   <Item key={inventory.id} variant="outlined">
-                    <Typography variant="caption">
-                      {inventory.caliber}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      {inventory.name}
-                    </Typography>
-                    <Typography variant="subtitle2">
-                      {inventory.brand}
-                    </Typography>
                     <TextField
                       variant="outlined"
                       margin="normal"
                       size="small"
                       type="number"
+                      label="Round Count"
                       value={gunRounds[inventory.id].toString() || 0}
                       onChange={(event) =>
                         handleRoundCountChange(event, inventory)
                       }
                     />
+                    <Typography variant="subtitle2">
+                      {inventory.caliber}&nbsp;({inventory.name}&nbsp;- &nbsp;
+                      {inventory.brand})
+                    </Typography>
                   </Item>
                 </Grid>
               ))
@@ -228,6 +225,7 @@ function InventoryPicker({
   );
   /* eslint-ensable react/jsx-curly-newline */
   /* eslint-enable implicit-arrow-linebreak */
+  /* eslint-enable react/jsx-one-expression-per-line */
 }
 
 InventoryPicker.propTypes = {
