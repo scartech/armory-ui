@@ -45,7 +45,7 @@ function HistoryCard({ gunId, history, handleDeleteClick }) {
         </Grid>
       </CardContent>
       <CardActions>
-        <Link to={`/history/${gunId}/${history.id}`}>
+        <Link to={`/record/${gunId}/${history.id}`}>
           <IconButton size="large">
             <EditIcon />
           </IconButton>

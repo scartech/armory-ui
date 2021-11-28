@@ -88,7 +88,7 @@ function History() {
     const deleted = await HistoryService.delete(auth.user, historyIdToDelete);
 
     if (deleted) {
-      setMessage('Successfully deleted the history.');
+      setMessage('Successfully deleted the record.');
       setSeverity('info');
 
       const events = await HistoryService.allForGun(auth.user, gunId);
@@ -96,7 +96,7 @@ function History() {
         setHistory(events);
       }
     } else {
-      setMessage('Failed to delete the event.');
+      setMessage('Failed to delete the record.');
       setSeverity('error');
     }
 
@@ -126,7 +126,7 @@ function History() {
 
   useEffect(() => {
     if (savedHistory) {
-      setMessage('Successfully saved history.');
+      setMessage('Successfully saved the record.');
       setSeverity('info');
       setOpen(true);
     }
@@ -190,7 +190,7 @@ function History() {
         <DialogTitle>Delete?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete the event?
+            Are you sure you want to delete the record?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -119,10 +119,10 @@ function EditHistory() {
       <LocalizationProvider dateAdapter={DateAdapter}>
         <form noValidate autoComplete="off">
           <Typography className={classes.title} variant="h5">
-            {rangeDay && 'View History'}
-            {isNew && 'New History'}
-            {!isNew && !rangeDay && 'Edit History'}
-            <Link to={`/gun/${gunId}/history`}>
+            {rangeDay && 'View Range Day'}
+            {isNew && 'New Record'}
+            {!isNew && !rangeDay && 'Edit Record'}
+            <Link to={`/gun/${gunId}/record`}>
               <Fab color="primary" size="small" className={classes.fab}>
                 <ArrowBackIcon />
               </Fab>
@@ -233,7 +233,7 @@ function EditHistory() {
         {fireRedirect && (
           <Redirect
             to={{
-              pathname: `/gun/${gunId}/history`,
+              pathname: `/gun/${gunId}/record`,
               state: { savedHistory: true },
             }}
           />

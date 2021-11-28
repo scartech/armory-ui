@@ -158,7 +158,7 @@ function GunCard({ gun, handleDeleteClick }) {
             <PhotoCameraIcon />
           </IconButton>
         </Link>
-        <Link to={`/gun/${gun.id}/history`}>
+        <Link to={`/gun/${gun.id}/record`}>
           <IconButton size="large">
             <EventNoteIcon />
           </IconButton>

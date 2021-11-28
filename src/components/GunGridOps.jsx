@@ -51,7 +51,7 @@ function GunGridOps({ id, handleDeleteClick }) {
 
   const handleHistoryClick = () => {
     handleClose();
-    history.push(`/gun/${id}/history`);
+    history.push(`/gun/${id}/record`);
   };
 
   const handleDeleteItemClick = () => {
@@ -82,7 +82,7 @@ function GunGridOps({ id, handleDeleteClick }) {
             <ListItemIcon>
               <EventNoteIcon />
             </ListItemIcon>
-            <ListItemText>Range Days/History</ListItemText>
+            <ListItemText>Records</ListItemText>
           </MenuItem>
           <MenuItem onClick={handleDeleteItemClick}>
             <ListItemIcon>

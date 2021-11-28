@@ -177,17 +177,17 @@ function App() {
                       exact
                     />
                     <PrivateRoute
-                      path="/gun/:gunId/history"
+                      path="/gun/:gunId/record"
                       component={History}
                       exact
                     />
                     <PrivateRoute
-                      path="/history/:gunId"
+                      path="/record/:gunId"
                       component={EditHistory}
                       exact
                     />
                     <PrivateRoute
-                      path="/history/:gunId/:id"
+                      path="/record/:gunId/:id"
                       component={EditHistory}
                       exact
                     />

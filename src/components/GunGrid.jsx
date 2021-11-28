@@ -59,6 +59,13 @@ function GunGrid({ guns, handleDeleteClick }) {
       field: 'caliber',
     },
     {
+      selector: (row) => row.lastCleaned,
+      name: 'Last Cleaned',
+      sortable: true,
+      reorder: true,
+      field: 'lastCleaned',
+    },
+    {
       selector: (row) => row.lastShot,
       name: 'Last Shot',
       sortable: true,
