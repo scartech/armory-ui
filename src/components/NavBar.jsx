@@ -1,4 +1,5 @@
 import { AppBar, Toolbar } from '@mui/material';
+import { Link } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
 import { useAuth } from '../hooks';
 import MainDrawer from './MainDrawer';
@@ -40,7 +41,9 @@ function NavBar() {
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <MainDrawer />
-          <img src={logo} alt="Logo" className={classes.title} />
+          <Link to="/">
+            <img src={logo} alt="Logo" className={classes.title} />
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
