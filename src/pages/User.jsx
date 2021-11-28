@@ -21,6 +21,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useAuth } from '../hooks';
 import { UserService } from '../services';
 import { ROLES } from '../utils';
+import { PasswordStrength } from '../components';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -182,6 +183,7 @@ function User() {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                helperText={<PasswordStrength password={password} />}
                 onChange={(e) => setPassword(e.target.value)}
                 InputProps={{
                   endAdornment: (

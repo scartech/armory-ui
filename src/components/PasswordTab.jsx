@@ -11,6 +11,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import PasswordStrength from './PasswordStrength';
 import { useAuth } from '../hooks';
 import { ProfileService } from '../services';
 
@@ -72,6 +73,7 @@ function PasswordTab() {
     const success = await ProfileService.updatePassword(auth.user, {
       password,
     });
+
     if (success) {
       setSeverity('info');
       setMessage('Password updated successfully.');
@@ -95,6 +97,7 @@ function PasswordTab() {
           margin="normal"
           variant="outlined"
           onChange={(e) => setPassword(e.target.value)}
+          helperText={<PasswordStrength password={password} />}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
