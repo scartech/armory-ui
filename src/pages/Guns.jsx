@@ -20,7 +20,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import ViewCompactIcon from '@mui/icons-material/ViewCompact';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { GunService } from '../services';
 import { GunsComponent } from '../components';
@@ -50,6 +50,7 @@ function Guns() {
   const auth = useAuth();
   const classes = useStyles();
   const location = useLocation();
+  const history = useHistory();
   const [guns, setGuns] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [gunId, setGunId] = useState(null);
@@ -61,6 +62,14 @@ function Guns() {
   const [useGrid, setUseGrid] = useState(false);
 
   const savedGun = location?.state?.savedGun || false;
+
+  useEffect(() => {
+    if (history.location.state && history.location.state.savedGun) {
+      const state = { ...history.location.state };
+      delete state.savedGun;
+      history.replace({ ...history.location, state });
+    }
+  });
 
   const handleUseGridClick = () => {
     setUseGrid(!useGrid);

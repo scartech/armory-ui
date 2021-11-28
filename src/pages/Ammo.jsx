@@ -18,7 +18,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { AmmoService } from '../services';
 import { AmmoGrid } from '../components';
@@ -47,6 +47,7 @@ function Ammo() {
   const auth = useAuth();
   const classes = useStyles();
   const location = useLocation();
+  const history = useHistory();
   const [ammoItems, setAmmoItems] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [ammoId, setAmmoId] = useState(null);
@@ -57,6 +58,14 @@ function Ammo() {
   const [loading, setLoading] = useState(true);
 
   const savedAmmo = location?.state?.savedAmmo || false;
+
+  useEffect(() => {
+    if (history.location.state && history.location.state.savedAmmo) {
+      const state = { ...history.location.state };
+      delete state.savedAmmo;
+      history.replace({ ...history.location, state });
+    }
+  });
 
   const handleSnackClose = () => {
     setSnackOpen(false);

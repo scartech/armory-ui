@@ -15,7 +15,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { UserService } from '../services';
 import { UserGrid } from '../components';
@@ -35,6 +35,7 @@ function Admin() {
   const auth = useAuth();
   const classes = useStyles();
   const location = useLocation();
+  const history = useHistory();
   const [users, setUsers] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -43,6 +44,14 @@ function Admin() {
   const [snackMessage, setSnackMessage] = useState('');
 
   const savedUser = location?.state?.savedUser || false;
+
+  useEffect(() => {
+    if (history.location.state && history.location.state.savedUser) {
+      const state = { ...history.location.state };
+      delete state.savedUser;
+      history.replace({ ...history.location, state });
+    }
+  });
 
   const handleDeleteClick = (id) => {
     setUserId(id);

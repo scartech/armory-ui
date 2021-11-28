@@ -12,7 +12,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks';
 import { HistoryService } from '../services';
 import { RangeDayGrid } from '../components';
@@ -41,6 +41,7 @@ function RangeDays() {
   const auth = useAuth();
   const classes = useStyles();
   const location = useLocation();
+  const history = useHistory();
   const [rangeDays, setRangeDays] = useState([]);
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackSeverity, setSnackSeverity] = useState('error');
@@ -53,6 +54,14 @@ function RangeDays() {
   const handleSnackClose = () => {
     setSnackOpen(false);
   };
+
+  useEffect(() => {
+    if (history.location.state && history.location.state.savedRangeDay) {
+      const state = { ...history.location.state };
+      delete state.savedRangeDay;
+      history.replace({ ...history.location, state });
+    }
+  });
 
   useEffect(() => {
     async function fetchRangeDays() {
