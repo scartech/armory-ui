@@ -5,6 +5,7 @@ const ACCESSORY_TYPES = [
   'Eye & Ear Protection',
   'Knife',
   'Flashlight',
+  'Furniture',
   'Gun Light',
   'Holster',
   'Lower Receiver',
